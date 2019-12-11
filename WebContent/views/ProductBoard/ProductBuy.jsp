@@ -172,7 +172,7 @@
 								<option value="018">018</option>
 								<option value="019">019</option>
 						</select>- <input type="text" name="tel2" id="tel2" class="text"
-							maxlenght="4">- <input type="text" name="tel3" id="tel3"
+							maxlength="4">- <input type="text" name="tel3" id="tel3"
 							class="text" maxlength="4"></td>
 						<td><span id="nameresult"></span></td>
 					</tr>
@@ -242,7 +242,7 @@
 					<hr>
 				</div>
 				<div id="buyNow">
-					<button id="insertBtn" onclick="" class="btn btn-outline-success">결제하기</button>
+					<button id="insertBtn" onclick="buyNow()" class="btn btn-outline-success">결제하기</button>
 				</div>
 			</div>
 	</div>
@@ -299,8 +299,13 @@
 						}
 					}).open();
 		}
+	<!--  // 우편번호 서비스 --> 
+	
+	<!-- 결제서비스 -->
+	function buyNow(){
+		location.href="Api.jsp";
+	}
 	</script>
-	<!--  // 우편번호 서비스 -->
 </body>
 <%@ include file="../common/footer.jsp"%>
 </html>

@@ -115,7 +115,6 @@ Button {
 						<p class="text-muted">47,000원</p>
 					</div>
 				</div>
-
 				<div id="content">
 					<h2>[새움] MY Calendar 셀프 탁상형 달력</h2>
 					<br> 
@@ -255,12 +254,12 @@ Button {
 			<hr>
 			<div class="replyWriterArea">
 				<!-- 댓글 작성 폼 -->
-				<table>
+				<table width="100%">
 					<tr>
 						<td><p align="center"><h4>R E V I E W</h4></td>
+						<td width="80%"><button class="btn btn-outline-success" onclick="Commeny()">댓글등록</button><br></td>
 					</tr>
 				</table>
-				<button class="btn btn-outline-success" onclick="Commeny()">댓글등록</button><br>
 				<hr>
 				<script>
 				  function Commeny(){
