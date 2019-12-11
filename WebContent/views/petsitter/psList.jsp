@@ -5,6 +5,8 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
 <!-- 달력을 위해사용하는것 -->
 <!--  -->
 <style>
@@ -67,7 +69,6 @@
 	margin-top:10px;
 	position:relative;
 	width:100%;
-	border-top:1px solid black;
 }
 .score-review::after{
 	content:"";
@@ -80,42 +81,38 @@
 }
 .sitter-info-li{
 	margin-top:2%;
-	border: 1px solid black;
+	background-color:#F2F2F2;
 }
 .sitter-img{
 	height:28vh;
 	width:35%;
-	border-right:1px solid black
 }
 .sitter-info-short{
 	height:28vh;
 	width:60%;
-	margin-left:3%;
+	padding:30px;
+	position:relative;
 }
 .float-left{
 	float:left;
 }
 .intro{
-	margin:10px;
 	display:block;
 	text-decoration:none;
-	font-size:2rem;
+	font-size:2.5rem;
 	font-family:bold;
+	margin-bottom:2%;
+	font-family: 'Jua', sans-serif;
+	color:#5caf5d;
 }
 .show-info{
 	margin-left:10%;
 	margin-top:3%;
 }
 .price-right{
-	margin-top:10px;
 	position:relative;
 	width:100%;
 	border-top:1px solid black;
-}
-.price-right::after{
-	content:"";
-	clear: both;
-	display: block;
 }
 .price-right-day{
 	padding:0;
@@ -141,6 +138,43 @@
 .price-right::after{
 	content:"";
 	clear: both;
+}
+.ps-img{
+	height:35px;
+	width:35px;
+	border-radius:75px;
+	margin-right:3%;
+}
+.fit{
+	width:100%;
+	height:100%;
+}
+.border{
+	border:1px solid black
+}
+.ps-img-area{
+	width:50%;
+}
+.ps-dog-area{
+	width:50%;
+}
+.score{
+	position:absolute;
+	height:90px;
+	width:90px;
+	right:0px;
+	top:10px;
+	z-index:2;
+}
+.score1{
+	position:absolute;
+	height:90px;
+	width:90px;
+	right:-17px;
+	top:40px;
+	z-index:1;
+	font-size:1.7rem;
+	font-family: 'Jua', sans-serif;
 }
 </style>
 </head>
@@ -208,7 +242,7 @@
 				</ul>
 			</form>
 		</div>
-		<div class="margin how-many-petsitter">펫시터 몇명인지</div>
+		<div class="margin how-many-petsitter">123명의 검증된 펫시터가 검색되어졌습니다.</div>
 		<div class="score-review">
 			<button class="sort">점수</button>
 			<button class="sort">리뷰</button>
@@ -216,28 +250,35 @@
 		</div>
 		<div class="margin sitter-area">
 			<ul class="clearfix-li">
-				<li class="sitter-info-li">
-					<ul class="clearfix-li">
-					<div class="sitter-info-area clearfix-li">
-						<div class="sitter-img float-left">사진 들어가는 부분</div>
-						<div class="sitter-info-short float-left clearfix-info">
-							<dl class="margin-top">
+				<li class="sitter-info-li border">
+					<div class="sitter-info-area clearfix-li"> <!-- 이 부분이  li 전체 크기 -->
+						<!-- 사진 들어가는 부분 -->
+						<div class="sitter-img float-left"><img class="fit" src="<%= request.getContextPath() %>/resources/petsitter/house.jpg" /></div>
+						<!-- 정보 들어가는곳 -->
+						<div class="sitter-info-short float-left">
+							<dl class="fit">
 								<dt>
-									<a href="<%= request.getContextPath() %>/views/petsitter/PsDetail.jsp" class="intro">간단한 소개</a>
-									<label class="show-info">이름</label>
-									<label class="show-info">반려견 마리수</label>
+									<a href="<%= request.getContextPath() %>/views/petsitter/PsDetail.jsp" class="intro">검증된 펫시터!</a>
+									<label class="ps-img-area float-left"><span><img class="ps-img" src="<%= request.getContextPath()%>/resources/petsitter/me.jpg"></span>
+										<span>이욱재</span>
+									</label>
+									<label class="ps-dog-area float-left">
+										<span><img class="ps-img" src="<%= request.getContextPath()%>/resources/petsitter/dogIcon.png"></span>
+										<span>2마리</span>
+									</label>
 								</dt>
+								<br clear="both">
 								<dd class="price-right">
 									<label class="price-right-day">1박 / <strong>40000원</strong></label>
 									<label class="price-right-day">day care/<strong>20000원&nbsp;&nbsp;</strong></label>
 								</dd>
 							</dl>
+							<div class="score"><img class="fit" src="<%= request.getContextPath() %>/resources/petsitter/gold-medal.png"><span class="score1">9.0점</span></div>
 						</div>
 					</div>
-					</ul>
 				</li>
-				<li class="sitter-info-li">펫시터</li>
-				<li class="sitter-info-li">펫시터</li>
+				<li class="sitter-info-li border">펫시터</li>
+				<li class="sitter-info-li border">펫시터</li>
 			</ul>
 		</div>
 	</div>
