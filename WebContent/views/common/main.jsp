@@ -95,7 +95,7 @@
                <div class="4u">
                   <h2>반려견 스토리</h2>
                   <a href="<%= request.getContextPath() %>/views/board/imageBoard/imageBoard.jsp" class="image full"><img src="<%= request.getContextPath() %>/resources/image/dog6.jpg" width="380px" height="160px" alt="" /></a>
-                  <p>여러분들의 댕댕이를 자랑해보세요!.zsdfsdfzz</p>
+                  <p>여러분들의 댕댕이를 자랑해보세요!.zzzzsdfsdfasdfsfzz</p>
                   <p><a href="#" class="button">More Details</a></p>
                </div>
                <div class="4u">
