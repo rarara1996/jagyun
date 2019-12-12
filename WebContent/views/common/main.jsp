@@ -9,7 +9,6 @@
       <meta http-equiv="content-type" content="text/html; charset=utf-8" />
       <meta name="description" content="" />
       <meta name="keywords" content="" />
-
 <link
 	href="<%= request.getContextPath() %>/resources/main/mainStyle.css"
 	rel="stylesheet">
@@ -18,8 +17,11 @@
 	.homepage{
 	margin-top:4%;
 	}
+	#ps-apply{
+		cursor:pointer;
+	}
 	</style>
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    </head>
 
 
@@ -70,11 +72,20 @@
                            <img src="<%= request.getContextPath() %>/resources/image/dog3.jpg" width="70px" height="70px" alt="" />
                            <p class="text">김김김 펫시터님(후기보기)</p>
                         </li>
-                        <li>
+                        <li id="ps-apply">
                            <p class="posted">펫시터 지원하기</p>
                            <img src="<%= request.getContextPath() %>/resources/image/dog4.jpg" width="70px" height="70px" alt="" />
                            <p class="text">펫시터 지원을 위해... </p>
                         </li>
+                        
+                        <!-- 펫시터 지원하기 화면 들어가는 부분 -->
+                        <script>
+                        	$(function(){
+                        		$("#ps-apply").click(function(){
+                        			location.href="<%= request.getContextPath()%>/views/petsitter/apply-ps.jsp";
+                        		});
+                        	});
+                        </script>
                      </ul>
                   </section>
                </div>
