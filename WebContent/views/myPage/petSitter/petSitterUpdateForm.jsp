@@ -33,22 +33,28 @@
                             <tr>
                                 <th scope="row">직업여부</th>
                                 <td>
-                                    <textarea>zz</textarea>
+                                    <label for="yes">유</label>
+	                                <input name="checkJob" id="yes" type="radio" value="Y">
+	                                <label for="no">무</label>
+	                                <input name="checkJob" id="no" type="radio" value="N">
                                 </td>
                             </tr>                            <tr>
                                 <th scope="row">반려견 유무</th>
                                 <td>
-                                   <input  type="text">
+	                                	<label for="yes">유</label>
+	                                   	<input name="checkPet" id="yes" type="radio" value="Y">
+	                                   	<label for="no">무</label>
+	                                   	<input name="checkPet" id="no" type="radio" value="N">
                                 </td>
                             </tr>                            <tr>
                                 <th scope="row">돌봄경험</th>
                                 <td>
-                                    <textarea>zz</textarea>
+	                               <input type="number" min="0" step="1" value="">
                                 </td>
                             </tr>                            <tr>
                                 <th scope="row">관련 자격증</th>
                                 <td>
-                                    <textarea>zz</textarea>
+                                    <textarea></textarea>
                                 </td>
                             </tr>                            
 
@@ -63,6 +69,6 @@
                 </div>
             </div>
         </form>
-</div></div>
+</div>
 </body>
 </html>
