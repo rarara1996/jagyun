@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 	$(function(){
 		var contentDivSize = $("#rev-content").height();
@@ -664,6 +666,50 @@
             var calendar = new Calendar();
         }, false);
 </script>
+<!-- 데이트 피커 -->
+<script>
+
+$(function(){
+	$.datepicker.setDefaults($.datepicker.regional['ko']); 
+    $( "#startDate" ).datepicker({
+         changeMonth: true, 
+         changeYear: true,
+         nextText: '다음 달',
+         prevText: '이전 달', 
+         dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+         dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+         monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+         monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+         dateFormat: "yymmdd",
+         minDate: 0,
+         onClose: function( selectedDate ) {    
+              //시작일(startDate) datepicker가 닫힐때
+              //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+             $("#endDate").datepicker( "option", "minDate", selectedDate );
+         }    
+
+    });
+    $( "#endDate" ).datepicker({
+         changeMonth: true, 
+         changeYear: true,
+         nextText: '다음 달',
+         prevText: '이전 달', 
+         dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+         dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+         monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+         monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+         dateFormat: "yymmdd",
+         // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+         onClose: function( selectedDate ) {    
+             // 종료일(endDate) datepicker가 닫힐때
+             // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
+         }    
+
+    });    
+})
+
+</script>
+
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -782,9 +828,9 @@
 				<div class="reserv-itro" style="font-size:0.8rem; text-align:center;"><strong>예약을 원하는 날짜와 시간을 선택해 주세요.</strong></div>
 				<div class="insert-date">
 					<div style="border:1px solid #848484; border-radius: 5%; margin-top:15px">
-						<input class="float-left border-none" type="text" value="" placeholder="시작 날짜" readonly style="width:45%;">
+						<input id="startDate" class="float-left border-none" type="text" value="" placeholder="시작 날짜" readonly style="width:45%;">
 						<span class="float-left" style="width:10%; text-align:center">&gt;</span>
-						<input class="float-right border-none" type="text" value="" placeholder="끝나는 날짜" readonly style="width:45%;">
+						<input id="endDate" class="float-right border-none" type="text" value="" placeholder="끝나는 날짜" readonly style="width:45%;">
 						<br clear="both">
 					</div>
 				</div>

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
 	href="<%= request.getContextPath() %>/resources/mypage/css/myInfoUpdate.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 textarea{
 	width:80%;
@@ -15,6 +16,7 @@ textarea{
 .reason{
 	height:150px;
 	resize:none;
+	display:block;
 }
 body{
 	
@@ -24,7 +26,7 @@ body{
 <body>
 	<%@ include file="../common/menubar.jsp"%>
 		<div class="container">
-			  <form id="editForm" name="editForm" action="/exec/front/Member/edit/" method="post" target="_self" enctype="multipart/form-data">
+			  <form id="editForm" name="editForm" action="<%= request.getContextPath() %>/PsInsertServlet" method="post" onsubmit="return checkValidate()">
 	            <div class="xans-element- xans-member xans-member-edit">
 	                <h3>펫시터 정보</h3>
 	                <div class="boardWrite">
@@ -34,12 +36,20 @@ body{
 	                            <tr>
 	                                <th scope="row">지원 동기</th>
 	                                <td>
-	                                    <textarea class="reason"></textarea>
+	                                    <textarea id="reason" class="reason"></textarea>
+	                                    <span id="counter">###</span>
+	                                   	<script>
+					      					$('#reason').keyup(function (e){
+					          					var content = $(this).val();
+									        	$('#counter').html(content.length);
+									      	});
+									      	$('#reason').keyup();
+										</script>
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <th scope="row">직업여부</th>
-	                                <td>
+	                                <td id="job">
 	                                   	<label for="yes">유</label>
 	                                   	<input name="checkJob" id="yes" type="radio" value="Y">
 	                                   	<label for="no">무</label>
@@ -56,7 +66,7 @@ body{
 	                            </tr>                            <tr>
 	                                <th scope="row">돌봄경험</th>
 	                                <td>
-	                                    <input type="number" min="0" step="1">
+	                                    <input type="number" min="0" step="1" value="0">
 	                                </td>
 	                            </tr>                            <tr>
 	                                <th scope="row">관련 자격증</th>
@@ -70,10 +80,37 @@ body{
 	                </div>
 	                <div class="btnArea">
 	                    <button>취소</button>
-	                    <button onclick="applyPs()">지원하기</button>
+	                    <button type="submit">지원하기</button>
 	                </div>
 	            </div>
 	        </form>
 	</div>
+<script>
+	function checkValidate(){ //유효성 검사하기 위한 부분
+		if($("#reason").val()==""){
+			alert("지원 동기를 꼭 입력하셔야 합니다!.");
+			$("#title").focus()
+			return false;
+		}
+		if($("#reason").val().length<200){
+			alert("지원 동기는 최소 200자 이상이여야 합니다.");
+			$("#reason").focus();					
+			return false;
+		}
+		var check1 = $(':input[name=checkJob]:radio:checked').val();
+		
+		if(!check1){
+			alert("직업 여부를 꼭 체크하셔야 합니다!");
+			return false;
+		}
+		
+		var check2 = $(':input[name=checkPet]:radio:checked').val();
+		
+		if(!check2){
+			alert("반려견 유무를 꼭 체크하셔야 합니다!");
+			return false;
+		}
+	}
+</script>
 </body>
 </html>

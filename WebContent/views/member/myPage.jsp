@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-
 	String contextPath = request.getContextPath();
-
+	String pwmsg = (String)request.getAttribute("pwmsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -54,9 +53,17 @@ margin:10%;
 margin:10%;
 padding: 10%;
 }
-
-
 </style>
+<script>
+	var msg = "<%= pwmsg %>";
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+		}
+	});
+</script>
+
+
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
