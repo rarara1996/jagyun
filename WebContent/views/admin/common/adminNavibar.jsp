@@ -50,7 +50,7 @@
       <hr class="sidebar-divider">
     <!-- 회원 관리-->      
       <li class="nav-item" id="user">
-        <a class="nav-link" href="<%= request.getContextPath() %>/views/admin/user/aduserList.jsp">
+        <a class="nav-link" href="<%= request.getContextPath() %>/adminUserServlet">
                     <i class="fas fa-fw fa-table"></i>
           <span>회원 관리</span></a>
       </li>

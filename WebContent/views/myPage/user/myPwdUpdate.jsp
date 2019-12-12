@@ -135,27 +135,52 @@ margin-right:10%;
  	<div class="container">
 <div id="id01">
 
-  <form class="modal-contentb" action="/action_page.php">
+<form id="updatePwdForm" class="modal-contentb" action="<%= request.getContextPath() %>/updatePwd" method="post" onsubmit="return checkPwd();">
     <div class="containerb">
       <h1>비밀번호 변경</h1>
-
       <hr>
       <label for="psw"><b>기존 비밀번호</b></label><br>
-      <input type="password" placeholder="" name="psw" required id="psw">
+      <input type="password" name="userPwd"  id="psw" maxlength="15">
 		<br>
       <label for="psw-repeat"><b>변경할 비밀번호</b></label><br>
-      <input type="password" placeholder="" name="psw-repeat" required id="newpsw">
+      <input type="password" name="newPwd"  id="newpsw" maxlength="15">
 <br>
       <label for="psw-repeat"><b>비밀번호 확인</b></label><br>
-      <input type="password" placeholder="" name="psw-repeat" required id="newpsw-repeat">
+      <td><input type="password" name="newPwd2"  id="newpsw-repeat" maxlength="15">
       <br><br><br>
       <div class="clearfix">
-        <button type="button" onclick="" class="cancelbtn">뒤로 가기</button>
-        <button type="submit" class="signupbtn">변경하기</button>
+       <button type="button" onclick="" id="cancelbtn" class="cancelbtn">뒤로 가기</button>
+       <button id="updatePwdBtn"  class="signupbtn">변경하기</button>
       </div>
     </div>
   </form>
 </div>
 </div>
+	<script>
+		function checkPwd(){
+			var userPwd = $("#psw");
+			var newPwd = $("#newpsw");
+			var newPwd2 = $("#newpsw-repeat");
+			
+			// 1. input 태그(3개) 안에 값이 없으면 return false
+			if(userPwd.val().trim() == "" || newPwd.val().trim() == "" || newPwd2.val().trim() == ""){
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}
+			
+			// 2. 비밀번호와 확인란의 값의 다르면 return false
+			if(newPwd.val() != newPwd2.val()){
+				alert("비밀번호가 다릅니다.");
+				newPwd2.select();
+				return false;
+			} 
+			
+			// 둘 다 통과하면 return true;
+			return true;
+			
+		}
+	
+	
+	</script>
 </body>
 </html>

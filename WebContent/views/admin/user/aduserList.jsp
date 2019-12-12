@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  import="java.util.ArrayList, user.model.vo.*"%>
+<%
+ArrayList<User> list = (ArrayList<User>)request.getAttribute("list");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,20 +74,24 @@ width:100%;
                     </tr>
                   </tfoot>
                   <tbody>
-                  <%for(int i=0; i<100; i++){ %>
+                  <%for(User u : list){ %>
                     <tr>
-                    <td><input type="checkbox"></td>
-                      <td>ccaa1111</td>
-                      <td>유수완</td>
-                      <td>여</td>
-                      <td>어디어디어디어디어디어디</td>
-                      <td>tndhks123@nate.com</td>
-                      <td>1</td>
-                      <td>01048951214</td>
-                      <td>19950403</td>
-                      <td>N</td>
+                    <td>
+						<input type="checkbox" id="userUpdateCheck">
+                    		<form action="" id="detailForm" method="post">
+								<input type="hidden" name="bId" value="<%= u.getUserNo() %>">
+							</form>
+                    </td>
+                      <td><%=u.getUserId() %></td>
+                      <td><%=u.getUserName() %></td>
+                      <td><%=u.getGender() %></td>
+                      <td><%=u.getAddress() %></td>
+                      <td><%=u.getEmail() %></td>
+                      <td><%=u.getdogSu() %></td>
+                      <td><%=u.getPhone() %></td>
+                      <td><%=u.getBirth() %></td>
+                      <td><%=u.getAdmin() %></td>
                     </tr>
-
       				<%} %>
                   </tbody>
                 </table>
@@ -95,28 +103,27 @@ width:100%;
 				 <option value="no">N(정상)</option>
  				 <option selected>---</option>
  			  </select>
-				<input type="submit" value="변경">
+				<button id="UpdateUserInfo" type="button" onclick="updateUser();">변경</button>
 				&nbsp;&nbsp;<button>메일발송하기</button>
 			  </form>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
-
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-
-      <!-- End of Footer -->
-
     </div>
-    <!-- End of Content Wrapper -->
-
   </div>
 
-  <!-- Page level plugins -->
+
+<script>
+
+function updateUser(){
+	if(("#userUpdateCheck"))
+	$("#detailForm").attr("action", "<%= contextPath %>/updateForm.bo");
+	$("#detailForm").submit();
+}
+</script>
+
+
   <script src="<%= request.getContextPath() %>/resources/admin/vendor/jquery/jquery.min.js"></script>
   <script src="<%= request.getContextPath() %>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

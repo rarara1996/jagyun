@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
 <style>
 .enrollWrapper{
 	height:200vh;
@@ -23,7 +24,7 @@
 	margin:auto;
 	text-align:center;
 	font-size:4rem;
-	font-family: 'Do Hyeon', sans-serif;
+	font-family: 'Jua', sans-serif;
 	border-bottom:1px solid black;
 }
 .enroll-form-wrapper{
@@ -87,11 +88,15 @@
 	padding:10px;
 	background-color:white;
 }
-#requirment{
-	height:100%;
+#content{
+	height:90%;
 	width:100%;
 	resize:none;
 	border:0;
+}
+#counter{
+	height:10%;
+	width:100%;
 }
 /*---------------등록 버튼------------------------*/
 .enroll-btn{
@@ -179,6 +184,41 @@
 		}
 	}
 </script>
+<script>
+		function enrollValidate(){ //유효성 검사하기 위한 부분
+				if($("#represent-btn").val()== "" || $("#rest-img1-btn").val()== "" || $("#rest-img2-btn").val()== ""|| $("#rest-img3-btn").val()== ""){
+					alert("사진을 4장 꼭 채우셔야 합니다!");
+					console.log("비어있엉~");
+					var offset = $("#represent" + seq).offset();
+					var winH = $(window).height();
+					$('html, body').animate({scrollTop : (offset.top - winH/2)}, 500);
+					return false;
+				}
+				if($("#title").val()==""){
+					alert("제목을 꼭 입력하셔야 합니다!.");
+					$("#title").focus()
+					return false;
+				}
+				if($("#content").val()==""){
+					alert("내용을 꼭 입력하셔야 합니다!.");
+					$("#content").focus()
+					return false;
+				}
+				if($("#content").val().length<300){
+					alert("본인 설명은 최소 300자 이상이여야 합니다.");
+					$("#content").focus()					
+					return false;
+				}
+
+				else{
+					console.log($("#represent-btn").val());
+					console.log($("#rest-img1-btn").val());
+					console.log($("#rest-img2-btn").val());
+					console.log($("#rest-img3-btn").val());
+					return false;
+				}
+		}
+</script>
 </head>
 
 <body>
@@ -186,7 +226,7 @@
 	<div class="enrollWrapper">
 		<div class="enroll-intro">펫시터 글 등록</div>
 		<div class="enroll-form-wrapper">
-			<form class="ps-board">
+			<form class="ps-board" onsubmit="return enrollValidate()">
 				<div class="represent-img border float-left" id="represent" ><img id="represent1" class="images" src="<%= request.getContextPath() %>/resources/petsitter/plus.png"></div>
 				<div class="rest-img border float-left">
 					<div class="rest-img1 border" id="rest-img1"><img class="images1" id="rest-img-1" src="<%= request.getContextPath() %>/resources/petsitter/plus.png"></div>
@@ -197,7 +237,7 @@
 				<div class="title margin-top">
 					<dl>
 						<dt>제목</dt>
-						<dd><input class="width" type="text"></dd>
+						<dd><input id="title" class="width" type="text"></dd>
 					</dl>
 				</div>
 				<div class="useable-service margin-top">
@@ -208,29 +248,29 @@
 								<tr>
 									<td>
 										<label for="walk">산책</label>
-										<input class="checkbox" type="checkbox" id="walk" value="walk">
+										<input class="checkbox" type="checkbox" id="walk" name="service" value="walk">
 									</td>
 									<td>
 										<label for="pill">약물복용</label>
-										<input class="checkbox" type="checkbox" id="pill" value="pill">
+										<input class="checkbox" type="checkbox" id="pill" name="service" value="pill">
 									</td>
 									<td>
 										<label for="play">실내놀이</label>
-										<input class="checkbox" type="checkbox" id="play" value="play">
+										<input class="checkbox" type="checkbox" id="play" name="service" value="play">
 									</td>
 								</tr>
 								<tr>
 									<td>
 										<label for="madang">마당</label>
-										<input class="checkbox" type="checkbox" id="madang" value="madang">
+										<input class="checkbox" type="checkbox" id="madang" name="service" value="madang">
 									</td>
 									<td>
 										<label for="pickup">픽업</label>
-										<input class="checkbox" type="checkbox" id="pickup" value="pickup">
+										<input class="checkbox" type="checkbox" id="pickup" name="service" value="pickup">
 									</td>
 									<td>
 										<label for="shower">목욕가능</label>
-										<input class="checkbox" type="checkbox" id="shower" value="shower">
+										<input class="checkbox" type="checkbox" id="shower" name="service" value="shower">
 									</td>
 								</tr>
 							</table>
@@ -238,9 +278,17 @@
 					</dl>
 				</div>
 				<div class="content margin-top">
-					<textarea name="requirment" id="requirment" placeholder="내용을 입력하세요.."></textarea>
+					<textarea name="requirment" id="content" placeholder="내용을 입력하세요.."></textarea>
+					<span id="counter">###</span>
+					<script>
+					      $('#content').keyup(function (e){
+					          var content = $(this).val();
+					          $('#counter').html(content.length);
+					      });
+					      $('#content').keyup();
+					</script>
 				</div>
-				<div class="enroll-btn border margin-top"><button class="width height">등록</button></div>
+				<div class="enroll-btn border margin-top"><button type="submit" class="width height">등록</button></div>
 				<input type="file" class="hidden" id="represent-btn" onchange="loadImg(this,1)">
 				<input type="file" class="hidden" id="rest-img1-btn" onchange="loadImg(this,2)">
 				<input type="file" class="hidden" id="rest-img2-btn" onchange="loadImg(this,3)">

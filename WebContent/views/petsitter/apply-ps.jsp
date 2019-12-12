@@ -370,7 +370,11 @@
 	</div>
 	<script>
 		function gotoApply(){
+			<%if( loginUser!= null) {%>
 			location.href="<%= request.getContextPath() %>/views/petsitter/application.jsp"
+			<%} else{%>
+			alert("로그인된 회원만 펫시터에 지원하실수 있습니다.")
+			<%}%>
 		}
 	</script>
 	<%@ include file="../common/footer.jsp" %>

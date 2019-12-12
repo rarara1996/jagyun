@@ -3,7 +3,7 @@
 <%
 
 	String contextPath = request.getContextPath();
-
+String pwmsg = (String)request.getAttribute("pwmsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -104,6 +104,15 @@ margin-left:0%;}
 #page-top{
 background-color:rgba(231, 230, 230, 0.24)}
 </style>
+<script>
+	var msg = "<%= pwmsg %>";
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+		}
+	});
+</script>
+
 </head>
 
 <body id="page-top">
@@ -118,7 +127,7 @@ background-color:rgba(231, 230, 230, 0.24)}
           <div class="col-lg-12">
             <div class="card mb-12">
 <br><br>
-<strong><p>OOO 회원님 환영합니다!</p></strong>
+<strong><p><%=loginUser.getUserName() %> 회원님 환영합니다!</p></strong>
 <div id="hr">
 <hr></div>
 <div class="selectList"><br>
@@ -126,7 +135,7 @@ background-color:rgba(231, 230, 230, 0.24)}
 
 <div id="userImg">
   <img src="<%= request.getContextPath() %>/resources/image/dog5.jpg" class="userImg"> 
-  </div><br><br>ㅇㅇㅇ (ID)<br><br>
+  </div><br><br><%=loginUser.getUserName() %> (<%=loginUser.getUserId() %>)<br><br>
 <button class="mpButton" id="mpPwUpdate" onclick="myPwdUpdate();">비밀번호 변경</button>&nbsp;&nbsp;&nbsp;&nbsp;
 <button class="mpButton" id="mpPetUpdate" onclick="myPetInfo();">반려견 관리</button>&nbsp;&nbsp;&nbsp;&nbsp;
 <button class="mpButton" id="mpPetUpdate" onclick="jjim();">장바구니</button>
@@ -177,8 +186,6 @@ function myPetInfo(){
 function jjim(){
 	location.href = "<%= contextPath %>/views/myPage/market/jjim.jsp";
 }
-
-
 
 </script>
 </body>

@@ -43,13 +43,13 @@
 		<h2 align="center">회원가입</h2>
 
 		<form id="joinForm" name="joinForm"
-			action="<%= request.getContextPath() %>/insert.me" method="post"
+			action="<%= request.getContextPath() %>/InsertMemberServlet" method="post"
 			onsubmit="return joinValidate();">
 			<div>
 				<div class="inner">
 					* 아이디<br> <input type="text" maxlength="13" name="userId"
 						id="text" required>
-					<button id="idCheck" type="button" onclick="checkId()">중복확인</button>
+					<button id="idCheck" type="button">중복확인</button>
 				</div>
 				<br>
 				<div class="inner">
@@ -68,8 +68,8 @@
 				</div>
 				<br>
 				<div class="inner">
-					성별<br> <input type="radio" class="gender" id="man"> 남성
-					<input type="radio" class="gender" id="woman"> 여성
+					성별<br> <input type="radio" class="gender" id="man" name="gender" value="man"> 남성
+					<input type="radio" class="gender" id="woman" name="gender" value="woman"> 여성
 
 				</div>
 				<br>
@@ -88,58 +88,39 @@
 					주소<br> <input type="text" id="sample4_postcode"
 						placeholder="우편번호"> <input type="button"
 						onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-					<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-					<span id="guide" style="color: #999; display: none"></span> <input
-						type="text" id="sample4_detailAddress" placeholder="상세주소">
+					<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="doro">
+					 <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="detail">
 					</tr>
 				</div>
 				<br>
 				<div class="inner">
 					몇 마리의 반려견을 갖고 있나요?(숫자로만 입력)<br> <input type="number"
-						name="amount" id="text">
+						name="dogSu" id="dogsu">
 				</div>
 
 				<div class="inner">
 					<br> 주민등록번호 앞자리(6자리 입력 ex)950101)<br> <input type="text"
-						name="phone" id="text" maxlength="6">
-				</div>
-
-
-				<br>
-
-				<div class="inner">
-					사진(선택사항)<br> <input type="file" name="uploadfile">
+						name="birth" id="birth" maxlength="6">
 				</div>
 				<br>
 				<div class="inner">
-					휴대폰 번호<br> <input type="text" name="phone1" id="text2"
-						maxlength="3"> - <input type="text" name="phone2"
-						id="text2" maxlength="4"> - <input type="text"
-						name="phone3" id="text2" maxlength="4">
+					사진(선택사항)<br> <input type="file" name="uploadfile" id="pic">
 				</div>
-
-
-
-				<br>
 				<div class="btns" align="center">
 					<button id="toMain" onclick="returnToMain()" type="button">메인으로</button>
 					<button id="joinBtn">가입하기</button>
 				</div>
 		</form>
-
-
+<br><br><br>
 
 	</div>
 	</div>
-
 	<script>
-		
 		// 1. 메인으로 돌아가기
 		function returnToMain(){
 			location.href="<%= request.getContextPath() %>";
 		}
-	
+
 		// 2. 유효성 검사
 		function joinValidate(){
 			if(!(/^[a-z][a-z\d]{3,11}$/.test($("#joinForm input[name=userId]").val()))){
@@ -167,10 +148,6 @@
 		// InsertMemberServlet 만들어서 진행
 		
 		// 4. 아이디 중복체크
-		function checkId(){
-			window.open("idCheckForm.jsp", "checkForm", "width=300, height=200");
-        }
-     
 
 
     function sample4_execDaumPostcode() {
@@ -227,6 +204,52 @@
             }
         }).open();
 }
+
+    
+	$(function(){
+		
+		var isUsable = false;
+		// 아이디 중복 시 false, 아이디 사용 가능 시 true -> 나중에 유효성 검사
+		
+		$("#idCheck").click(function(){
+			var userId = $("#joinForm input[name='userId']");
+			
+			if(!userId || userId.val().length < 4){
+				alert("아이디는 최소 4자리 이상이어야 합니다.");
+				userId.focus();
+			}else{
+				// ajax로 중복 여부 확인
+				$.ajax({
+					url : "<%=request.getContextPath()%>/IdCheckServlet",
+					type : "post",
+					data : {userId:userId.val()},
+					success : function(data){
+						if(data == "fail"){
+							alert('사용할 수 없는 아이디입니다.');
+							userId.focus();
+						}else{
+							if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")){
+								userId.prop('readonly', true); 
+								// -> 더 이상 userId에 값 입력해서 변경할 수 없도록
+								isUsable = true;
+								// -> 사용 가능하다는 flag 값
+							}else{
+								userId.focus();
+							}
+						}
+						if(isUsable){
+							// 아이디 중복 체크 후 사용 가능한 아이디이며 사용하기로 한 경우
+							// 회원가입 버튼 활성화
+							$("#joinBtn").removeAttr("disabled");
+						}
+					},
+					error : function(){
+						console.log('서버 통신 안됨');
+					}
+				});
+			}
+		});
+	});
 
 </script>
 
