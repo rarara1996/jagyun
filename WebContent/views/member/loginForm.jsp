@@ -54,15 +54,15 @@
 									<div class="text-center">
 										<h1 class="h4 text-gray-900 mb-4">로그인</h1>
 									</div>
-									<form class="user">
+									<form id="loginForm" action="<%= request.getContextPath() %>/LoginServlet" method="post" onsubmit="return validate();">
 										<div class="form-group">
-											<input type="email" class="form-control form-control-user"
-												id="exampleInputEmail" aria-describedby="emailHelp"
+											<input type="text" class="form-control form-control-user"
+												name="userId" id="userId"
 												placeholder="아이디를 입력하세요">
 										</div>
 										<div class="form-group">
 											<input type="password" class="form-control form-control-user"
-												id="exampleInputPassword" placeholder="비밀번호를 입력하세요">
+												name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요">
 										</div>
 										<div class="form-group">
 											<div class="custom-control custom-checkbox small">
@@ -71,9 +71,9 @@
 													class="custom-control-label" for="customCheck">저장하기</label>
 											</div>
 										</div>
-										<a href="index.html"
-											class="btn btn-primary btn-user btn-block"> Login </a>
-										<hr>
+										<button id="loginBtn" type="submit"
+										class="btn btn-primary btn-user btn-block">로그인</button>
+
 										<a href="index.html" class="btn btn-google btn-user btn-block">
 											소셜로그인할수있으면.. </a>
 
@@ -97,6 +97,38 @@
 
 	</div>
 </div></div></div>
+
+	<script>
+		// 1_2. validate() 작성
+		function validate(){
+			if($("#userId").val().trim().length == 0){
+				alert('아이디를 입력하세요');
+				$("#userId").focus();
+				return false;
+			}
+			
+			if($("#userPwd").val().trim().length == 0){
+				alert('비밀번호를 입력하세요');
+				$("#userPwd").focus();
+				return false;
+			}
+			
+			return true;
+			// 여기까지 작성했으면 LoginServlet 만들러 가기~~~~
+		}
+		
+		// 2_3. logout() 작성하기
+		function logout(){
+			location.href = '<%= request.getContextPath() %>/logout.me';
+			// logout 버튼을 눌렀을 경우 logout.me url과 매핑되는 servlet으로 이동하여
+			// logout 처리 진행
+		}
+		
+		// 3. 회원가입 버튼을 눌렀을 경우 회원 가입 페이지로 이동하는 memberJoin() 함수 작성
+		function memberJoin(){
+			location.href = "<%=request.getContextPath() %>/views/member/memberJoinForm.jsp";
+		}
+	</script>
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="<%=request.getContextPath()%>/resources/admin/vendor/jquery/jquery.min.js"></script>

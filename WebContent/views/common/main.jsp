@@ -24,7 +24,7 @@
 
 
    <body class="homepage">
-   	<%@ include file="../common/menubar.jsp" %>
+   	<%@ include file="menubar.jsp" %>
 
    	<div class ="container">
       <!-- Main -->
@@ -48,7 +48,7 @@
                      <p>반려동물은 ‘가슴으로 만든 가족’ 입니다.
 우리와 삶을 함께하며 기쁨과 즐거움, 행복과 사랑을 안겨준
 이 세상 무엇으로도 대신할 수 없는 소중한 선물입니다.
-최고의 서비스와 깜짝 선물로 고마운 마음을 전하세요.ㅋㅋzzzzz
+최고의 서비스와 깜짝 선물로 고마운 마음을 전하세요.
 </p>
                   </section>
                </div>
@@ -88,14 +88,14 @@
             <div class="row">
                <div class="4u">
                   <h2>자유게시판</h2>
-                  <a href="<%= request.getContextPath() %>/views/board/board/board.jsp" class="image full"><img src="<%= request.getContextPath() %>/resources/image/dog5.jpg" width="380px" height="160px" alt="" /></a>
+                  <a href="<%= request.getContextPath() %>/BoardListServlet" class="image full"><img src="<%= request.getContextPath() %>/resources/image/dog5.jpg" width="380px" height="160px" alt="" /></a>
                   <p>다양한 주제로 자유로운 이야기를 주고 받으세요!</p>
                   <p><a href="#" class="button">More Details</a></p>
                </div>
                <div class="4u">
                   <h2>반려견 스토리</h2>
                   <a href="<%= request.getContextPath() %>/views/board/imageBoard/imageBoard.jsp" class="image full"><img src="<%= request.getContextPath() %>/resources/image/dog6.jpg" width="380px" height="160px" alt="" /></a>
-                  <p>여러분들의 댕댕이를 자랑해보세요!.zzzzsdfsdfasdfsfzz</p>
+                  <p>여러분들의 댕댕이를 자랑해보세요!</p>
                   <p><a href="#" class="button">More Details</a></p>
                </div>
                <div class="4u">
@@ -108,6 +108,6 @@
          </div>
       </div></div></div>
       
-      	<%@ include file="../common/footer.jsp" %>
+      	<%@ include file="footer.jsp" %>
    </body>
 </html>

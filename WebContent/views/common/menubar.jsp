@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="user.model.vo.*"%>
+
 <%
-	String loginUser="";
+User loginUser = (User)session.getAttribute("loginUser");
+
+String msg = (String)session.getAttribute("msg");
+
 
 %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +38,15 @@
 
 
 </style>
+<script>
+	var msg = "<%= msg %>";
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+			<% session.removeAttribute("msg"); %>
+		}
+	});
+</script>
 </head>
 <body>
 
@@ -71,7 +86,7 @@
 							src="<%= request.getContextPath() %>/resources/image/market.png" id="nav-itemM3"></a>
 					</li>
 					<li class="nav-itemM">
-						<!-- //커뮤니티 --> <a class="nav-linkM" href="<%= request.getContextPath() %>/views/board/board/board.jsp"><img
+						<!-- //커뮤니티 --> <a class="nav-linkM" href="<%= request.getContextPath() %>/list.bo"><img
 							src="<%= request.getContextPath() %>/resources/image/community.png" id="nav-itemM4"></a>
 					</li>
 					<% if(loginUser == null) { %>
