@@ -1,14 +1,14 @@
-package petsitter.model.service;
+package projectDiagram.petsitter.model.service;
 
-import static common.JDBCTemplate.getConnection;
+import static projectDiagram.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import petsitter.model.dao.PsBoardInfoDao;
-import petsitter.model.dao.PsScheduleDao;
-import petsitter.model.vo.PsBoard;
-import petsitter.model.vo.PsSchedule;
+import projectDiagram.petsitter.model.dao.PsBoardInfoDao;
+import projectDiagram.petsitter.model.dao.PsScheduleDao;
+import projectDiagram.petsitter.model.vo.PsBoard;
+import projectDiagram.petsitter.model.vo.PsSchedule;
 
 public class PsScheduleService {
 

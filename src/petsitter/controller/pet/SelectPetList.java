@@ -1,4 +1,4 @@
-package petsitter.controller.pet;
+package projectDiagram.petsitter.controller.pet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petsitter.model.service.PetInfoService;
-import petsitter.model.vo.Pet;
+import projectDiagram.petsitter.model.service.PetInfoService;
+import projectDiagram.petsitter.model.vo.Pet;
 
 /**
  * Servlet implementation class SelectPetList

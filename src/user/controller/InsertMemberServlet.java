@@ -70,14 +70,12 @@ public class InsertMemberServlet extends HttpServlet {
 		
 		if(result > 0) {
 			// menubar.jsp에서 alert창 출력하도록 설정
-			System.out.println("제대로 들어감");
 			request.getSession().setAttribute("msg", "회원 가입 성공! 로그인 해주세요");
 			response.sendRedirect("views/common/main.jsp");
 
 		}
 		// 실패시 "회원 가입 실패!!" 메세지 가지고 errorPage.jsp로
 		else {
-			System.out.println("제대로 안 들어감");
 			request.setAttribute("msg", "회원 가입 실패!!");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);

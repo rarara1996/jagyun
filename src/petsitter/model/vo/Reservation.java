@@ -1,4 +1,4 @@
-package petsitter.model.vo;
+package projectDiagram.petsitter.model.vo;
 
 import java.sql.Date;
 

@@ -1,11 +1,11 @@
-package petsitter.model.service;
+package projectDiagram.petsitter.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import petsitter.model.dao.PetSitterInfoDao;
-import petsitter.model.vo.PsInfo;
-import static common.JDBCTemplate.*;
+import projectDiagram.petsitter.model.dao.PetSitterInfoDao;
+import projectDiagram.petsitter.model.vo.PsInfo;
+import static projectDiagram.common.JDBCTemplate.*;
 public class PetSitterInfoService {
 
 	public int insertPs(PsInfo ps) {

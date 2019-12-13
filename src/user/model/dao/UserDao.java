@@ -33,8 +33,6 @@ public class UserDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("loginUser");
 //loginUser=SELECT * FROM User WHERE USERID=? AND USERPWD=? AND ADMIN='Y'
-		System.out.println(id);
-		System.out.println(pwd);
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -48,7 +46,7 @@ public class UserDao {
 						rset.getString("user_name"), rset.getString("gender"),rset.getString("email"),
 						rset.getString("address"),rset.getInt("dog_su"),rset.getString("phone"),
 						rset.getString("birth"),rset.getString("admin"));
-			}System.out.println(loginUser);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -61,11 +59,10 @@ public class UserDao {
 	// 2. 회원 가입용 dao
 	public int insertUser(Connection conn, User m) {
 		int result = 0;
-		System.out.println("insertUser Dao 진입");
+
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertUser");
-		System.out.println(sql);
-		System.out.println(m);
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getUserId());
@@ -147,22 +144,19 @@ public class UserDao {
 		User mem = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		System.out.println(userId+1);
+		
 		String sql = prop.getProperty("selectUser");
-		System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, userId);
 			rset = pstmt.executeQuery();
+			
 			if (rset.next()) {
-				mem = new User(rset.getInt("user_no"), rset.getString("user_id"), rset.getString("user_pwd"),
-						rset.getString("user_name"), rset.getString("gender"),rset.getString("email"),
+				mem = new User(rset.getInt("user_No"), rset.getString("user_Id"), rset.getString("user_Pwd"),
+						rset.getString("user_Name"), rset.getString("gender"),rset.getString("email"),
 						rset.getString("address"),rset.getInt("dog_Su"),rset.getString("phone"),
 						rset.getString("birth"),rset.getString("admin"));
 			}
-			System.out.println(mem);
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -225,7 +219,7 @@ public class UserDao {
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectUserList");
-		System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
@@ -236,7 +230,7 @@ public class UserDao {
 						rset.getString("address"),rset.getInt("dog_Su"),rset.getString("phone"),
 						rset.getString("birth"),rset.getString("admin")));
 			}
-			System.out.println(list);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

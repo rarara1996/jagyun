@@ -1,4 +1,4 @@
-package petsitter.controller.petsitter_1;
+package projectDiagram.petsitter.controller.petsitter_1;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,9 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petsitter.model.service.PetSitterInfoService;
-import petsitter.model.vo.PsInfo;
-import user.model.vo.User;
+import projectDiagram.petsitter.model.service.PetSitterInfoService;
+import projectDiagram.petsitter.model.vo.PsInfo;
 
 /**
  * Servlet implementation class PsInsertServlet
@@ -30,10 +29,8 @@ public class PsInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		PsInfo ps = null;
-		User user = (User)request.getSession().getAttribute("loginUser");
-		System.out.println(user);
+		
 		int result = new PetSitterInfoService().insertPs(ps);
 	}
 
