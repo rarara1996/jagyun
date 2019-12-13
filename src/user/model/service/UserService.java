@@ -20,14 +20,11 @@ public class UserService {
 	// 2. 회원가입용 서비스
 	public int insertUser(User m) {
 		Connection conn = getConnection();
-		System.out.println("insertUser service 진입");
 		int result = new UserDao().insertUser(conn, m);
 		if (result > 0) {
 			commit(conn);
-			System.out.println("뭔가 들어가짐");
 		} else {
 			rollback(conn);
-			System.out.println("뭔가 안 들어가짐");
 		}
 		close(conn);
 		return result;

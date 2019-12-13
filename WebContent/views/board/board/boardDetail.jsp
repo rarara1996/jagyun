@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  import="board.model.vo.*, java.util.*"%>
+    <%
+    	Board b = (Board)request.getAttribute("board");
+    
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +91,7 @@ right:70%;
 	<div class="xans-element- xans-board xans-board-title-1002 xans-board-title xans-board-1002 ">
                         <div class="title">
                             <h2>
-                                <font color="#000000">*게시글 상세보기*</font>
+                                <font color="#000000"><%=b.getTitle() %></font>
                             </h2>
                         </div>
                     </div>
@@ -95,24 +100,23 @@ right:70%;
                         <div class="xans-element- xans-board xans-board-read-1002 xans-board-read xans-board-1002 ">
                             <div class="boardView">
                                 <table border="1" summary="">
-                                    <caption>*글 제목*</caption>
+                                    <caption></caption>
                                     <tbody>
                                         
                                         <tr>
                                             <th id="writer">작성자 </th>
-                                            <td>*작성자*<span class="displaynone"></span> </td>
+                                            <td><span><%=b.getUserName() %></span> </td>
                                         </tr>
                                          <tr>
                                             <th>작성일</th>
-                                            <td>*작성일*<span class="displaynone"></span> </td>
+                                            <td><span><%=b.getEnrollDate() %></span> </td>
                                         </tr>
                                         
                                         <tr class="view">
                                             <td colspan="2">
                                                 <div class="detail" id="detail">
-                                                   
-                                                    <p>게시글 내용게시글 내용게시글 내용게시글 내용게시글 내용게시글 내용<br>
-                                                    	게시글 내용게시글 내용게시글 내용게시글 내용게시글 내용게시글 내용<br></p>
+                                                   <p id="centent"><%=(b.getContent()).replace("\r\n","<br>") %></p>
+                                                    
                                                 </div>
                                             </td>
                                         </tr>
@@ -123,9 +127,12 @@ right:70%;
                     </form>
               
               <div id="btnWrapper">
+              <button id="listBtn" onclick="location.href='board.jsp'" class="btn btn-outline-success">목록으로</button>
               <!--  로그인 시 나타는 버튼 -->
-                <button id="insertBtn" onclick="location.href='boardUpdateForm.jsp'" class="btn btn-outline-success">수정하기</button>
-                 <button id="listBtn" onclick="location.href='board.jsp'" class="btn btn-outline-success">목록으로</button>
+              <%if (b.getUserName().equals(loginUser.getUserName())){ %>
+                <button id="updateBtn" onclick="location.href='boardUpdateForm.jsp'" class="btn btn-outline-success">수정하기</button>
+                <button id="insertBtn" onclick="location.href='boardUpdateForm.jsp'" class="btn btn-outline-danger">삭제하기</button>
+                 <%} %>
          	 </div>
               <hr>
               
@@ -133,7 +140,7 @@ right:70%;
             <!-- List group -->
             <ul class="list">
 
-               <!-- 리뷰 -->
+             <%--   <!-- 리뷰 -->
                <li class="list-group-item note-item clearfix" id="note-524235">
                   <div class="content-body panel-body pull-left">
                      <div class='avatar avatar-medium clearfix'>
@@ -148,6 +155,7 @@ right:70%;
                               <span class="timeago">2019-12-09</span>
                               
                            <!--  로그인시 나타나는 메뉴 -->
+                           
                               <button id="updateCommentBtn" onclick="" class="btn btn-outline-success">수정</button>
                  			<button id="deleteCommentBtn" onclick="" class="btn btn-outline-danger">삭제</button>
                  			
@@ -159,7 +167,7 @@ right:70%;
                      </div>
                </li>
                <!-- 리뷰 -->
-               
+                --%>
                
                
             </ul>

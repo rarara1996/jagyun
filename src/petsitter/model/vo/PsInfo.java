@@ -1,4 +1,4 @@
-package petsitter.model.vo;
+package projectDiagram.petsitter.model.vo;
 
 public class PsInfo {
 	private int psNo;

@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.*"%>
+    
+    <%
+	 ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi"); 
+	
+	 int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); 
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,8 +116,8 @@ margin:auto;
 <hr>
 
  	<div id="formwrap">
- 	<h3>자유 게시판</h3>
-    <br><br>
+
+    <br>
 
  
     <table class="table table-hover" >
@@ -119,28 +131,64 @@ margin:auto;
             <th>조회수</th>
             <th>작성일자</th>
         </tr>
+        
     
        </thead>
-     
+  
+     <% if(list.isEmpty()) { %>
         <tr>
-            <td>글번호1</td>
-            <td>글제목1</td>
-            <td>작성자1</td>
-            <td>조회수1</td>
-            <td>작성일자1</td>
+          <td colspan="5">조회된 리스트가 없습니다</td>
         </tr>
-          <tr>
-            <td>글번호2</td>
-            <td>글제목2</td>
-            <td>작성자2</td>
-            <td>조회수2</td>
-            <td>작성일자2</td>
-        </tr>
-   
+       <%} else{ %>
+       	<% for(Board b : list){ %> 
+   	<tr>
+   		<input type="hidden" value="<%=b.getBoardNo() %>">
+   		<td><%=b.getBoardNo() %></td>
+   		<td><%=b.getTitle() %></td>
+   		<td><%=b.getUserName() %></td>
+   		<td><%=b.getBoardCount() %></td>
+   		<td><%=b.getEnrollDate() %></td>
+   	</tr>
+   	 <%} %>
+   	<%} %>
+   	   		
     </table>
     </div>
+     
+
+		<div class="pagingArea" align="center">
+			<!--  맨 처음으로(<<) -->
+			<button onclick="location.href='<%=request.getContextPath() %>/BoardListServlet?currentPage=1'">&lt;&lt;</button>
+			
+			<!--  이전 페이지로(<) -->
+			<%if (currentPage == 1){ %>
+				<button disabled>&lt;</button>
+			<% }else{%>
+				<button onclick="location.href='<%=request.getContextPath() %>/BoardListServlet?currentPage=<%=currentPage -1 %>'">&lt;</button>
+			<%} %>
+			
+			
+			<!-- 10개의 페이지 목록 -->
+			<% for(int p = startPage;p<=endPage;p++){ %>
+				<%if(p==currentPage){ %>
+						<button disabled><%=p %></button>
+					<%}else{ %>
+						<button onclick ="location.href='<%=request.getContextPath() %>/BoardListServlet?currentPage=<%=p %>'"><%=p %></button>
+					<%} %>
+			<%} %>
+			
+			<!--  다음 페이지로(>) -->
+			<%if (currentPage == maxPage){ %>
+				<button disabled>&gt;</button>
+			<% }else{%>
+				<button onclick="location.href='<%= request.getContextPath() %>/BoardListServlet?currentPage=<%=currentPage +1 %>'">&gt;</button>
+			<%} %>
+			
+			<!-- 맨 끝으로(>>) -->
+			<button onclick="location.href='<%= request.getContextPath() %>/BoardListServlet?currentPage=<%=maxPage%>'">&gt;&gt;</button>
+		</div> 
   
-  <!--  검색창  -->
+  <!--  검색창 구현 요망  -->
   	<div class="searchArea" align="center">
 			
 			<div class="input-group mb-3">
@@ -154,17 +202,12 @@ margin:auto;
  			 <div class="input-group-append">
     		<button class="btn btn-outline-success" type="button" id="searchBtn">검색하기</button>
   </div>
-  <button id="insertBtn" onclick="location.href='boardInsertForm.jsp'" class="btn btn-outline-success">작성하기</button>
+  <button id="insertBtn" onclick="location.href='<%=request.getContextPath()%>/views/board/board/boardInsertForm.jsp'" class="btn btn-outline-success">작성하기</button>
 </div>
 			
 		</div>
   
-  
-	<!-- 페이징 처리 구현 필요 -->
-	<div class="pagingArea" align="center">
-	<!--  페 이 징 -->
-	</div>
-	
+
 	
 		<script>
 	// 게시판 상세보기 기능 구현
@@ -172,12 +215,17 @@ margin:auto;
 		$("#formwrap td").mouseenter(function(){
 			$(this).parent().css({"cursor":"pointer"})	
 		}).click(function(){
-			//var bId=$(this).parent().children("input").val();
-		location.href="boardDetail.jsp"
+			var boardNo=$(this).parent().children("input").val();
+			<% if(loginUser != null){%>
+		
+			location.href="<%= request.getContextPath() %>/boardDetailServlet?boardNo="+boardNo;
+		<%}else{%>
+			alert('로그인 해야만 상세보기가 가능합니다!');
+		<%}%>
 		
 		
 
-			//console.log(bId);
+		
 		});
 	});
 	</script>

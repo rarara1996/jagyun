@@ -1,9 +1,9 @@
-package petsitter.model.dao;
+package projectDiagram.petsitter.model.dao;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import petsitter.model.vo.PsInfo;
+import projectDiagram.petsitter.model.vo.PsInfo;
 
 public class PetSitterInfoDao {
 

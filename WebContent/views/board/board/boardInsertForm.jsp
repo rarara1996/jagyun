@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%
+    
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +95,7 @@ right:70%;
 	<div class="xans-element- xans-board xans-board-title-1002 xans-board-title xans-board-1002 ">
                         <div class="title">
                             <h2>
-                                <font color="#000000">*게시글 작성하기*</font>
+                                <font color="#000000">게시글 작성하기*</font>
                             </h2>
                         </div>
                     </div>

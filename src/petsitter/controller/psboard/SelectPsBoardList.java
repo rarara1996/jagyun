@@ -1,4 +1,4 @@
-package petsitter.controller.psboard;
+package projectDiagram.petsitter.controller.psboard;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import petsitter.model.service.PsBoardInfoService;
-import petsitter.model.vo.PsBoard;
+import projectDiagram.petsitter.model.service.PsBoardInfoService;
+import projectDiagram.petsitter.model.vo.PsBoard;
 
 /**
  * Servlet implementation class SelectPsBoardList
