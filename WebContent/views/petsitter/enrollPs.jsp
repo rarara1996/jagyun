@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
 <style>
 .enrollWrapper{
-	height:200vh;
+	height:250vh;
 	width:70%;
 	margin:auto;
 	margin-top:25px;
@@ -19,7 +19,7 @@
 	margin-bottom:15px;
 }
 .enroll-intro{
-	height:10%;
+	height:5%;
 	width:80%;
 	margin:auto;
 	text-align:center;
@@ -28,7 +28,7 @@
 	border-bottom:1px solid black;
 }
 .enroll-form-wrapper{
-	height:85%;
+	height:75%;
 	width:80%;
 	margin:auto;
 	margin-top:15px;
@@ -40,11 +40,11 @@
 /*---------------이미지------------------------*/
 .represent-img{
 	width:70%;
-	height:40%;
+	height:35%;
 }
 .rest-img{
 	width:30%;
-	height:40%;
+	height:35%;
 }
 .rest-img1{
 	width:100%;
@@ -64,9 +64,9 @@
 	height: 5%;
 }
 /*---------------서비스------------------------*/
-.useable-service{
+.condition{
 	width:100%;
-	height:15%;
+	height:45%;
 	background-color:white;
 	padding:20px;
 }
@@ -84,7 +84,7 @@
 /*---------------내용------------------------*/
 .content{
 	width:100%;
-	height:32%;
+	height:30%;
 	padding:10px;
 	background-color:white;
 }
@@ -109,19 +109,22 @@
 .float-left{
 	float:left;
 }
+.float-right{
+	float:right;
+}
 .margin-top{
 	margin-top:15px;
 }
 .images{
 	height:30px;
 	width:30px;
-	margin-top:38%;
+	margin-top:40%;
 	margin-left:48%;
 }
 .images1{
 	height:30px;
 	width:30px;
-	margin-top:25%;
+	margin-top:28%;
 	margin-left:45%;
 }
 .hidden{
@@ -187,6 +190,7 @@
 <script>
 		function enrollValidate(){ //유효성 검사하기 위한 부분
 				if($("#represent-btn").val()== "" || $("#rest-img1-btn").val()== "" || $("#rest-img2-btn").val()== ""|| $("#rest-img3-btn").val()== ""){
+					//사진 유효성검사 하는 부분
 					alert("사진을 4장 꼭 채우셔야 합니다!");
 					console.log("비어있엉~");
 					var offset = $("#represent" + seq).offset();
@@ -194,27 +198,86 @@
 					$('html, body').animate({scrollTop : (offset.top - winH/2)}, 500);
 					return false;
 				}
-				if($("#title").val()==""){
+		
+				if($("#title").val()==""){ //제목 유효성 검사
 					alert("제목을 꼭 입력하셔야 합니다!.");
 					$("#title").focus()
 					return false;
 				}
+				
+				//체크박스 유효성 검사
+				var service1 = document.getElementsByName("service");
+				var service2 = false;
+				for(var i=0;i<service1.length;i++){
+				    if(service1[i].checked == true){
+				    	service2 = true;
+				    }
+				}
+				if(!service2){
+					alert("서비스 항목을 최소1개이상 선택하십시요");
+					return false;
+				}
+				
+				//
+				
+				var size1 = document.getElementsByName("size");
+				var size2 = false;
+				for(var i=0;i<size1.length;i++){
+				    if(size1[i].checked == true){
+				    	size2 = true;
+				    }
+				}
+				if(!size2){
+					alert("사이즈 항목을 최소1개이상 선택하십시요");
+					return false;
+				}
+				
+				//
+				
+				var age1 = document.getElementsByName("age");
+				var age2 = false;
+				for(var i=0;i<age1.length;i++){
+				    if(age1[i].checked == true){
+				    	age2 = true;
+				    }
+				}
+				if(!age2){
+					alert("나이 항목을 최소1개이상 선택하십시요");
+					return false;
+				}
+				
+				//
+				if($("#checkIn").val() == "" || $("#checkOut").val() == ""){
+					alert('체크인/아웃 시간이 입력이 안됬습니다');
+					if($("#checkIn").val() == ""){
+						$("#checkIn").focus();
+						return false;
+					}else{
+						$("#checkOut").focus();
+						return false;
+					}
+				}
+				
+				if($("#hourPrice").val() == 0){
+					alert("데이케어 가격 설정을 하시지 않으셨습니다.")
+					$("#hourPrice").focus();
+					return false;
+				}
+				
+				if($("#onedayPrice").val() == 0){
+					alert("숙박 케어 가격 설정을 하시지 않으셨습니다.")
+					$("#onedayPrice").focus();
+					return false;
+				}
+				
 				if($("#content").val()==""){
 					alert("내용을 꼭 입력하셔야 합니다!.");
 					$("#content").focus()
 					return false;
 				}
-				if($("#content").val().length<300){
+				if($("#content").val().length<10){
 					alert("본인 설명은 최소 300자 이상이여야 합니다.");
 					$("#content").focus()					
-					return false;
-				}
-
-				else{
-					console.log($("#represent-btn").val());
-					console.log($("#rest-img1-btn").val());
-					console.log($("#rest-img2-btn").val());
-					console.log($("#rest-img3-btn").val());
 					return false;
 				}
 		}
@@ -226,7 +289,8 @@
 	<div class="enrollWrapper">
 		<div class="enroll-intro">펫시터 글 등록</div>
 		<div class="enroll-form-wrapper">
-			<form class="ps-board" onsubmit="return enrollValidate()">
+			<form action="<%= request.getContextPath() %>/InsertPsBoard" method="post" name="psForm" class="ps-board" onsubmit="return enrollValidate()"
+				enctype="multipart/form-data">
 				<div class="represent-img border float-left" id="represent" ><img id="represent1" class="images" src="<%= request.getContextPath() %>/resources/petsitter/plus.png"></div>
 				<div class="rest-img border float-left">
 					<div class="rest-img1 border" id="rest-img1"><img class="images1" id="rest-img-1" src="<%= request.getContextPath() %>/resources/petsitter/plus.png"></div>
@@ -237,48 +301,116 @@
 				<div class="title margin-top">
 					<dl>
 						<dt>제목</dt>
-						<dd><input id="title" class="width" type="text"></dd>
+						<dd><input name="title" id="title" class="width" type="text"></dd>
 					</dl>
 				</div>
-				<div class="useable-service margin-top">
-					<dl>
-						<dt>이용 가능 서비스</dt>
-						<dd>
-							<table class="border tableArea margin-top">
-								<tr>
-									<td>
-										<label for="walk">산책</label>
-										<input class="checkbox" type="checkbox" id="walk" name="service" value="walk">
-									</td>
-									<td>
-										<label for="pill">약물복용</label>
-										<input class="checkbox" type="checkbox" id="pill" name="service" value="pill">
-									</td>
-									<td>
-										<label for="play">실내놀이</label>
-										<input class="checkbox" type="checkbox" id="play" name="service" value="play">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<label for="madang">마당</label>
-										<input class="checkbox" type="checkbox" id="madang" name="service" value="madang">
-									</td>
-									<td>
-										<label for="pickup">픽업</label>
-										<input class="checkbox" type="checkbox" id="pickup" name="service" value="pickup">
-									</td>
-									<td>
-										<label for="shower">목욕가능</label>
-										<input class="checkbox" type="checkbox" id="shower" name="service" value="shower">
-									</td>
-								</tr>
-							</table>
-						</dd>
-					</dl>
-				</div>
+				<div class="condition margin-top">
+						<div class="service">
+							<dl>
+								<dt>이용 가능 서비스</dt>
+								<dd>
+									<table class="border tableArea margin-top">
+										<tr>
+											<td>
+												<label for="walk">산책</label>
+												<input class="checkbox" type="checkbox" id="walk" name="service" value="walk">
+											</td>
+											<td>
+												<label for="pill">약물복용</label>
+												<input class="checkbox" type="checkbox" id="pill" name="service" value="pill">
+											</td>
+											<td>
+												<label for="play">실내놀이</label>
+												<input class="checkbox" type="checkbox" id="play" name="service" value="play">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="madang">마당</label>
+												<input class="checkbox" type="checkbox" id="madang" name="service" value="madang">
+											</td>
+											<td>
+												<label for="pickup">픽업</label>
+												<input class="checkbox" type="checkbox" id="pickup" name="service" value="pickup">
+											</td>
+											<td>
+												<label for="shower">목욕가능</label>
+												<input class="checkbox" type="checkbox" id="shower" name="service" value="shower">
+											</td>
+										</tr>
+									</table>
+								</dd>
+							</dl>					
+						</div> <!-- service -->
+						<div class="size">
+							<dl>
+								<dt>가능 사이즈</dt>
+								<dd>
+									<table class="border tableArea margin-top">
+										<tr>
+											<td>
+												<label for="small">소형견</label>
+												<input class="checkbox" type="checkbox" id="small" name="size" value="s">
+											</td>
+											<td>
+												<label for="middle">중형견</label>
+												<input class="checkbox" type="checkbox" id="middle" name="size" value="m">
+											</td>
+											<td>
+												<label for="large">대형견</label>
+												<input class="checkbox" type="checkbox" id="large" name="size" value="l">
+											</td>
+										</tr>
+									</table>
+								</dd>
+							</dl>					
+						</div> <!-- size -->
+						<div class="age">
+							<dl>
+								<dt>가능 나이</dt>
+								<dd>
+									<table class="border tableArea margin-top">
+										<tr>
+											<td>
+												<label for="baby">강아지(1~2살)</label>
+												<input class="checkbox" type="checkbox" id="baby" name="age" value="baby">
+											</td>
+											<td>
+												<label for="mature">성견(3~7살)</label>
+												<input class="checkbox" type="checkbox" id="mature" name="age" value="mature">
+											</td>
+											<td>
+												<label for="old">노령견(7살~)</label>
+												<input class="checkbox" type="checkbox" id="old" name="age" value="old">
+											</td>
+										</tr>
+									</table>
+								</dd>
+							</dl>					
+						</div> <!-- age -->
+						<div class="time">
+							<dl class="float-left" style="margin-right:20px;">
+								<dt>체크인</dt>
+								<dd><input type="time" name="checkIn" id="checkIn"></dd>
+							</dl>
+							<dl>
+								<dt>체크아웃</dt>
+								<dd><input type="time" name="checkOut" id="checkOut"></dd>
+							</dl>
+							<br clear="both">
+						</div>
+						<div class="price">
+							<label>데이 케어 설정</label>
+							<br>
+							<input type="number" name="hourPrice" id="hourPrice" min="10000" step="5000" placeholder="시간케어 가격">
+							<br>
+							<label style="margin-top:15px;">숙박 케어 설정</label>
+							<br>
+							<input type="number" name="onedayPrice" id="onedayPrice" min="10000" step="5000" placeholder="숙박케어 가격">
+						</div>
+					</div> <!-- condition -->
 				<div class="content margin-top">
-					<textarea name="requirment" id="content" placeholder="내용을 입력하세요.."></textarea>
+					<textarea name="content" id="content" placeholder="내용을 입력하세요.."></textarea>
 					<span id="counter">###</span>
 					<script>
 					      $('#content').keyup(function (e){
@@ -289,12 +421,12 @@
 					</script>
 				</div>
 				<div class="enroll-btn border margin-top"><button type="submit" class="width height">등록</button></div>
-				<input type="file" class="hidden" id="represent-btn" onchange="loadImg(this,1)">
-				<input type="file" class="hidden" id="rest-img1-btn" onchange="loadImg(this,2)">
-				<input type="file" class="hidden" id="rest-img2-btn" onchange="loadImg(this,3)">
-				<input type="file" class="hidden" id="rest-img3-btn" onchange="loadImg(this,4)">
+				<input type="file" name="represent" class="hidden" id="represent-btn" onchange="loadImg(this,1)">
+				<input type="file" name="rest-img1" class="hidden" id="rest-img1-btn" onchange="loadImg(this,2)">
+				<input type="file" name="rest-img2" class="hidden" id="rest-img2-btn" onchange="loadImg(this,3)">
+				<input type="file" name="rest-img3" class="hidden" id="rest-img3-btn" onchange="loadImg(this,4)">
 			</form>
-		</div>
+		</div> <!-- enroll-form-wrapper -->
 	</div>
 	<%@ include file="../common/footer.jsp" %>
 </body>
