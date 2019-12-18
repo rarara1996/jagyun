@@ -1,4 +1,4 @@
-package projectDiagram.board.controller;
+package board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import projectDiagram.board.model.service.BoardService;
-import projectDiagram.board.model.vo.Comment;
+import board.model.service.BoardService;
+import board.model.vo.Comment;
 
 /**
  * Servlet implementation class InsertReplyServlet
@@ -32,9 +34,25 @@ public class InsertCommentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	int writer = Integer.parseInt(request.getParameter("writer"));
+	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	String content = request.getParameter("content");
 	
+
 		Comment cm = new Comment();
-		ArrayList<Comment> rlist = new BoardService().insertComment(cm);
+		cm.setUserNo(writer);
+		cm.setBoardNo(boardNo);
+		cm.setContent(content);
+		ArrayList<Comment> clist = new BoardService().insertComment(cm);
+		
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(clist,response.getWriter());
+		
+		
+		
+		
+		
 	}
 
 	/**

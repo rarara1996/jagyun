@@ -1,4 +1,4 @@
-package projectDiagram.notice.model.vo;
+package notice.model.vo;
 
 import java.util.Date;
 

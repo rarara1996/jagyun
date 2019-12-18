@@ -74,15 +74,29 @@
 				</div>
 				<br>
 				<div class="inner">
-					연락처<br> <input type="tel" maxlength="11" id="text"
-						name="phone" placeholder="(-없이)01012345678"></<input>
+					연락처<br>
+					<select id="phone1" name="phone1" fw-filter="isNumber&isFill" fw-label="휴대전화"
+                                        fw-alone="N" fw-msg="">
+                                        <option value="010">010</option>
+                                        <option value="011">011</option>
+                                        <option value="016">016</option>
+                                        <option value="017">017</option>
+                                        <option value="018">018</option>
+                                        <option value="019">019</option>
+                                    </select>-<input id="phone2" name="phone2" maxlength="4">-
+                                        <input id="phone3" maxlength="4" name="phone3"> 
+
 				</div>
 
 				<br>
 				<div class="inner">
-					이메일<br> <input type="email" name="email" id="text">
+<%-- 					<form action="<%= request.getContextPath() %>/email" method="post" >
+						이메일:<input name="email" type="email" id="text">
+						<button>인증하기</button>
+						
+					</form> --%>
+					이메일:<input name="email" type="email" id="text">
 				</div>
-
 				<br>
 				<div class="inner">
 					주소<br> <input type="text" id="sample4_postcode"
@@ -94,7 +108,7 @@
 				</div>
 				<br>
 				<div class="inner">
-					몇 마리의 반려견을 갖고 있나요?(숫자로만 입력)<br> <input type="number"
+					몇 마리의 반려견을 갖고 있나요?(5마리까지 가능)<br> <input type="number"
 						name="dogSu" id="dogsu">
 				</div>
 

@@ -1,5 +1,6 @@
 package common;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,16 +13,8 @@ import java.util.Properties;
 public class JDBCTemplate {
 	public static Connection getConnection() {
 		Connection conn = null;
-		
 		Properties prop = new Properties();
-		
-		// driver Á¤º¸¸¦ ÀúÀåÇÏ¿© Á¦°øÇÒ ¼ö ÀÖ´Â driver.properties ÆÄÀÏÀ» ¸¸µéÀÚ ~~
-		// sql ÆĞÅ°Áö¸¦ ¸¸µé°í ±× ¾È¿¡ ÆÄÀÏ »ı¼º ÈÄ ³»¿ë ÀÛ¼º
-		
-		// URL java.lang.Class.getResource(String name)
-		// : properties ÆÄÀÏÀÇ °æ·Î ÀĞ¾î¿À±â
-		String fileName = JDBCTemplate.class.getResource("/sql/driver.properties").getPath();
-		
+		String fileName=JDBCTemplate.class.getResource("/sql/driver.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -31,15 +24,16 @@ public class JDBCTemplate {
 			String user = prop.getProperty("user");
 			String password = prop.getProperty("password");
 			
-			// 1. Å¬·¡½º °´Ã¼ µî·Ï, Driver µî·Ï
 			Class.forName(driver);
+			conn=DriverManager.getConnection(url,user,password);
 			
-			// 2. DBMS¿Í ¿¬°á
-			conn = DriverManager.getConnection(url, user, password);
 			
-			// ±âº» °ªÀº true, ¿øÄ¢Àº application¿¡¼­ ¸ğµç °É Á¦¾î
+			// ê¸°ë³¸ê°’ì€ true, ì›ì¹™ì ìœ¼ë¡œëŠ” applicationì—ì„œ ëª¨ë“ ê±¸ ì œì–´
 			conn.setAutoCommit(false);
 			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -47,54 +41,58 @@ public class JDBCTemplate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return conn;
 	}
 	
-	public static void close(Connection conn) {
+	public static void close(Connection con) {
 		try {
-			if(conn != null && !conn.isClosed())
-				conn.close();
-		}catch(SQLException e) {
+			if(con!=null && !con.isClosed()) {
+				con.close();
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static void close(Statement stmt) {
 		try {
-			if(stmt != null && !stmt.isClosed())
+			if(stmt!=null && !stmt.isClosed()) {
 				stmt.close();
-		}catch(SQLException e) {
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static void close(ResultSet rset) {
 		try {
-			if(rset != null && !rset.isClosed())
+			if(rset!=null && !rset.isClosed()) {
 				rset.close();
-		}catch(SQLException e) {
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void commit(Connection conn) {
+	public static void commit(Connection con) {
 		try {
-			if(conn != null && !conn.isClosed())
-				conn.commit();
-		}catch(SQLException e) {
+			if(con!=null && !con.isClosed()) {
+				con.commit();
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void rollback(Connection conn) {
+	public static void rollback(Connection con) {
 		try {
-			if(conn != null && !conn.isClosed())
-				conn.rollback();
-		}catch(SQLException e) {
+			if(con!= null && !con.isClosed()) {
+				con.rollback();
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 }

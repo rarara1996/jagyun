@@ -1,4 +1,4 @@
-package projectDiagram.notice.controller;
+package notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projectDiagram.board.model.service.BoardService;
-import projectDiagram.notice.model.service.NoticeService;
-import projectDiagram.notice.model.vo.Notice;
+
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeDetailServlet
@@ -30,8 +30,18 @@ public class NoticeDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int nno = 0;
-		Notice notice = new NoticeService().selectNotice(nno);
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		Notice notice = new NoticeService().selectNotice(noticeNo);
+		String page="";
+	
+		if(notice!=null) {
+			request.setAttribute("notice", notice);
+			page="views/board/notice/noticeDetail.jsp";
+		}else {
+			request.setAttribute("msg", "공지사항 조회에 실패했습니다.");
+			page = "views/board/notice/notice.jsp";
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package projectDiagram.notice.controller;
+package notice.controller;
 
 import java.io.IOException;
 
@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projectDiagram.notice.model.service.NoticeService;
-import projectDiagram.notice.model.vo.Notice;
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
+
 
 /**
  * Servlet implementation class NoticeUpdateServlet
@@ -30,9 +31,27 @@ public class NoticeUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	int nno = 0;
+		request.setCharacterEncoding("utf-8");
+		
+		String title=request.getParameter("title");
+
+		String content = request.getParameter("content");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 	Notice n = new Notice();
-	Notice notice = new NoticeService().updateNotice(n);
+	n.setTitle(title);
+	n.setContent(content);
+	n.setNoticeNo(noticeNo);
+
+	int result = new NoticeService().updateNotice(n);
+	if(result>0) {		
+		request.setAttribute("noticeNo", noticeNo);
+		request.getRequestDispatcher("NoticeDetailServlet").forward(request, response);
+		
+	}else {
+	
+		request.getSession().setAttribute("msg", "공지사항 업데이트에 실패했습니다.");
+		response.sendRedirect("NoticeDetailServlet");
+	}
 	}
 
 	/**

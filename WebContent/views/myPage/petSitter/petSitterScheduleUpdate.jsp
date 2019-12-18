@@ -7,8 +7,7 @@
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(
@@ -47,23 +46,23 @@ width:100px;
 </head>
 <body>
 
-	<div class="container">
 		<h2>이달(12월)의 예약가능날짜 설정</h2>
-		<form>
+
 		<div id="inner">
 			<input type="text" class="startDate" id="date1">일
-			
-			<button id="plusDate">추가</button>
-		</div>
-			<br>
-			<button>설정</button>
-		</form>
-	</div>
+			<button type ="button" id="plusDate">추가</button>
+		<div id="inner2">
+			<form>
+                <button>설정</button>
+            </form>
+        </div>
 <script>
 	$("#plusDate").click(function(){
-		 $("#date1").append("<br>ㅋㅋ");
-		 
-	)};
+        var date = $("#date1").val();
+        var a=1;
+         $("#inner2").append(date+"일");
+		 $("#inner2").append("<input name='date[]' value= '"+date+"' type='hidden'> ");
+	});
 </script>
 </body>
 </html>

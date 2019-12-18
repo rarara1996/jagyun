@@ -1,4 +1,4 @@
-package projectDiagram.notice.controller;
+package notice.controller;
 
 import java.io.IOException;
 
@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projectDiagram.notice.model.service.NoticeService;
-import projectDiagram.notice.model.vo.Notice;
+import board.model.service.BoardService;
+import board.model.vo.Board;
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeUpdateFormServlet
@@ -30,8 +32,17 @@ public class NoticeUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	int nno = 0;
-	Notice notice = new NoticeService().selectNotice(nno);
+		int noticeNo=Integer.parseInt(request.getParameter("noticeNo"));
+		
+		Notice notice = new NoticeService().selectNotice(noticeNo);
+		
+		if(notice != null) {
+			request.setAttribute("notice", notice);
+			request.getRequestDispatcher("views/board/notice/noticeUpdateForm.jsp").forward(request, response);
+		}else {
+			request.getSession().setAttribute("msg", "수정할 게시글을 불러오는데 실패했습니다.");
+			response.sendRedirect("NoticeListServlet");
+		}
 	}
 
 	/**

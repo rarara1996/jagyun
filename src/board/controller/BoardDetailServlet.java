@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
+import board.model.vo.Comment;
 
 /**
  * Servlet implementation class BoardDetailServlet
@@ -58,13 +60,16 @@ public class BoardDetailServlet extends HttpServlet {
 				// 조회수 증가하지 않고 select
 				board = new BoardService().selectBoradNoCnt(boardNo);
 				
-				// 댓글 구현 기능 공간-----------
 				
-				//---------------------------------
 			}
+			// 댓글 구현 기능 공간-----------
+			ArrayList<Comment> clist = new BoardService().selectCommentList(boardNo);
+						
+			//---------------------------------
 			
 			if(board != null) {
 			request.setAttribute("board", board);
+			request.setAttribute("clist", clist);
 			request.getRequestDispatcher("views/board/board/boardDetail.jsp").forward(request, response);
 			}
 		}

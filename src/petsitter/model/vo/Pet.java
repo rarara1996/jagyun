@@ -1,4 +1,4 @@
-package projectDiagram.petsitter.model.vo;
+package petsitter.model.vo;
 
 public class Pet {
 	private int dogNum;

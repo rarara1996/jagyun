@@ -1,4 +1,4 @@
-package projectDiagram.notice.controller;
+package notice.controller;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projectDiagram.notice.model.service.NoticeService;
+import notice.model.service.NoticeService;
 
 /**
  * Servlet implementation class NoticeDeleteServlet
@@ -29,8 +29,18 @@ public class NoticeDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int nno = 0;
-		int result = new NoticeService().deleteNotice(nno);
+		request.setCharacterEncoding("utf-8");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		int result = new NoticeService().deleteNotice(noticeNo);
+		
+		if(result>0) {
+			request.getSession().setAttribute("msg", "게시글이 삭제되었습니다.");
+			response.sendRedirect("NoticeListServlet");
+		}else {
+			request.getSession().setAttribute("msg", "게시판 삭제에 실패했습니다.");
+			response.sendRedirect("NoticeListServlet");
+		}
 		
 	}
 

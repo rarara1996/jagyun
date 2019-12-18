@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="productBoard.model.vo.* , common.model.vo.* , java.util.*"%>
+	<%
+	ProductBoard pb = (ProductBoard)request.getAttribute("productBoard");
+	
+	ArrayList<IMG> fileList = (ArrayList<IMG>)request.getAttribute("fileList");
+	IMG titleImg = fileList.get(0);
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +18,6 @@
 <link
 	href="<%=request.getContextPath()%>/resources/market/css/agency.min.css"
 	rel="stylesheet">
-
 <style>
 .ps-img {
 	height: 100%;
@@ -51,6 +56,7 @@
 
 #content {
 	display: inline-bloack;
+	width:50%;
 }
 
 #tablle {
@@ -95,6 +101,26 @@ Button {
 	width: 100px;
 	height: 100px;
 }
+/* ====================댓글달기=============== */
+.accordionMenu #aco {
+	padding: 0 10px;
+	margin: 0;
+	height: 0;
+	overflow: hidden;
+	transition: height 0.5s ease-in;
+}
+
+.accordionMenu :target #aco {
+	overflow: auto;
+	height: 80px;
+}
+#reviewForm{
+    width:80%;
+    height:50px;
+}
+#html{
+   text-align:center;
+}
 </style>
 
 </head>
@@ -109,22 +135,24 @@ Button {
 					<div class="portfolio-hover-content">
 						<i class="fas fa-plus fa-3x"></i>
 					</div>
-					<img class="img-fluid" src="imgg/강아지1.jpg" alt="" id="test1">
+					<img class="img-fluid" src="<%= request.getContextPath() %>/resources/productBoard/<%= titleImg.getChangeName() %>" id="test1">
 					<div class="portfolio-caption">
-						<h6>[새움] MY Calendar 셀프 탁상형 달력</h6>
-						<p class="text-muted">47,000원</p>
+						<h6><%= pb.getProductName() %></h6>
+						<p class="text-muted"><%= pb.getPrice() %>원</p>
 					</div>
 				</div>
 				<div id="content">
-					<h2>[새움] MY Calendar 셀프 탁상형 달력</h2>
-					<br> 
-				<hr>
-					<br> 
+					<h2 align="center"><%= pb.getProductName() %></h2>
+					<br>
+					<hr>
+					<br>
+						<form action="<%= request.getContextPath() %>/ProductBoardBuyServlet" method="post">
+						<input name="productNo" type="hidden" value="<%= pb.getProductNo() %>"> 
 					<table id="tablle">
 						<tr>
 							<td width="20%">판매가</td>
 							<td width="60%"></td>
-							<td width="20%">47,000원</td>
+							<td width="20%"><%= pb.getPrice() %>원</td>
 						</tr>
 						<tr>
 							<td width="20%">배송비</td>
@@ -135,7 +163,7 @@ Button {
 							<td width="20%">사이즈</td>
 							<td width="60%"></td>
 							<td width="20%"><select id="searchCondition"
-								name="searchCondition">
+								name="size">
 									<option>----</option>
 									<option value="S">S</option>
 									<option value="M">M</option>
@@ -145,23 +173,23 @@ Button {
 					</table>
 					<hr>
 					<div id="Bttn">
-						<button id="insertBtn" onclick="location.href='ProductBuy.jsp'" class="btn btn-outline-success">결제하기
-						</button>
+						<button id="insertBtn"  class="btn btn-outline-success">결제하기</button>
 						&nbsp;
-						<button id="insertBtn" onclick="" class="btn btn-outline-success">장바구니</button>
+						<button type="Button" id="jjim" onclick="" class="btn btn-outline-success">장바구니</button>
 					</div>
+						</form>
 				</div>
 
 			</div>
 			<hr>
 
 			<div id="cont">
-				<img src="imgg/설명1.jpg" class="imgg">
+			<img id="detailImg" class="imgg" src="<%= request.getContextPath() %>/resources/productBoard/<%= fileList.get(1).getChangeName() %>">
 			</div>
 		</div>
 		<!-- 상품설명 -->
 		<div id="contt">
-			<pre>
+		<pre>
 		
 			
 *품절된 옵션은 12월 초 재입고 예정에 있습니다.*<br>
@@ -248,7 +276,7 @@ Button {
 		</pre>
 		</div>
 		<div id="cont">
-			<img src="imgg/자견단_주의사항.jpg">
+<img id="detailImg" class="imgg" src="<%= request.getContextPath() %>/resources/productBoard/imgg/자견단_주의사항.jpg">
 		</div>
 		<div class="container">
 			<hr>
@@ -256,20 +284,33 @@ Button {
 				<!-- 댓글 작성 폼 -->
 				<table width="100%">
 					<tr>
-						<td><p align="center"><h4>R E V I E W</h4></td>
-						<td width="80%"><button class="btn btn-outline-success" onclick="Commeny()">댓글등록</button><br></td>
+						<td><p align="center">
+							<h4>R E V I E W</h4></td>
+						<td width="80%">
+							<button class="btn btn-outline-success" onclick="location.href='#html5'" id="">댓글등록</button>
+							<br>
+						</td>
 					</tr>
 				</table>
+				<div class="accordionMenu">
+					<br>
+					<div id="html5" class="menuSection">
+						<div id="aco">
+						<table id="reviewForm">
+						<tr>
+						<td width="10%">댓글 : </td>
+						<td width="50%"><textarea style="width:100%"></textarea></td>
+						<td width="10%"><button class="btn btn-outline-success">전송</button></td>
+						</tr>
+						</table>
+						</div>
+					</div>
+
+				</div>
 				<hr>
-				<script>
-				  function Commeny(){
-					  window.prompt();
-				  }
-				</script>
 			</div>
 
-
-             <!-- 리뷰 -->
+			<!-- 리뷰 -->
 			<div class="ddd">
 				<!-- List group -->
 				<ul class="list">
@@ -278,7 +319,7 @@ Button {
 						<div class="content-body panel-body pull-left">
 							<div class='avatar avatar-medium clearfix'>
 
-								<img src='imgg/강아지1.jpg' class="review">
+								<img src='<%= request.getContextPath() %>/resources/productBoard/imgg/강아지1.jpg' class="review">
 							</div>
 							<span class="nickname"><strong>김대성</strong></span>
 							<div id="note-text-524235">
@@ -293,14 +334,14 @@ Button {
 									</div>
 								</div>
 							</div>
-							</div>
+						</div>
 					</li>
 					<!-- 리뷰 -->
 					<li class="list-group-item note-item clearfix" id="note-524235">
 						<div class="content-body panel-body pull-left">
 							<div class='avatar avatar-medium clearfix'>
 
-								<img src='imgg/강아지6.png' class="review">
+								<img src='<%= request.getContextPath() %>/resources/productBoard/imgg/강아지6.png' class="review">
 							</div>
 							<span class="nickname"><strong>김대성</strong></span>
 							<div id="note-text-524235">
@@ -313,14 +354,14 @@ Button {
 									</div>
 								</div>
 							</div>
-							</div>
+						</div>
 					</li>
 					<!-- 리뷰 -->
 					<li class="list-group-item note-item clearfix" id="note-524235">
 						<div class="content-body panel-body pull-left">
 							<div class='avatar avatar-medium clearfix'>
 
-								<img src='imgg/강아지2.jpg' class="review">
+								<img src='<%= request.getContextPath() %>/resources/productBoard/imgg/강아지2.jpg' class="review">
 							</div>
 							<span class="nickname"><strong>김대성</strong></span>
 							<div id="note-text-524235">
@@ -333,7 +374,7 @@ Button {
 									</div>
 								</div>
 							</div>
-							</div>
+						</div>
 					</li>
 
 					<!-- 리뷰 -->
@@ -341,7 +382,7 @@ Button {
 						<div class="content-body panel-body pull-left">
 							<div class='avatar avatar-medium clearfix'>
 
-								<img src='imgg/강아지3.jpg' class="review">
+								<img src='<%= request.getContextPath() %>/resources/productBoard/imgg/강아지3.jpg' class="review">
 							</div>
 							<span class="nickname"><strong>김대성</strong></span>
 							<div id="note-text-524235">
@@ -357,9 +398,7 @@ Button {
 				</ul>
 			</div>
 		</div>
-
-
-		<!-- ====== -->
+		<!-- ============================================ -->
 	</section>
 </body>
 <%@ include file="../common/footer.jsp"%>
