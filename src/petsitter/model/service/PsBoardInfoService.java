@@ -71,4 +71,28 @@ public class PsBoardInfoService {
 		
 		return pb;
 	}
+
+	public ArrayList selectList(int i) { //리스트를 뽑아보기 위해서
+		// TODO Auto-generated method stub
+		Connection con = getConnection();
+		System.out.println("service : PsBoardInfoService - selectList 함수");
+		ArrayList list = null;
+		
+		PsBoardInfoDao pbd = new PsBoardInfoDao();
+		
+		if(i == 1) {
+			list = pbd.selectBList(con);
+		}else if(i == 2){
+			list = pbd.selectIList(con);
+		}else {
+			list = pbd.selectPList(con);
+		}
+		
+		close(con);
+		
+		return list;
+	}
+	
+	
+	
 }

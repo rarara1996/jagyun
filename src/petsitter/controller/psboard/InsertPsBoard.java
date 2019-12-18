@@ -192,7 +192,7 @@ public class InsertPsBoard extends HttpServlet {
 			
 			if(result>0) {
 				request.getSession().setAttribute("msg", "펫시터 글 등록 성공!");
-				response.sendRedirect("views/petsitter/psList.jsp");
+				response.sendRedirect("SelectPsBoardList");
 			}else {
 				System.out.println("입력 실패");
 				request.getSession().setAttribute("msg", "펫시터 글 등록 실패");
