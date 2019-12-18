@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>스토리 게시판 작성</title>
+<title>자견단</title>
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/mypage/report/mpReportDetail.css" />
 <style>
 #tableWrapper{

@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="productBoard.model.vo.* , common.model.vo.* , java.util.*"%>
+	
+	<%
+	ProductBoard pb = (ProductBoard)request.getAttribute("productBoard");
+	
+	ArrayList<IMG> fileList = (ArrayList<IMG>)request.getAttribute("fileList");
+	IMG titleImg = fileList.get(0);
+	
+	String size = (String)request.getAttribute("size");
+	
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +44,9 @@
 }
 .tablee td {
 	padding: 10px;
+}
+#content{
+   width:50%;
 }
 
 /* 텍스트 박스 폼  */
@@ -77,17 +90,17 @@
 					<div class="portfolio-hover-content">
 						<i class="fas fa-plus fa-3x"></i>
 					</div>
-					<img class="img-fluid" src="imgg/강아지1.jpg" alt="" id="test1">
+					<img class="img-fluid" src="<%= request.getContextPath() %>/resources/productBoard/<%= titleImg.getChangeName() %>" alt="" id="test1">
 				</div>
 				<!-- 기본 정보 -->
 				<div id="content">
-					<h2>[새움] MY Calendar 셀프 탁상형 달력</h2>
+					<h2 align="center"><%= pb.getProductName() %></h2>
 					<br> <br>
 					<table id="table1">
 						<tr>
 							<td width="20%">판매가</td>
 							<td width="60%"></td>
-							<td width="20%">47,000원</td>
+							<td width="20%"><%= pb.getPrice() %>원</td>
 						</tr>
 						<tr>
 							<td width="20%">배송비</td>
@@ -97,7 +110,7 @@
 						<tr>
 							<td width="20%">사이즈</td>
 							<td width="60%"></td>
-							<td width="20%">L</td>
+							<td  width="20%"><%= size %></td>
 						</tr>
 					</table>
 					<hr>
@@ -117,8 +130,7 @@
 				<table class="tablee">
 					<tr>
 						<td><label>*이름</label></td>
-						<td><input type="text" name="name" id="name" class="text"
-							required></td>
+						<td><input type="text" name="name" id="name" class="text" value="<%= loginUser.getUserName() %>" required></td>
 						<td><span id="nameresult"></span></td>
 					</tr>
 					<tr>
@@ -139,7 +151,7 @@
 					</tr>
 					<tr>
 						<td><label>*이메일</label></td>
-						<td><input type="email" name="email" id="email" class="text" required></td>
+						<td><input type="email" name="email" id="email" class="text"  value="<%= loginUser.getEmail() %>"  required></td>
 						<td><span id="nameresult"></span></td>
 					</tr>
 
@@ -155,8 +167,7 @@
 				<table class="tablee">
 					<tr>
 						<td><label>*이름</label></td>
-						<td><input type="text" name="name" id="name" class="text"
-							required></td>
+						<td><input type="text" name="name" id="name" class="text" required></td>
 						<td><span id="nameresult"></span></td>
 					</tr>
 					<tr>
@@ -217,14 +228,14 @@
 				</div>
 				<br>
 				<br>
-				<div id="content">
+				<div>
 					<h4>주문 요약</h4>
 					<hr>
 					<table id="table1">
 						<tr>
 							<td width="20%">총 상품금액</td>
 							<td width="60%"></td>
-							<td width="20%">47,000원</td>
+							<td width="20%"><%= pb.getPrice() %>원</td>
 						</tr>
 
 						<tr>
@@ -236,7 +247,7 @@
 						<tr>
 							<td width="20%"><h4>총 상품금액</h4></td>
 							<td width="60%"></td>
-							<td width="20%"><h4>47,000원</h4></td>
+							<td width="20%"><h4><%= pb.getPrice() %>원</h4></td>
 						</tr>
 					</table>
 					<hr>
@@ -245,7 +256,7 @@
 					<button id="insertBtn" onclick="buyNow()" class="btn btn-outline-success">결제하기</button>
 				</div>
 			</div>
-	</div>
+	   </div>
 	</section>
 
 
@@ -300,6 +311,10 @@
 					}).open();
 		}
 	<!--  // 우편번호 서비스 --> 
+	
+	<!-- 유저 정보 붙여넣기 -->
+
+	
 	
 	<!-- 결제서비스 -->
 	function buyNow(){

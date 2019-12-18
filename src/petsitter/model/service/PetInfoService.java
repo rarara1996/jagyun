@@ -1,11 +1,11 @@
-package projectDiagram.petsitter.model.service;
+package petsitter.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import projectDiagram.petsitter.model.dao.PetInfoDao;
-import projectDiagram.petsitter.model.vo.Pet;
-import static projectDiagram.common.JDBCTemplate.*;
+import petsitter.model.dao.PetInfoDao;
+import petsitter.model.vo.Pet;
+import static common.JDBCTemplate.*;
 public class PetInfoService {
 
 	public int deletePet(int dogNum) {

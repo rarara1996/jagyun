@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>반려견 스토리</title>
+<title>자견단</title>
 <style>
 	header{
 	height:270px;

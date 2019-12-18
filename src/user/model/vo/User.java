@@ -8,6 +8,41 @@ public class User {
 	private String userName;
 	private String gender;
 
+
+	public User(int userNo, String address, int dogSu, String phone) {
+		super();
+		this.userNo = userNo;
+		this.address = address;
+		this.dogSu = dogSu;
+		this.phone = phone;
+	}
+
+	public User(int userNo, String userId, String userPwd, String address, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.address = address;
+		this.phone = phone;
+	}
+
+	public User(int userNo, String userId, String address, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.address = address;
+		this.phone = phone;
+	}
+
+	public User(int userNo, String userId, String address, int dogSu, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.address = address;
+		this.dogSu = dogSu;
+		this.phone = phone;
+	}
+
 	private String email;
 	private String address;
 	private int dogSu;
@@ -109,6 +144,14 @@ public class User {
 
 	public String getPhone() {
 		return phone;
+	}
+
+	public int getDogSu() {
+		return dogSu;
+	}
+
+	public void setDogSu(int dogSu) {
+		this.dogSu = dogSu;
 	}
 
 	public void setPhone(String phone) {

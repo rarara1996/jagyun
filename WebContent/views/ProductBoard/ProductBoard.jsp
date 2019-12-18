@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="java.util.ArrayList, productBoard.model.vo.* , common.model.vo.*"%>
+<%
+	ArrayList<ProductBoard> plist = (ArrayList<ProductBoard>)request.getAttribute("blist");
+	ArrayList<IMG> flist = (ArrayList<IMG>)request.getAttribute("flist");
+	
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +25,7 @@
 	height: 100%;
 }
 
-#test1:hover {/* 물품 마우스 hover */
+#test1:hover { /* 물품 마우스 hover */
 	opacity: 0.5;
 }
 
@@ -34,7 +40,7 @@
 	margin: 0;
 	padding: 0;
 	margin-left: auto;
-    margin-right: auto;
+	margin-right: auto;
 }
 
 .ul>.li {
@@ -51,19 +57,22 @@
 }
 
 /* 상단 네비 */
-.navi{
-   	list-style-type: none;
+.navi {
+	list-style-type: none;
 	margin: 0;
 }
+
 .navi>.lii {
 	float: left;
 	padding-left: 40px;
 	padding-right: 40px;
 }
-.navi-box{
-    text-align:center;
-    display: inline-block;
+
+.navi-box {
+	text-align: center;
+	display: inline-block;
 }
+
 .lii a {
 	text-decoration: none;
 	font-weight: bold;
@@ -71,18 +80,20 @@
 	display: block;
 	text-align: center;
 }
-.nav{
-    width:100px;
-    height:40px;
-}
-.nav:hover{
-	opacity: 0.5;
-    cursor: pointer;
+
+.nav {
+	width: 90px;
+	height: 40px;
 }
 
-#ja{
-    width:20%;
-    height:25%;
+.nav:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+#ja {
+	width: 20%;
+	height: 25%;
 }
 </style>
 </head>
@@ -95,18 +106,19 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<img src="imgg/자견샵.png" id="ja">
-					<h3 class="section-subheading text-muted">자견샵 물품은 반려견 맞춤으로 안전합니다.</h3>
+					<img src="<%= request.getContextPath() %>/resources/productBoard/imgg/자견샵.png" id="ja">
+					<h3 class="section-subheading text-muted">자견샵 물품은 반려견 맞춤으로
+						안전합니다.</h3>
 					<hr>
 					<!-- 상단 네이 바  -->
 					<div class="navi-box">
 						<ul class="navi">
-							<li class="lii"><img src="imgg/야외용품.png" class="nav"></li>
-							<li class="lii"><img src="imgg/패션.png" class="nav"></li>
-							<li class="lii"><img src="imgg/장난감.png" class="nav"></li>
-							<li class="lii"><img src="imgg/훈련용품.png" class="nav"></li>
-							<li class="lii"><img src="imgg/음식.png" class="nav"></li>
-							<li class="lii"><img src="imgg/기타.png" class="nav"></li>
+							<li class="lii"><img src="<%= request.getContextPath() %>/resources/productBoard/imgg/야외용품.png" class="nav"></li>
+							<li class="lii"><img src="<%= request.getContextPath() %>/resources/productBoard/imgg/패션.png" class="nav"></li>
+							<li class="lii"><img src="<%= request.getContextPath() %>/resources/productBoard/imgg/장난감.png" class="nav"></li>
+							<li class="lii"><img src="<%= request.getContextPath() %>/resources/productBoard/imgg/훈련용품.png" class="nav"></li>
+							<li class="lii"><img src="<%= request.getContextPath() %>/resources/productBoard/imgg/음식.png" class="nav"></li>
+							<li class="lii"><img src="<%= request.getContextPath() %>/resources/productBoard/imgg/기타.png" class="nav"></li>
 						</ul>
 					</div>
 					<!-- 상단 네이 바  -->
@@ -123,7 +135,6 @@
 							<li class="li"><a href="#"><h6>상품평 순</h6></a></li>
 						</ul>
 					</div>
-
 
 					<!-- 검색폼 -->
 					<div class="searchArea" align="center">
@@ -143,99 +154,41 @@
 
 
 			<div class="row">
+				<% for(ProductBoard pb : plist){ %>
 				<!-- ==============================상품============================== -->
 				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal"
-						href="ProductBoardDetail.jsp">
-
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div> <img class="img-fluid" src="imgg/강아지1.jpg" alt="" id="test1">
-					</a>
-					<div class="portfolio-caption">
-						<h6>[새움] MY Calendar 셀프 탁상형 달력</h6>
-						<p class="text-muted">47,000원</p>
-					</div>
-				</div>
-				
-				<!-- ===================================================== -->
-				
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal"href="#portfolioModal1">
+					<input type="hidden" value="<%= pb.getProductNo() %>"> 
 						<div class="portfolio-hover-content">
 							<i class="fas fa-plus fa-3x"></i>
 						</div> 
-						<img class="img-fluid" src="imgg/강아지2.jpg" alt="" id="test1">
-					</a>
+						<% for(IMG at : flist){ %>
+						<% if(pb.getProductNo() == at.getProductNo()){ %>
+						<img class="img-fluid" src="<%= request.getContextPath() %>/resources/productBoard/<%= at.getChangeName() %>" id="test1">
+							<% } %>
+						<% } %>
 					<div class="portfolio-caption">
-						<h6>[뮤니쿤트] 퀼팅 자켓 2color</h6>
-						<p class="text-muted">47,000원1</p>
+						<h6><%= pb.getProductName() %></h6>
+						<p class="text-muted"> <%= pb.getPrice() %>원</p>
 					</div>
 				</div>
-
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal"
-						href="#portfolioModal1">
-
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div> <img class="img-fluid" src="imgg/강아지3.jpg" alt="" id="test1">
-					</a>
-					<div class="portfolio-caption">
-						<h6>[뮤니쿤트] 셔벗 넥워머</h6>
-						<p class="text-muted">47,000원1</p>
-					</div>
-				</div>
-
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal"
-						href="#portfolioModal1">
-
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div> <img class="img-fluid" src="imgg/강아지4.jpg" alt="" id="test1">
-					</a>
-					<div class="portfolio-caption">
-						<h6>상품이름1</h6>
-						<p class="text-muted">47,000원1</p>
-					</div>
-				</div>
-
-
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal"
-						href="#portfolioModal1">
-
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div> <img class="img-fluid" src="imgg/강아지5.png" alt="" id="test1">
-					</a>
-					<div class="portfolio-caption">
-						<h6>상품이름1</h6>
-						<p class="text-muted">47,000원</p>
-					</div>
-				</div>
-
-				<div class="col-md-4 col-sm-6 portfolio-item">
-					<a class="portfolio-link" data-toggle="modal"
-						href="#portfolioModal1">
-
-						<div class="portfolio-hover-content">
-							<i class="fas fa-plus fa-3x"></i>
-						</div> <img class="img-fluid" src="imgg/강아지6.png" alt="" id="test1">
-					</a>
-					<div class="portfolio-caption">
-						<h6>상품이름</h6>
-						<p class="text-muted">47,000원</p>
-					</div>
-				</div>
-
+			<% } %>
+				<!-- ===================================================== -->
 			</div>
-
 			<hr>
 		</div>
+		<script>
+		// 상세 보기
+		$(function(){
+			$(".col-md-4").click(function(){
+				var product_No = $(this).children().eq(0).val();
+				location.href="<%= request.getContextPath() %>/ProductBoardDetailServlet?product_No="+product_No;
+			});
+		});
+		</script>
 
-
+		<%if((loginUser.getUserId()).equals("adminjagyun")){ %>
+			<button onclick="location.href='<%= request.getContextPath() %>/views/ProductBoard/ProductBoardInsert.jsp'">작성하기</button>
+		<% } %>
 	</section>
 </body>
 <%@ include file="../common/footer.jsp"%>

@@ -10,15 +10,24 @@ import board.model.dao.BoardDao;
 import board.model.vo.Board;
 import board.model.vo.Comment;
 import common.model.vo.IMG;
+import notice.model.dao.NoticeDao;
+import notice.model.vo.Notice;
 
 public class BoardService {
 	
 	private BoardDao bd = new BoardDao();
 	
-	public int deleteBoard(int bId) {
-		int result=0;
+	public int deleteBoard(int boardNo) {
+		
 		Connection conn = getConnection();
-		result = bd.deleteBoard(conn,bId);
+		int result = bd.deleteBoard(conn,boardNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
 		return result;
 	}
 
@@ -40,10 +49,16 @@ public class BoardService {
 		
 		
 	}
-
+	// 게시글 입력
 	public int insertBoard(Board b) {
 		Connection conn = getConnection();
 		int result = new BoardDao().insertBoard(conn,b);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		
 		return result;
 	}
@@ -66,6 +81,12 @@ public class BoardService {
 	public int updateBoard(Board b) {
 		Connection conn = getConnection();
 		int result = new BoardDao().updateBoard(conn,b);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 
@@ -115,8 +136,17 @@ public class BoardService {
 	public ArrayList<Comment> insertComment(Comment cm) {
 		Connection conn = getConnection();
 		int result = bd.insertComment(conn,cm);
-		ArrayList<Comment> rlist =bd.selectCommentList(conn,cm.getCommentNo());
-		return null;
+		ArrayList<Comment> clist = null;
+		
+		if(result>0) {
+			commit(conn);
+			clist=bd.selectCommentList(conn, cm.getBoardNo());
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return clist;
 	}
 
 	public ArrayList<Board> selectList(int flag) {
@@ -136,8 +166,37 @@ public class BoardService {
 		Connection conn = getConnection();
 		Board board = bd.selectBoard(conn, boardNo);
 		close(conn);
+	
 		
 		return board;
+	}
+
+	public ArrayList<Board> searchBoard(String search, String sc) {
+		Connection conn = getConnection();
+		ArrayList<Board> list = new BoardDao().searchList(conn,search,sc);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Comment> selectCommentList(int boardNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Comment> clist = new BoardDao().selectCommentList(conn, boardNo);
+		close(conn);
+		return clist;
+	}
+
+	public int deleteComment(int commentNo) {
+		Connection conn = getConnection();
+		
+		int result = bd.deleteComment(conn,commentNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 

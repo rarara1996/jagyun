@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"  import="java.util.ArrayList, petsitter.model.vo.*"%>
 <%
+PsInfo ps = (PsInfo)request.getAttribute("PsInfo");
 	int dogsu = 0;
 %>
 <!DOCTYPE html>
@@ -1376,7 +1377,7 @@ to {
 									<div class="text-center">
 										<br>
 										<h3>
-											유수완<span class="font-weight-light"> 회원님</span>
+											<%=ps.getUserId() %><span class="font-weight-light"> 회원님</span>
 										</h3>
 
 										<div class="h5 mt-4">
@@ -1384,7 +1385,7 @@ to {
 										</div>
 
 										<div class="h5 mt-4">
-											<i class="ni business_briefcase-24 mr-2"></i> 점수 : 4.7 / 5
+											<i class="ni business_briefcase-24 mr-2"></i> 점수 : <%=ps.getScore() %> / 10
 										</div>
 
 
@@ -1392,7 +1393,6 @@ to {
 										<br>
 										<p>펫시터 관련 문의사항은 마이페이지의 1:1 문의 게시판을 이용해주세요</p>
 										<br>
-										<button>사진 수정하기</button>
 										&nbsp;&nbsp;
 										<button>정보 수정하기</button>
 										&nbsp;&nbsp;

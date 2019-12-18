@@ -1,4 +1,4 @@
-package projectDiagram.petsitter.controller.psschedule;
+package petsitter.controller.psschedule;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projectDiagram.petsitter.model.service.PsScheduleService;
+import petsitter.model.service.PsScheduleService;
 
 /**
  * Servlet implementation class PsScheduleDeleteServlet

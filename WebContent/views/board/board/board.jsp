@@ -10,6 +10,10 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage(); 
+	
+	
+	String searchCondition = (String)request.getAttribute("searchCondition");
+  	String search = (String)request.getAttribute("search");
     
     %>
 <!DOCTYPE html>
@@ -20,8 +24,11 @@
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>자유게시판</title>
+<title>자견단</title>
 <style>
+body{
+width:100%;
+}
 	#test1{
 
 	height:400px;
@@ -50,7 +57,7 @@
 	
 	#menu{
 	padding-top: 10px;
-	width:100%;
+	width:60%;
 	height:80%;
 	position:absolute;
 	left:32%;
@@ -106,9 +113,9 @@ margin:auto;
 <nav id="in-nav">
 <div id="menu">
             <ul id="navi">
-                    <li><a href="../notice/notice.jsp"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
-                      <li><a href="#"><img src="<%= request.getContextPath() %>/resources/board/image/board.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/board(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/board.png'" width="140" height="50" class="innav-image"></a></li>
-                      <li><a href="../imageBoard/imageBoard.jsp"><img src="<%= request.getContextPath() %>/resources/board/image/imgBoard.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard.png'" width="140" height="50" class="innav-image"></a></li>
+                    <li><a href="<%= request.getContextPath() %>/NoticeListServlet"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
+                      <li><a href="<%=request.getContextPath()%>/list.bo"><img src="<%= request.getContextPath() %>/resources/board/image/board.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/board(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/board.png'" width="140" height="50" class="innav-image"></a></li>
+                      <li><a href="<%= request.getContextPath() %>/ImageBoardServlet"><img src="<%= request.getContextPath() %>/resources/board/image/imgBoard.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard.png'" width="140" height="50" class="innav-image"></a></li>
                 </ul>
      </div>
 
@@ -187,10 +194,13 @@ margin:auto;
 			<!-- 맨 끝으로(>>) -->
 			<button onclick="location.href='<%= request.getContextPath() %>/BoardListServlet?currentPage=<%=maxPage%>'">&gt;&gt;</button>
 		</div> 
+		<br>
   
-  <!--  검색창 구현 요망  -->
+  
+  
+  <!--  검색창  -->
   	<div class="searchArea" align="center">
-			
+	<form action="<%= request.getContextPath() %>/BoardSearchServlet" method="get" onsubmit="return checkSearchCondition();">		
 			<div class="input-group mb-3">
 			<select id="searchCondition" name="searchCondition">
 				<option>----</option>
@@ -198,12 +208,32 @@ margin:auto;
 				<option value="title">제목</option>
 				<option value="content">내용</option>
 			</select>
-  				<input type="text" class="form-control" aria-describedby="button-addon2">
+  				<input type="search" name="search" class="form-control" aria-describedby="button-addon2">
  			 <div class="input-group-append">
-    		<button class="btn btn-outline-success" type="button" id="searchBtn">검색하기</button>
+    		<button class="btn btn-outline-success" id="searchBtn" name="search">검색하기</button>
   </div>
+   <%--작성하기 버튼 --%>
   <button id="insertBtn" onclick="location.href='<%=request.getContextPath()%>/views/board/board/boardInsertForm.jsp'" class="btn btn-outline-success">작성하기</button>
-</div>
+
+  </div>
+  
+  </form>
+  
+    	<script>
+					function checkSearchCondition(){
+						if($("#searchCondition option:selected").val()=='----'){
+							return false;
+						}
+						return true;
+					}
+				</script>
+  
+  
+  
+  
+  
+  
+ 
 			
 		</div>
   
