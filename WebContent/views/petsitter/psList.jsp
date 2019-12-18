@@ -81,6 +81,9 @@
 	padding:0;
 	float:right;
 }
+#enroll{
+	display:none;
+}
 .sitter-info-li{
 	margin-top:2%;
 	background-color:#F2F2F2;
@@ -288,7 +291,7 @@ $(function(){
 		<div class="score-review">
 			<button class="sort">점수</button>
 			<button class="sort">리뷰</button>
-			<button class="sort" onclick="enroll()">등록</button>
+			<button id="enroll" class="sort" onclick="enroll()">등록</button>
 		</div>
 		<div class="margin sitter-area">
 			<ul class="clearfix-li">
@@ -328,6 +331,20 @@ $(function(){
 		function enroll(){
 			location.href = "<%= request.getContextPath()%>/views/petsitter/enrollPs.jsp";
 		}
+		$(function(){
+			$.ajax({
+				url : "<%= request.getContextPath() %>/CheckPsBoard",
+				success:function(data){
+					console.log("ajax 통신 성공")
+					if(data == "ps-ok"){
+						$("#enroll").css("display","block");
+					}
+				},
+				error:function(){
+					console.log("ajax 통신 실패")
+				}
+			});
+		})
 	</script>
 	<%-- 	<%@ include file="../common/footer.jsp"%> --%>
 </body>
