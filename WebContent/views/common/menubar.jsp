@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="user.model.vo.*" %>
+	pageEncoding="UTF-8" import="user.model.vo.*"%>
+
 <%
 User loginUser = (User)session.getAttribute("loginUser");
-
 String msg = (String)session.getAttribute("msg");
 %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +16,18 @@ String msg = (String)session.getAttribute("msg");
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<title>메뉴바</title>
 
-<title>Full Width Pics - Start Bootstrap Template</title>
 <!-- Bootstrap core CSS -->
 <link	href="<%= request.getContextPath() %>/resources/menubar/bootstrap.min.css"	rel="stylesheet">
 <!-- Custom styles for this template -->
 <link	href="<%= request.getContextPath() %>/resources/menubar/full-width-pics.css"	rel="stylesheet">
 <style>
+*{
+font-family: 'Noto Sans KR', sans-serif;
+}
+
 .navbar {
 	margin: 0%;
 
@@ -42,6 +49,7 @@ String msg = (String)session.getAttribute("msg");
 	});
 </script>
 </head>
+
 <body>
 
 <body class="menubarbody">
@@ -80,7 +88,7 @@ String msg = (String)session.getAttribute("msg");
 							src="<%= request.getContextPath() %>/resources/image/market.png" id="nav-itemM3"></a>
 					</li>
 					<li class="nav-itemM">
-						<!-- //커뮤니티 --> <a class="nav-linkM" href="<%= request.getContextPath() %>/views/board/board/board.jsp"><img
+						<!-- //커뮤니티 --> <a class="nav-linkM" href="<%= request.getContextPath() %>/list.bo"><img
 							src="<%= request.getContextPath() %>/resources/image/community.png" id="nav-itemM4"></a>
 					</li>
 					<% if(loginUser == null) { %>
@@ -92,7 +100,7 @@ String msg = (String)session.getAttribute("msg");
 							id="nav-itemM5"></a></li>
 					<%}else{ %>
 					<li class="nav-itemM"><a class="nav-linkM"
-						href="<%= request.getContextPath() %>/views/myPage/myPageMain.jsp"><img
+						href="<%= request.getContextPath() %>/views/myPage/myPageMain2.jsp"><img
 							src="<%= request.getContextPath() %>/resources/image/mypage.png"
 							id="nav-itemM7"></a></li>
 					<%} %>

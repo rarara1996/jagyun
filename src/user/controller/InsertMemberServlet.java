@@ -52,11 +52,16 @@ public class InsertMemberServlet extends HttpServlet {
 		//상세주소
 		String detail=request.getParameter("detail");
 		
-		String address = doro+detail;
+		String address = doro+","+detail;
 		
+		 
+		String phone1=request.getParameter("phone1")+",";
+		String phone2=request.getParameter("phone2")+",";
+		String phone3=request.getParameter("phone3");
+				
+		String phone=phone1+phone2+phone3;
 		
 		int dogCount = Integer.parseInt(request.getParameter("dogSu"));
-		String phone = request.getParameter("phone");
 		String birth = request.getParameter("birth");
 
 		User mem = new User(userId, userPwd, userName, gender, email, address, dogCount,phone,birth);

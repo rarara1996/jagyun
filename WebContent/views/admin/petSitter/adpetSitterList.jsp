@@ -1,6 +1,9 @@
 <!-- 관리자▶펫시터 서비스▶펫시터 리스트-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, petsitter.model.vo.*"%>
+<%
+ArrayList<PsInfo> list = (ArrayList<PsInfo>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +24,6 @@ width:100%;
 </style>
 </head>
 <body>
- 	<%@ include file="../../common/menubar.jsp" %>
  	<%@ include file="../common/adminNavibar.jsp" %>
  <body id="page-top">
   <div id="inner">
@@ -30,6 +32,7 @@ width:100%;
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">펫시터 관리</h6>
             </div>
+<form id="check" action="<%= request.getContextPath() %>/adUpdatePetsitterRequestServlet" method="post">
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -46,8 +49,8 @@ width:100%;
                   <tfoot>
                     <tr>
                       <th></th>
-                      <th>ID</th>
                       <th>이름</th>
+                      <th>유수완</th>
                       <th>이번달 스케줄</th>
                       <th>지원 폼 보기</th>
                       <th>승인여부</th>
@@ -55,14 +58,16 @@ width:100%;
                   </tfoot>
                   <!-- 펫시터 목록 뽑아내기 -->
                   <tbody>
-                  <%for(int i=0; i<100; i++){ %>
+                  	<%int num=1;
+                  	
+                  	for(PsInfo p : list){ %>
                     <tr>
                       <td><input type="checkbox"></td>
-                      <td>cccaa1111</td>
-                      <td>유수완</td>
+                      <td><%=p.getUserName() %></td>
+                      <td><%=p.getUserId() %></td>
                       <td><button>보기</button></td>
                       <td><button>보기</button></td>
-                      <td>Y</td>
+                      <td><%=p.getApproval() %></td>
                     </tr>
       				<%} %>
                   </tbody>
@@ -71,6 +76,7 @@ width:100%;
                <!-- 펫시터 해고하기, 안내 메일 발송 -->
              	 <button>해고하기</button>
             	 <button>메일 발송하기</button>
+            	 </form>
             </div>
           </div>
         </div>

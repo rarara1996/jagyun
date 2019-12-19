@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="board.model.vo.*"%>
+    <%
+    Board board = (Board)request.getAttribute("board");
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,34 +54,35 @@ position:relative;
 	<div class="xans-element- xans-board xans-board-title-1002 xans-board-title xans-board-1002 ">
                         <div class="title">
                             <h2>
-                                <font color="#000000">*게시글 수정하기*</font>
+                                <font color="#000000">게시글 수정하기</font>
                             </h2>
                         </div>
                     </div>
                     
-	<form id="BoardDelForm" name="" action="/exec/front/Board/del/1" method="post" target="_self"  enctype="multipart/form-data">
+	<form id="BoardDelForm" name="" action="<%=request.getContextPath() %>/BoardUpdateServlet" method="post">
                         <div class="xans-element- xans-board xans-board-read-1002 xans-board-read xans-board-1002 ">
                             <div class="boardView">
                                 <table border="1" summary="">
                            
                                     <tbody>
                                          <tr>
-                                            <th>제목 </th>
-                                            <td><input type="text" size="145" id="titleInput" placeholder="*글제목*"> </td>
+                                         
+                                            <th>제목<input type="hidden" name="boardNo" value="<%=board.getBoardNo() %>"> </th>
+                                            <td><input type="text" size="145" id="titleInput" value="<%=board.getTitle()%>" name="title"> </td>
                                         </tr>
                                         <tr>
                                             <th id="writer">작성자 </th>
-                                            <td>*작성자*<span class="displaynone"></span> </td>
+                                            <td><%=board.getUserName() %><span class="displaynone"></span> </td>
                                         </tr>
                                          <tr>
                                             <th>작성일</th>
-                                            <td>*작성일*<span class="displaynone"></span> </td>
+                                            <td><%=board.getEnrollDate() %><span class="displaynone"></span> </td>
                                         </tr>
                                         
                                         <tr class="view">
                                             <td colspan="2">
                                                 <div class="detail" id="detail">
-                                                   <textArea cols="155" rows="10" style="resize:none" placeholder="*기존 내용*"></textArea>
+                                                   <textArea cols="155" rows="10" style="resize:none" name="content" ><%=board.getContent()%></textArea>
                                                    
                                                     
                                                 </div>
@@ -87,13 +92,14 @@ position:relative;
                                 </table>
                             </div>
                         </div>
+                          <div id="btnWrapper">
+              
+                <button id="updateBtn" type="submit"  class="btn btn-outline-success">수정하기</button>
+                 <button id="listBtn" type="button" onclick="location.href='<%=request.getContextPath() %>/list.bo'" class="btn btn-outline-success">목록으로</button>
+         	 </div>
                     </form>
               
-              <div id="btnWrapper">
-              
-                <button id="insertBtn" onclick="" class="btn btn-outline-success">수정하기</button>
-                 <button id="listBtn" onclick="" class="btn btn-outline-success">목록으로</button>
-         	 </div>
+            
               <hr>
               
          

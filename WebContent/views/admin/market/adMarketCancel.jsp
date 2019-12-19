@@ -20,7 +20,6 @@ width:100%;
 </style>
 </head>
 <body>
- 	<%@ include file="../../common/menubar.jsp" %>
  	<%@ include file="../common/adminNavibar.jsp" %>
 <body id="page-top">
   <div id="inner">

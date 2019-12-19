@@ -8,6 +8,83 @@ public class User {
 	private String userName;
 	private String gender;
 
+	private String changeName;
+	private String filePath;
+
+	
+	
+	
+	
+	
+	
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public User(int userNo, String userId, String userPwd, String userName, String gender, String changeName,
+			String filePath, String email, String address, int dogSu, String phone, String birth, String admin) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.gender = gender;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.email = email;
+		this.address = address;
+		this.dogSu = dogSu;
+		this.phone = phone;
+		this.birth = birth;
+		this.admin = admin;
+	}
+
+	public User(int userNo, String address, int dogSu, String phone) {
+		super();
+		this.userNo = userNo;
+		this.address = address;
+		this.dogSu = dogSu;
+		this.phone = phone;
+	}
+
+	public User(int userNo, String userId, String userPwd, String address, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.address = address;
+		this.phone = phone;
+	}
+
+	public User(int userNo, String userId, String address, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.address = address;
+		this.phone = phone;
+	}
+
+	public User(int userNo, String userId, String address, int dogSu, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.address = address;
+		this.dogSu = dogSu;
+		this.phone = phone;
+	}
+
 	private String email;
 	private String address;
 	private int dogSu;
@@ -109,6 +186,14 @@ public class User {
 
 	public String getPhone() {
 		return phone;
+	}
+
+	public int getDogSu() {
+		return dogSu;
+	}
+
+	public void setDogSu(int dogSu) {
+		this.dogSu = dogSu;
 	}
 
 	public void setPhone(String phone) {

@@ -4,7 +4,7 @@
 <%
 
 	String contextPath = request.getContextPath();
-
+	String msg = (String)session.getAttribute("msg1");
 %>
 <!DOCTYPE html>
 <html>
@@ -28,6 +28,9 @@
   <link href="<%= request.getContextPath() %>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <style>
+/* *{
+font-size:9pt;
+} */
 #accordionSidebar{
   background-color: rgb(127, 194, 127);
   
@@ -42,7 +45,7 @@
     <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- -->
       <li class="nav-item" id="main">
-        <a class="nav-link" href="<%= request.getContextPath() %>/views/admin/common/adminMain.jsp">
+        <a class="nav-link" href="<%= request.getContextPath() %>/views/admin/adminMain.jsp">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>관리자 페이지</span></a>
       </li>
@@ -65,8 +68,8 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<%= request.getContextPath() %>/views/admin/petSitter/adpetSitterRequestList.jsp" id="adpetSitterRequestList">신청자 관리</a>
-            <a class="collapse-item" href="<%= request.getContextPath() %>/views/admin/petSitter/adpetSitterList.jsp" id="adpetSitterList">펫시터 관리</a>
+            <a class="collapse-item" href="<%= request.getContextPath() %>/adpetSitterRequestServlet" id="adpetSitterRequestList">신청자 관리</a>
+            <a class="collapse-item" href="<%= request.getContextPath() %>/adminPetsitterListServlet" id="adpetSitterList">펫시터 관리</a>
           </div>
         </div>
       </li>

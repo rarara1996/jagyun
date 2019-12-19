@@ -1,23 +1,23 @@
-package projectDiagram.petsitter.model.vo;
+package petsitter.model.vo;
 
 import java.sql.Date;
 
 public class PsSchedule {
 	private int scheduleNo;
-	private Date apDate;
+	private String apDate;
 	private int psNo;
+	private int userNo;
 	
 	public PsSchedule() { }
 
-	public PsSchedule(int scheduleNo, Date apDate, int psNo) {
+	public PsSchedule(int scheduleNo, String apDate, int psNo, int userNo) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.apDate = apDate;
 		this.psNo = psNo;
+		this.userNo = userNo;
 	}
 
-	
-	
 	public int getScheduleNo() {
 		return scheduleNo;
 	}
@@ -26,11 +26,11 @@ public class PsSchedule {
 		this.scheduleNo = scheduleNo;
 	}
 
-	public Date getApDate() {
+	public String getApDate() {
 		return apDate;
 	}
 
-	public void setApDate(Date apDate) {
+	public void setApDate(String apDate) {
 		this.apDate = apDate;
 	}
 
@@ -42,10 +42,22 @@ public class PsSchedule {
 		this.psNo = psNo;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
-		return "PsSchedule [scheduleNo=" + scheduleNo + ", apDate=" + apDate + ", psNo=" + psNo + "]";
+		return "PsSchedule [scheduleNo=" + scheduleNo + ", apDate=" + apDate + ", psNo=" + psNo + ", userNo=" + userNo
+				+ "]";
 	}
+
+
 	
+
 	
 }

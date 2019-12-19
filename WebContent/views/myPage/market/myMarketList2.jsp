@@ -6,14 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
-	href="<%= request.getContextPath() %>/resources/mypage/market/myMarket2.css" />
+	href="<%= request.getContextPath() %>/resources/mypage/market/myMarket3.css" />
 <style>
-.container2 {
-	margin-top: 2%;
-	width: 100%;
-	font-size: 11pt;
-}
-
 .tableArea {
 	width: 70%;
 	padding: 1%;
@@ -21,19 +15,18 @@
 	margin-top: 1%;
 }
 
-
+.container2 {
+	margin-top: 2%; width : 100%;
+}
+*{
+font-size:11pt;
+}
 </style>
 </head>
 <body>
-	<%@ include file="../../common/menubar.jsp"%>
-	<div class="container2">
-		<div class="mpinner">
-			<div class="container">
-				<%@ include file="../common/mpNavibar.jsp"%>
-				<div class="tableArea">
-					<div id="">
-						<div id="">
-							<div id="">
+<%@ include file="../common/mpNavibar.jsp"%>
+<div class="tableArea">
+<div id="">
 								<div class="orderHistory">
 									<div class="xans-element- xans-myshop xans-myshop-orderhistorytab ">
 										<ul>

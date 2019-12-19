@@ -1,4 +1,4 @@
-package projectDiagram.petsitter.controller.pet;
+package petsitter.controller.pet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projectDiagram.petsitter.model.service.PetInfoService;
-import projectDiagram.petsitter.model.vo.Pet;
+import petsitter.model.service.PetInfoService;
+import petsitter.model.vo.Pet;
 
 /**
  * Servlet implementation class PetInsertServlet

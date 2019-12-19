@@ -14,14 +14,28 @@ textarea{
 	height:100%;
 }
 .reason{
-	height:150px;
+	width:100%;
+	height:350px;
 	resize:none;
 	display:block;
+	overflow-y: hidden;
+	padding: 1.1em; /* prevents text jump on Enter keypress */
+    padding-bottom: 0.2em;
+    line-height: 1.6;
 }
 body{
 	
 }
 </style>
+<script>
+	$(function(){
+	      $('.wrap').on( 'keyup', 'textarea', function (e){
+	          $(this).css('height', 'auto' );
+	          $(this).height( this.scrollHeight );
+	        });
+	        $('.wrap').find( 'textarea' ).keyup();
+	})
+</script>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp"%>
@@ -35,14 +49,21 @@ body{
 	                        <tbody>
 	                            <tr>
 	                                <th scope="row">지원 동기</th>
-	                                <td>
-	                                    <textarea id="reason" class="reason"></textarea>
+	                                <td class="wrap">
+	                                    <textarea name="reason"  id="reason" class="reason"></textarea>
 	                                    <span id="counter">###</span>
 	                                   	<script>
 					      					$('#reason').keyup(function (e){
 					          					var content = $(this).val();
-									        	$('#counter').html(content.length);
+									        	
+									        	$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+									            $('#counter').html(content.length + '/150');
+									        	
+									            if(content.length > 100) {
+									                $(this).val($(this).val().substring(0, 150));
+									             }
 									      	});
+					      					
 									      	$('#reason').keyup();
 										</script>
 	                                </td>
@@ -66,12 +87,12 @@ body{
 	                            </tr>                            <tr>
 	                                <th scope="row">돌봄경험</th>
 	                                <td>
-	                                    <input type="number" min="0" step="1" value="0">
+	                                    <input name="dogExp" type="number" min="0" step="1" value="0">
 	                                </td>
 	                            </tr>                            <tr>
 	                                <th scope="row">관련 자격증</th>
 	                                <td>
-	                                    <textarea style="resize:none;"></textarea>
+	                                    <textarea name="certific" style="resize:none;"></textarea>
 	                                </td>
 	                            </tr>                            
 	
@@ -84,7 +105,7 @@ body{
 	                </div>
 	            </div>
 	        </form>
-	</div>
+		</div>
 <script>
 	function checkValidate(){ //유효성 검사하기 위한 부분
 		if($("#reason").val()==""){
@@ -92,8 +113,8 @@ body{
 			$("#title").focus()
 			return false;
 		}
-		if($("#reason").val().length<200){
-			alert("지원 동기는 최소 200자 이상이여야 합니다.");
+		if($("#reason").val().length<50){
+			alert("지원 동기는 최소 50자 이상이여야 합니다.");
 			$("#reason").focus();					
 			return false;
 		}

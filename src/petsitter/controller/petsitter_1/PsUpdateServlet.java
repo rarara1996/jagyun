@@ -1,4 +1,4 @@
-package projectDiagram.petsitter.controller.petsitter_1;
+package petsitter.controller.petsitter_1;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import projectDiagram.petsitter.model.service.PetSitterInfoService;
-import projectDiagram.petsitter.model.vo.PsInfo;
+import petsitter.model.service.PetSitterInfoService;
+import petsitter.model.vo.PsInfo;
 
 /**
  * Servlet implementation class PsUpdateServlet

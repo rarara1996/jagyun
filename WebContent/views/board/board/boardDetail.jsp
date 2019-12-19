@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>공지사항 상세보기</title>
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/mypage/report/mpReportDetail.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 #tableWrapper{
 	padding-top:5%;
@@ -127,11 +128,11 @@ right:70%;
                     </form>
               
               <div id="btnWrapper">
-              <button id="listBtn" onclick="location.href='board.jsp'" class="btn btn-outline-success">목록으로</button>
+              <button id="listBtn" onclick="location.href='<%=request.getContextPath() %>/list.bo'" class="btn btn-outline-success">목록으로</button>
               <!--  로그인 시 나타는 버튼 -->
               <%if (b.getUserName().equals(loginUser.getUserName())){ %>
-                <button id="updateBtn" onclick="location.href='boardUpdateForm.jsp'" class="btn btn-outline-success">수정하기</button>
-                <button id="insertBtn" onclick="location.href='boardUpdateForm.jsp'" class="btn btn-outline-danger">삭제하기</button>
+                <button id="updateBtn" type="button" onclick="updateBoard()" class="btn btn-outline-success">수정하기</button>
+                <button id="deleteBtn" type="button" onclick="deleteBoard()" class="btn btn-outline-danger">삭제하기</button>
                  <%} %>
          	 </div>
               <hr>
@@ -174,6 +175,23 @@ right:70%;
          </div>
               
            </div>   
+           	<form action="" id="detailForm" method="post">
+		<input type="hidden" name="boardNo" value="<%=b.getBoardNo() %>">
+	</form>
+           
+           <script>
+           	function deleteBoard(){
+           		if(confirm("해당 게시글을 삭제하시겠습니까?")){
+           			$("#detailForm").attr("action","<%=request.getContextPath()%>/BoardDeleteServlet");
+           			$("#detailForm").submit();
+           		}
+           	}
+           	
+           	function updateBoard(){
+           		$("#detailForm").attr("action","<%=request.getContextPath()%>/BoardUpdateFormServlet");
+           		$("#detailForm").submit();
+           	}
+           </script>
                           
 	
 	

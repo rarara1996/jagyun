@@ -1,4 +1,4 @@
-package projectDiagram.petsitter.model.vo;
+package petsitter.model.vo;
 
 public class Pet {
 	private int dogNum;
@@ -12,6 +12,25 @@ public class Pet {
 	private int userNo;
 	
 	public Pet() { }
+
+	
+	
+	
+	public Pet(String dogName, String gender, String size, String neutralize, String vaccination, int age,
+			String toiletTrain, int userNo) {
+		super();
+		this.dogName = dogName;
+		this.gender = gender;
+		this.size = size;
+		this.neutralize = neutralize;
+		this.vaccination = vaccination;
+		this.age = age;
+		this.toiletTrain = toiletTrain;
+		this.userNo = userNo;
+	}
+
+
+
 
 	public Pet(int dogNum, String dogName, String gender, String size, String neutralize, String vaccination, int age,
 			String toiletTrain, int userNo) {

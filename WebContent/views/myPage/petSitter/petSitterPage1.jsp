@@ -1,24 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"  import="java.util.ArrayList, petsitter.model.vo.*, java.util.Calendar"%>
 <%
+	PsInfo ps = (PsInfo)request.getAttribute("PsInfo");
+	PsSchedule sch =(PsSchedule)request.getAttribute("SchInfo");
+	String schList[]=null;
+
+	if(sch!=null){
+		schList= sch.getApDate().split(",");
+		Calendar cToday = Calendar.getInstance();
+		String year =  String.valueOf(cToday.get(Calendar.YEAR));
+		
+		for(int i=0; i<schList.length;i++){
+			schList[i] = year+schList[i];
+		}
+	}
 	int dogsu = 0;
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$.datepicker.setDefaults($.datepicker.regional['ko']);
+				$(".startDate")
+						.datepicker(
+								{
+									changeMonth : true,
+									changeYear : true,
+									nextText : '다음 달',
+									prevText : '이전 달',
+									dayNames : [ '일요일', '월요일', '화요일', '수요일',
+											'목요일', '금요일', '토요일' ],
+									dayNamesMin : [ '일', '월', '화', '수', '목',
+											'금', '토' ],
+									monthNamesShort : [ '1월', '2월', '3월', '4월',
+											'5월', '6월', '7월', '8월', '9월',
+											'10월', '11월', '12월' ],
+									monthNames : [ '1월', '2월', '3월', '4월',
+											'5월', '6월', '7월', '8월', '9월',
+											'10월', '11월', '12월' ],
+									dateFormat : "dd",
+									minDate : 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+								});
+				
+			});
+</script>
 <style>
 .container2 {
 	margin-top: 2%;
@@ -356,56 +391,9 @@
 		box-shadow: none !important;
 		text-shadow: none !important;
 	}
-	a
-	
-	
-	
-	
-	
-	
-	:not
-	
-	
-	
-	 
-	
-	
-	
-	(
-	.btn
-	
-	
-	
-	 
-	
-	
-	
-	)
+	a:not(.btn)
 	{
-	text-decoration
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	 
-	
-	
-	
-	underline
-	
-	
-	
-	
-	
-	
-	;
-}
+	text-decoration:underline;}
 
 img {
 	page-break-inside: avoid;
@@ -432,84 +420,13 @@ keyframes floating-lg { 0% {
 }
 
 50%
-{
-transform
+{transform:translateY
 
-
-
-
-
-
-
-
-:
-
-
-
-
- 
-
-
-
-
-translateY
-
-
-
-
-
-
-
-
-(15
-px
-
-
-
-
-
-
-);
+(15px);
 }
 100%
-{
-transform
-
-
-
-
-
-
-
-
-:
-
-
-
-
- 
-
-
-
-
-translateY
-
-
-
-
-
-
-
-
-(0
-px
-
-
-
-
-
-
-);
+{transform:translateY
+(0px);
 }
 }
 @
@@ -520,82 +437,21 @@ keyframes floating { 0% {
 50%
 {
 transform
-
-
-
-
-
-
-
-
 :
-
-
-
-
- 
-
-
-
 
 translateY
 
-
-
-
-
-
-
-
 (10
 px
-
-
-
-
-
-
 );
 }
 100%
 {
 transform
-
-
-
-
-
-
-
-
 :
-
-
-
-
- 
-
-
-
-
 translateY
 
-
-
-
-
-
-
-
-(0
-px
-
-
-
-
-
-
-);
+(0px);
 }
 }
 @
@@ -604,84 +460,13 @@ keyframes floating-sm { 0% {
 }
 
 50%
-{
-transform
-
-
-
-
-
-
-
-
-:
-
-
-
-
- 
-
-
-
-
+{transform:
 translateY
-
-
-
-
-
-
-
-
-(5
-px
-
-
-
-
-
-
-);
+(5px);
 }
 100%
 {
-transform
-
-
-
-
-
-
-
-
-:
-
-
-
-
- 
-
-
-
-
-translateY
-
-
-
-
-
-
-
-
-(0
-px
-
-
-
-
-
-
-);
+transform:translateY(0px);
 }
 }
 [class*='shadow'] {
@@ -701,177 +486,27 @@ px
 	will-change: transform;
 }
 
-.btn:hover {
+.btn: hover {
 	transform: translateY(-1px);
 	box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px
 		rgba(0, 0, 0, .08);
 }
 
-.btn
-
-
-
-
-
-
-:not
-
-
-
- 
-
-
-
+.btn: not
+(:last-child)
+{margin-right:.5rem;
+}
+.btn i :not
+(:first-child)
+{
+margin-left :.5rem;
+}
+.btn i :not
 (
 :last-child
-
-
-
- 
-
-
-
 )
 {
-margin-right
-
-
-
-
-
-
-:
-
-
-
- 
-
-
-
-.5rem
-
-
-
-
-
-
-;
-}
-.btn
-
-
-
- 
-
-
-
-i
-
-
-
-
-
-
-:not
-
-
-
- 
-
-
-
-(
-:first-child
-
-
-
- 
-
-
-
-)
-{
-margin-left
-
-
-
-
-
-
-:
-
-
-
- 
-
-
-
-.5rem
-
-
-
-
-
-
-;
-}
-.btn
-
-
-
- 
-
-
-
-i
-
-
-
-
-
-
-:not
-
-
-
- 
-
-
-
-(
-:last-child
-
-
-
- 
-
-
-
-)
-{
-margin-right
-
-
-
-
-
-
-:
-
-
-
- 
-
-
-
-.5rem
-
-
-
-
-
-
-;
+margin-right:.5rem;
 }
 .btn-sm {
 	font-size: .75rem;
@@ -944,57 +579,9 @@ margin-right
 	}
 	100%
 	{
-	transform
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	translate
-	
-	
-	
-	
-	
-	
-	
-	
-	(0
-	,
-	0);
-	opacity
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	1;
+	transform: translate
+(0,0);
+	opacity:1;
 }
 
 }
@@ -1019,55 +606,8 @@ keyframes show-navbar-collapse { 0% {
 
 100%
 {
-transform
-
-
-
-
-
-
-
-
-:
-
-
-
-
- 
-
-
-
-
-scale
-
-
-
-
-
-
-
-
-(1);
-opacity
-
-
-
-
-
-
-
-
-:
-
-
-
-
- 
-
-
-
-
-1;
+transform: scale(1);
+opacity:1;
 }
 }
 @
@@ -1216,9 +756,23 @@ to {
 								n++;
 							}
 							//예약일을받는당
+							
+							
+						
 							rday = new Date(2019, 11, 1);
 							vday = new Date(2019, 11, 7);
 							nday = new Date(2019, 11, 8);
+							
+							
+							for( var i=0; i; i++){
+								eval("day"+i+" = new Date("<%=schList[i].substring(0,4)%>","<%=schList[i].substring(4,6)%>","<%=schList[i].substring(6,8)%>"")
+							}
+							
+							<%for(int i=0; i<schList.length(); i++)
+							%>
+							
+							
+							
 							for (var j = 0; j < 42; j++) {
 								if (days[j].innerHTML === "") {
 									days[j].id = "disabled";
@@ -1364,7 +918,7 @@ to {
 									<div class="col-lg-3 order-lg-2">
 										<div class="card-profile-image">
 											<a href="#"> <img
-												src="<%=request.getContextPath()%>/resources/image/dog3.jpg"
+															src="<%= request.getContextPath() %>/resources/userimg/<%=loginUser.getChangeName() %>"
 												class="rounded-circle">
 											</a>
 										</div>
@@ -1376,7 +930,7 @@ to {
 									<div class="text-center">
 										<br>
 										<h3>
-											유수완<span class="font-weight-light"> 회원님</span>
+											<%=ps.getUserId() %><span class="font-weight-light"> 회원님</span>
 										</h3>
 
 										<div class="h5 mt-4">
@@ -1384,7 +938,7 @@ to {
 										</div>
 
 										<div class="h5 mt-4">
-											<i class="ni business_briefcase-24 mr-2"></i> 점수 : 4.7 / 5
+											<i class="ni business_briefcase-24 mr-2"></i> 점수 : <%=ps.getScore() %> / 10
 										</div>
 
 
@@ -1392,11 +946,15 @@ to {
 										<br>
 										<p>펫시터 관련 문의사항은 마이페이지의 1:1 문의 게시판을 이용해주세요</p>
 										<br>
-										<button>사진 수정하기</button>
 										&nbsp;&nbsp;
 										<button>정보 수정하기</button>
 										&nbsp;&nbsp;
-										<button>스케줄 입력하기</button>
+										<%if(sch==null) {%>
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zz">스케줄 입력하기</button>
+										<%}else{%>
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#zz2">스케줄 수정하기</button>
+										<%} %>
+										
 									</div>
 								</div>
 							</div>
@@ -1405,7 +963,61 @@ to {
 				</div>
 			</div>
 
-
+		<!------------------------- 등록 모달----------------------------------------------- -->
+		<div class="modal fade seminor-login-modal" id="zz">
+   		     <div class="modal-dialog modal-dialog-centered">
+        	    <div class="modal-content">
+                <!-- Modal body -->
+				<h2>이달(12월)의 예약가능날짜 설정</h2>
+				<br><br>
+						<div id="inner">
+							<input type="text" class="startDate" id="date1">일
+							<button type ="button" id="plusDate">추가</button>
+						<div id="inner2">
+				 			<form id="scheduleUpdate" name="scheduleUpdate" action="<%= request.getContextPath() %>/PetsitterSchedule" method="post">
+				                <div id="inner3">
+								<input id="num" name="num" value="0" type="hidden">
+								<input id="psNo" name="psNo" value="<%=ps.getPsNo() %>" type="hidden">
+								<input id="userNo" name="userNo" value="<%=ps.getUserNo() %>" type="hidden">
+								
+				                </div>
+				                <button>설정</button>
+				            </form>
+				            <br><br>
+       			 </div>
+            </div>
+        </div>
+    </div>
+    </div>
+			<!-- ----------------------------------------------------------------- -->
+<!------------------------------------- 수정모달 -------------------------------->
+		<div class="modal fade seminor-login-modal" id="zz2">
+   		     <div class="modal-dialog modal-dialog-centered">
+        	    <div class="modal-content">
+                <!-- Modal body -->
+				<h2>이달(12월)의 예약가능날짜 수정</h2>
+				<br><br>
+						<div id="inner">
+							<input type="text" class="startDate" id="date1">일
+							<button type ="button" id="plusDate">추가</button>
+						<div id="inner2">
+				 			<form id="scheduleUpdate" name="scheduleUpdate" action="<%= request.getContextPath() %>/PetsitterScheduleUpdate" method="post">
+				                <div id="inner3">
+								<input id="num" name="num" value="0" type="hidden">
+								<input id="psNo" name="psNo" value="<%=ps.getPsNo() %>" type="hidden">
+								<input id="userNo" name="userNo" value="<%=ps.getUserNo() %>" type="hidden">
+								
+				                </div>
+				                <button>설정</button>
+				            </form>
+				            <br><br>
+       			 </div>
+            </div>
+        </div>
+    </div>
+    </div>
+			
+<!-- ------------------------------------------------------------------------------------------- -->
 
 
 			<br>
@@ -1547,5 +1159,18 @@ to {
 	</div>
 	</div>
 	<%@ include file="../../common/footer.jsp"%>
+	      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script>
+			var a=0;
+				$("#plusDate").click(function(){
+			        var date = $("#date1").val();
+			
+			         $("#inner3").append(date+"일");
+					 $("#inner3").append("<input name='a"+a+"' value= '"+date+"' type='hidden'> ");
+					 a=a+1;
+					 $("#num").val(a);
+				});
+</script>
 </body>
 </html>

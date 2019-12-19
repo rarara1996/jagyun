@@ -28,7 +28,6 @@ margin-bottom:3%;
 </head>
 
 <body>
-	<%@ include file="../../common/menubar.jsp" %>
  	<%@ include file="../common/adminNavibar.jsp" %>
  	<body id="page-top">
   <!-- Page Wrapper -->

@@ -62,20 +62,18 @@ margin-top:1%;
 #a{
 text-align:right;
 }
+*{
+font-size:11pt;
+}
 </style>
 </head>
-<%@ include file="../../common/menubar.jsp"%>
-<body id="page-top">
-
-	<div class="container2">
-			<div class="mpinner">
-			<div class="container">
 		<%@ include file="../common/mpNavibar.jsp"%>
+
+<body >
+
 
 		
 <div class="tableArea">
-	<!-- 상품 게시판 -->
-
 	<section class="page-section" id="portfolio">
 		<div class="container">
 			<div class="row">

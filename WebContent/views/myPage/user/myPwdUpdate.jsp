@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%String pwmsg=(String)request.getAttribute("pwmsg"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -129,6 +131,16 @@ margin-left:10%;
 margin-right:10%;
 }
 </style>
+
+<script>
+	var msg = "<%= pwmsg %>";
+	$(function(){
+		if(msg != "null"){
+			alert(msg);
+			<% request.removeAttribute("pwmsg"); %>
+		}
+	});
+</script>
 </head>
 <body>
  	<%@ include file="../../common/menubar.jsp" %>

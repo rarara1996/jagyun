@@ -1,6 +1,10 @@
-package projectDiagram.petsitter.model.vo;
+package petsitter.model.vo;
 
 public class PsInfo {
+	
+	private String userName;
+	private String userId;
+	
 	private int psNo;
 	private int userNo;
 	private String reason;
@@ -12,6 +16,56 @@ public class PsInfo {
 	private double score;
 	
 	public PsInfo() { }
+
+	
+	
+	
+	public PsInfo(String userName, String userId, int psNo, int userNo, String reason, String job, String dogChk,
+			String careExp, String certific, String approval, double score) {
+		super();
+		this.userName = userName;
+		this.userId = userId;
+		this.psNo = psNo;
+		this.userNo = userNo;
+		this.reason = reason;
+		this.job = job;
+		this.dogChk = dogChk;
+		this.careExp = careExp;
+		this.certific = certific;
+		this.approval = approval;
+		this.score = score;
+	}
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
 
 	public PsInfo(int psNo, int userNo, String reason, String job, String dogChk, String careExp, String certific,
 			String approval,double score) {
@@ -25,6 +79,16 @@ public class PsInfo {
 		this.certific = certific;
 		this.approval = approval;
 		this.score = score;
+	}
+	
+	public PsInfo(int userNo, String reason, String job, String dogChk, String careExp, String certific) {
+		super();
+		this.userNo = userNo;
+		this.reason = reason;
+		this.job = job;
+		this.dogChk = dogChk;
+		this.careExp = careExp;
+		this.certific = certific;
 	}
 
 	public int getPsNo() {
@@ -101,8 +165,9 @@ public class PsInfo {
 
 	@Override
 	public String toString() {
-		return "PsInfo [psNo=" + psNo + ", userNo=" + userNo + ", reason=" + reason + ", job=" + job + ", dogChk="
-				+ dogChk + ", careExp=" + careExp + ", certific=" + certific + ", approval=" + approval +" score = "+score+"]";
+		return "PsInfo [userName=" + userName + ", userId=" + userId + ", psNo=" + psNo + ", userNo=" + userNo
+				+ ", reason=" + reason + ", job=" + job + ", dogChk=" + dogChk + ", careExp=" + careExp + ", certific="
+				+ certific + ", approval=" + approval + ", score=" + score + "]";
 	}
 	
 	

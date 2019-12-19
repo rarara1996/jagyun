@@ -4,11 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(
@@ -47,23 +44,30 @@ width:100px;
 </head>
 <body>
 
-	<div class="container">
 		<h2>이달(12월)의 예약가능날짜 설정</h2>
-		<form>
+
 		<div id="inner">
 			<input type="text" class="startDate" id="date1">일
-			
-			<button id="plusDate">추가</button>
-		</div>
-			<br>
-			<button>설정</button>
-		</form>
-	</div>
+			<button type ="button" id="plusDate">추가</button>
+		<div id="inner2">
+ 			<form id="scheduleUpdate" name="scheduleUpdate" action="<%= request.getContextPath() %>/PetsitterSchedule" method="post">
+                <div id="inner3">
+				<input id="num" name="num" value="0" type="hidden">
+>
+                </div>
+                <button>설정</button>
+            </form>
+        </div>
 <script>
+var a=0;
 	$("#plusDate").click(function(){
-		 $("#date1").append("<br>ㅋㅋ");
-		 
-	)};
+        var date = $("#date1").val();
+
+         $("#inner3").append(date+"일");
+		 $("#inner3").append("<input name='a"+a+"' value= '"+date+"' type='hidden'> ");
+		 a=a+1;
+		 $("#num").val(a);
+	});
 </script>
 </body>
 </html>

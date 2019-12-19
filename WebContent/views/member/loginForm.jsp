@@ -7,15 +7,13 @@
 <title>Insert title here</title>
 
 
-
+<%@ include file="../common/menubar.jsp"%>
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link
-	href="<%= request.getContextPath() %>/resources/admin/css/sb-admin-2.min.css"
-	rel="stylesheet">
+<link href="<%= request.getContextPath() %>/resources/admin/css/login.css" rel="stylesheet">
 <style>
 #dogimg {
 	width: 100%;
@@ -26,29 +24,24 @@
 	margin-top: 10%;
 }
 </style>
+
 </head>
 <body>
-
-
-	<%@ include file="../common/menubar.jsp"%>
 
 	<div class="container">
 	<div id="inner">
 		<!-- Outer Row -->
 		<div class="row justify-content-center">
-
 			<div class="col-xl-10 col-lg-12 col-md-9">
-
 				<div class="card o-hidden border-0 shadow-lg my-5">
 					<div class="card-body p-0">
-						<!-- Nested Row within Card Body -->
 						<div class="row">
-							<div class="col-lg-6 d-none d-lg-block">
-							
-								<img
-									src="<%= request.getContextPath() %>/resources/image/dog10.jpg"
-									id="dogimg">
-							</div>
+                    <div class="col-lg-6 d-none d-lg-block">
+                    
+                      <img
+                        src="<%= request.getContextPath() %>/resources/image/login.jpg"
+                        id="dogimg">
+                    </div>
 							<div class="col-lg-6">
 								<div class="p-5">
 									<div class="text-center">
@@ -117,12 +110,6 @@
 			// 여기까지 작성했으면 LoginServlet 만들러 가기~~~~
 		}
 		
-		// 2_3. logout() 작성하기
-		function logout(){
-			location.href = '<%= request.getContextPath() %>/logout.me';
-			// logout 버튼을 눌렀을 경우 logout.me url과 매핑되는 servlet으로 이동하여
-			// logout 처리 진행
-		}
 		
 		// 3. 회원가입 버튼을 눌렀을 경우 회원 가입 페이지로 이동하는 memberJoin() 함수 작성
 		function memberJoin(){

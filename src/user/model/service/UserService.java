@@ -6,13 +6,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import common.model.dao.IMGDao;
+import common.model.vo.IMG;
 import user.model.dao.UserDao;
 import user.model.vo.User;
 public class UserService {
 	// 1. 로그인
 	public User loginUser(String userId, String userPwd) {
 		Connection conn = getConnection();
-		User loginUser = new UserDao().loginUser(conn, userId, userPwd);
+		User loginUser = new UserDao().loginUser2(conn, userId, userPwd);
 		close(conn);
 		return loginUser;
 	}
@@ -44,14 +46,17 @@ public class UserService {
 		User updateUser = null;
 		// 1. 수정사항 업데이트
 		int result = new UserDao().updateUser(conn, m);
+		System.out.println(result+"수ㅈ정됨");
 		if(result > 0) {
 			// 업데이트 성공 시
 			updateUser = new UserDao().selectUser(conn, m.getUserId());
+			System.out.println("ㅋㅋ"+updateUser);
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
+		System.out.println("ㅋㅋ"+updateUser);
 		return updateUser;
 	}
 	
@@ -94,6 +99,39 @@ public class UserService {
 		close(conn);
 
 		return list;
+	}
+	
+	//8. 이메일 중복 체크용
+	public int emailCheck(String email) {
+		Connection conn = getConnection();
+		int result = new UserDao().emailCheck(conn, email);
+		close(conn);
+		return result;
+	}
+	
+	//9.이미지용 유저넘버 셀렉
+	public User userNOSelect(String userId) {
+		Connection conn = getConnection();
+
+		User User = new UserDao().selectUser2(conn, userId);
+
+		close(conn);
+
+		return User;
+	}
+	
+	
+	//10. 유저사진넣기
+	public int insertUserIMG(IMG userimg) {
+		Connection conn = getConnection();
+		int result = new UserDao().insertUserImg(conn, userimg);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 }

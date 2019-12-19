@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+ 	<%@ include file="common/adminNavibar.jsp" %>
+
+<body id="page-top">
+
+
+        
 
 </body>
 </html>
