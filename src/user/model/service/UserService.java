@@ -44,14 +44,17 @@ public class UserService {
 		User updateUser = null;
 		// 1. 수정사항 업데이트
 		int result = new UserDao().updateUser(conn, m);
+		System.out.println(result+"수ㅈ정됨");
 		if(result > 0) {
 			// 업데이트 성공 시
 			updateUser = new UserDao().selectUser(conn, m.getUserId());
+			System.out.println("ㅋㅋ"+updateUser);
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
+		System.out.println("ㅋㅋ"+updateUser);
 		return updateUser;
 	}
 	
@@ -94,6 +97,14 @@ public class UserService {
 		close(conn);
 
 		return list;
+	}
+	
+	//8. 이메일 중복 체크용
+	public int emailCheck(String email) {
+		Connection conn = getConnection();
+		int result = new UserDao().emailCheck(conn, email);
+		close(conn);
+		return result;
 	}
 
 }

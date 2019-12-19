@@ -45,12 +45,7 @@ table {
 </style>
 </head>
 <body>
-	<%@ include file="../../common/menubar.jsp"%>
 
-	<!--  	<div class="container2"> -->
-	<div class="container2">
-		<div class="mpinner">
-			<div class="container">
 				<%@ include file="../common/mpNavibar.jsp"%>
 
 

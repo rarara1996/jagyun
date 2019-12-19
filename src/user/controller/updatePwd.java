@@ -30,6 +30,7 @@ public class updatePwd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("왓냐?");
 		HttpSession session = request.getSession();
 		
 		String userId = ((User)session.getAttribute("loginUser")).getUserId();
@@ -39,16 +40,18 @@ public class updatePwd extends HttpServlet {
 		// 새로운 비밀번호
 		String newPwd = request.getParameter("newPwd");
 		
-System.out.println(userId+userPwd+newPwd);
+		System.out.println(userId+userPwd+newPwd);
 		
 		User updateUser = new UserService().updatePwd(userId, userPwd, newPwd);
 		System.out.println(updateUser);
 		if(updateUser != null) {
 			request.setAttribute("pwmsg", "성공적으로 비밀번호를 변경하였습니다.");
 			request.getSession().setAttribute("loginUser", updateUser);
-			response.sendRedirect("views/myPage/myPageMain.jsp");
+			//response.sendRedirect("views/myPage/myPageMain.jsp");
+			request.getRequestDispatcher("views/myPage/myPageMain.jsp").forward(request, response);
 		}else {
 			request.setAttribute("pwmsg", "비밀번호 변경에 실패했습니다.");
+			request.getRequestDispatcher("views/myPage/myPageMain.jsp").forward(request, response);
 		}
 		
 		//request.getRequestDispatcher("views/member/pwdUpdateForm.jsp").forward(request, response);

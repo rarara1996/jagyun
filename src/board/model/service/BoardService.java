@@ -15,10 +15,17 @@ public class BoardService {
 	
 	private BoardDao bd = new BoardDao();
 	
-	public int deleteBoard(int bId) {
-		int result=0;
+	public int deleteBoard(int boardNo) {
+		
 		Connection conn = getConnection();
-		result = bd.deleteBoard(conn,bId);
+		int result = bd.deleteBoard(conn,boardNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
 		return result;
 	}
 
@@ -40,10 +47,16 @@ public class BoardService {
 		
 		
 	}
-
+	// 게시글 입력
 	public int insertBoard(Board b) {
 		Connection conn = getConnection();
 		int result = new BoardDao().insertBoard(conn,b);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		
 		return result;
 	}
@@ -66,6 +79,12 @@ public class BoardService {
 	public int updateBoard(Board b) {
 		Connection conn = getConnection();
 		int result = new BoardDao().updateBoard(conn,b);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
 		return result;
 	}
 

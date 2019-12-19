@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,17 +29,25 @@ public class BoardDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		
-		int bId=0;
-		int result = new BoardService().deleteBoard(bId);
+	
+		int result = new BoardService().deleteBoard(boardNo);
+		if(result>0) {
+			request.getSession().setAttribute("msg", "게시글이 삭제되었습니다.");
+			response.sendRedirect("list.bo");
+		}else {
+			request.getSession().setAttribute("msg", "게시판 삭제에 실패했습니다.");
+			response.sendRedirect("list.bo");
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

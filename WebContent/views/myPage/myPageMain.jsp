@@ -3,7 +3,11 @@
 <%
 
 	String contextPath = request.getContextPath();
-String pwmsg = (String)request.getAttribute("pwmsg");
+	String pwmsg = (String)request.getAttribute("pwmsg");
+	
+	String pscheck = (String)request.getAttribute("pscheck");
+	String approval = (String)request.getAttribute("approval");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +21,7 @@ String pwmsg = (String)request.getAttribute("pwmsg");
   <meta name="author" content="">
 
   <title>SB Admin - Dashboard</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
 
 <style>
@@ -106,6 +110,9 @@ background-color:rgba(231, 230, 230, 0.24)}
 </style>
 <script>
 	var msg = "<%= pwmsg %>";
+	var pscheck = "<%= pscheck %>";
+	var approval = "<%= approval %>";
+	
 	$(function(){
 		if(msg != "null"){
 			alert(msg);
@@ -138,14 +145,16 @@ background-color:rgba(231, 230, 230, 0.24)}
   </div><br><br><%=loginUser.getUserName() %> (<%=loginUser.getUserId() %>)<br><br>
 <button class="mpButton" id="mpPwUpdate" onclick="myPwdUpdate();">비밀번호 변경</button>&nbsp;&nbsp;&nbsp;&nbsp;
 <button class="mpButton" id="mpPetUpdate" onclick="myPetInfo();">반려견 관리</button>&nbsp;&nbsp;&nbsp;&nbsp;
-<button class="mpButton" id="mpPetUpdate" onclick="jjim();">장바구니</button>
-
+<button class="mpButton" id="mpPetUpdate" onclick="jjim();">장바구니</button>&nbsp;&nbsp;&nbsp;&nbsp;
+<button class="mpButton" id="mpPetUpdate" onclick="logout();">로그아웃</button>
 </div>
 <br>
 <a href="<%= request.getContextPath() %>/views/myPage/user/myInfoUpdate.jsp"><img src="<%= request.getContextPath() %>/resources/mypage/image/mpMyinfo.png" class="select"></a>
 <a href="<%= request.getContextPath() %>/views/myPage/board/mpBoardList.jsp"><img src="<%= request.getContextPath() %>/resources/mypage/image/mpBoardList.png" class="select"></a>
 <a href="<%= request.getContextPath() %>/views/myPage/market/myMarketList2.jsp"><img src="<%= request.getContextPath() %>/resources/mypage/image/mpOrderList.png" class="select"></a><br>
-<a href="<%= request.getContextPath() %>/views/myPage/petSitter/petSitterPage1.jsp"><img src="<%= request.getContextPath() %>/resources/mypage/image/mpPetsitterPage.png" class="select"></a>
+<!-- 본인이 펫시터일때 들어가는 부분 --><!-- 내가(이욱재)수정할부분 -->
+<a href="javascript:psCheck()"><img src="<%= request.getContextPath() %>/resources/mypage/image/mpPetsitterPage.png" class="select"></a>
+
 <a href="<%= request.getContextPath() %>/views/myPage/petSitter/myPetSitterList.jsp"><img src="<%= request.getContextPath() %>/resources/mypage/image/mpPetsitterService.png" class="select"></a>
 <a href="<%= request.getContextPath() %>/views/myPage/report/myReportList.jsp"><img src="<%= request.getContextPath() %>/resources/mypage/image/mpReport.png" class="select"></a>
 <br><br>
@@ -180,13 +189,44 @@ function myPwdUpdate(){
 };
 
 function myPetInfo(){
-	location.href = "<%= contextPath %>/views/myPage/petSitter/myPetInfo.jsp";
+	location.href = "<%= contextPath %>/views/myPage/petSitter/myPetInfo3.jsp";
 };
 
 function jjim(){
 	location.href = "<%= contextPath %>/views/myPage/market/jjim.jsp";
 }
+function psCheck(){ //확인하는 부분
+	$.ajax({
+		url : "<%= request.getContextPath() %>/CheckPs", //CheckPs로 감
+		success:function(data){ //연결 성공시
+			console.log(data);
+			switch(data){
+			case "ps-ok": //승인 완료
+				console.log("승인 완료")
+				location.href="<%= request.getContextPath() %>/views/myPage/petSitter/petSitterPage1.jsp";
+				break;
+			case "not-yet": //승인 대기
+				alert("관리자의 승인을 기다리고 있습니다!")
+				break;
+			case "fail" : //승인 거절
+				alert("관리자의 승인이 거절되었습니다.")
+				break;
+			case "ap-no"://지원 하지 않음
+				if(confirm("펫시터 지원을 하지 않았습니다. 펫시터 지원을 하러 가시겠습니까?")){
+					location.href="<%= request.getContextPath()%>/views/petsitter/apply-ps.jsp";
+				}
+				break;
+			}
+		},
+		error:function(){
+			console.log("ajax와 연결 실패");
+		}
+	})
+}
 
+function logout(){
+	location.href = '<%= request.getContextPath() %>/logout';
+}
 </script>
 </body>
 

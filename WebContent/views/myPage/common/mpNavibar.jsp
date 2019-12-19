@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%
-
+	pageEncoding="UTF-8" import="user.model.vo.*"%>
+<%
 	String contextPath = request.getContextPath();
-
 %>
 <!DOCTYPE html>
 <html>
@@ -98,7 +96,11 @@ hr {
 }
 </style>
 <body>
-
+<%@ include file="../../common/menubar.jsp"%>
+	<!--  	<div class="container2"> -->
+	<div class="container2">
+			<div class="mpinner">
+			<div class="container">
 
 	<div id="Mpwrapper">
 		<ul class="navi">
@@ -107,7 +109,7 @@ hr {
 				class="userImg"> <br>
 			<br>
 				<p>
-					<b>ㅇㅇㅇ님 (ID)</b>
+					<b><%=loginUser.getUserName() %>님 (<%=loginUser.getUserId() %>)</b>
 				</p>
 				<button class="mpButton" id="mpPwUpdate"  onclick="myPwdUpdate();">
 					비밀번호<br>변경
@@ -178,13 +180,14 @@ hr {
 		<br>
 		<br>
 		<br>
+		
 		<script>
 		function myPwdUpdate(){
 	location.href = "<%= contextPath %>/views/myPage/user/myPwdUpdate.jsp";
 };
 
 function myPetInfo(){
-	location.href = "<%= contextPath %>/views/myPage/petSitter/myPetInfo.jsp";
+	location.href = "<%= contextPath %>/views/myPage/petSitter/myPetInfo3.jsp";
 };
 		</script>
 </body>

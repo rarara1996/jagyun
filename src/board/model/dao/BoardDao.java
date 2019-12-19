@@ -33,8 +33,25 @@ public class BoardDao {
 	
 	
 	
-	public int deleteBoard(Connection conn, int bId) {
+	public int deleteBoard(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
 		int result =0;
+		String sql = prop.getProperty("deleteBoard");
+		
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result=pstmt.executeUpdate();			
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
 		return result;
 		
 	}
@@ -79,10 +96,38 @@ public class BoardDao {
 	}
 
 	public int insertBoard(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
 		int result=0;
+		String sql = prop.getProperty("insertBoard");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(b.getUserName()));
+			pstmt.setString(2, b.getTitle());
+			pstmt.setString(3, b.getContent());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);			
+		}
 		return result;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public int getListCount(Connection conn) {
 		int listCount = 0;
 		Statement stmt = null;
@@ -152,7 +197,26 @@ public class BoardDao {
 	}
 
 	public int updateBoard(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
 		int result=0;
+		String sql=prop.getProperty("updateBoard");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, b.getTitle());
+			pstmt.setString(2, b.getContent());
+			pstmt.setInt(3, Integer.parseInt(b.getUserName()));
+			
+			result =pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);			
+		}
+		
+		
 		return result;
 		
 	}

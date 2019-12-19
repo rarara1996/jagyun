@@ -1,14 +1,14 @@
-package projectDiagram.petsitter.model.service;
+package petsitter.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import projectDiagram.petsitter.model.dao.PetSitterInfoDao;
-import projectDiagram.petsitter.model.dao.PsBoardInfoDao;
-import projectDiagram.petsitter.model.vo.PsBoard;
-import projectDiagram.petsitter.model.vo.PsInfo;
+import petsitter.model.dao.PetSitterInfoDao;
+import petsitter.model.dao.PsBoardInfoDao;
+import petsitter.model.vo.PsBoard;
+import petsitter.model.vo.PsInfo;
 
-import static projectDiagram.common.JDBCTemplate.*;
+import static common.JDBCTemplate.*;
 public class PsBoardInfoService {
 
 	public int deletePsBoard(int psBoardNo) {

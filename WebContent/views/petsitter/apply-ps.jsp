@@ -23,7 +23,7 @@
 }
 /*----------------------------------------*/
 .apply-wrapper{
-	height:380vh;
+	height:320vh;
 	width:65%;
 	margin:auto;
 	margin-top:3%;
@@ -373,7 +373,9 @@
 			<%if( loginUser!= null) {%>
 			location.href="<%= request.getContextPath() %>/views/petsitter/application.jsp"
 			<%} else{%>
-			alert("로그인된 회원만 펫시터에 지원하실수 있습니다.")
+				if(confirm("로그인된 회원만 펫시터에 지원하실수 있습니다. 로그인 하시겠습니까?")){
+					location.href="<%= request.getContextPath()%>/views/member/loginForm.jsp"
+				}
 			<%}%>
 		}
 	</script>
