@@ -14,11 +14,11 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>자견단</title>
+<title>자견단1</title>
 <style>
+
 	#test1{
 
 	height:400px;
@@ -47,7 +47,7 @@
 	
 	#menu{
 	padding-top: 10px;
-	width:100%;
+	width:60%;
 	height:80%;
 	position:absolute;
 	left:32%;
@@ -92,18 +92,16 @@ margin:auto;
 </style>
 </head>
 <body>
+
 <header>
  	<%@ include file="../../common/menubar.jsp" %>
 <img src="<%= request.getContextPath() %>/resources/board/image/noticeThum.png" width="100%" height="270px">
-<!-- 이미지 위에 포토샾으로 자유게시판 - 사진게시판 - 펫시터게시판(리뷰) 등등 추가 -->
-
-
 
 </header>
 <nav id="in-nav">
 <div id="menu">
             <ul id="navi">
-                       <li><a href="#"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
+                       <li><a href="<%=request.getContextPath()%>/NoticeListServlet"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
                     <li><a href="<%=request.getContextPath()%>/list.bo"><img src="<%= request.getContextPath() %>/resources/board/image/board.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/board(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/board.png'" width="140" height="50" class="innav-image"></a></li>
                       <li><a href="<%= request.getContextPath() %>/ImageBoardServlet"><img src="<%= request.getContextPath() %>/resources/board/image/imgBoard.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard.png'" width="140" height="50" class="innav-image"></a></li>
                                             
@@ -161,7 +159,7 @@ margin:auto;
   			
  			 <div class="input-group-append">
     		<button class="btn btn-outline-success" id="searchBtn">검색하기</button>
-  		</div> <%if((loginUser.getUserId()).equals("adminjagyun")){ %>
+  		</div> <%if(loginUser!=null && (loginUser.getUserId()).equals("adminjagyun")){ %>
   <button id="insertBtn" onclick="" class="btn btn-outline-success">작성하기</button>
   <%} %>
   		</div>

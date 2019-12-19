@@ -186,7 +186,7 @@
 		});
 		</script>
 
-		<%if((loginUser.getUserId()).equals("adminjagyun")){ %>
+		 <%if(loginUser!=null && (loginUser.getUserId()).equals("adminjagyun")){ %>
 			<button onclick="location.href='<%= request.getContextPath() %>/views/ProductBoard/ProductBoardInsert.jsp'">작성하기</button>
 		<% } %>
 	</section>

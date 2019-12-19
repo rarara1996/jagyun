@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%
-    
-    
-    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +76,7 @@ right:70%;
                         </div>
                     </div>
                     
-	<form id="BoardForm" name="" action="<%=request.getContextPath() %>/BoardInsertServlet" method="post">
+	<form id="BoardForm" name="" action="<%=request.getContextPath() %>/BoardInsertServlet" method="post" enctype="multipart/form-data">
                         <div class="xans-element- xans-board xans-board-read-1002 xans-board-read xans-board-1002 ">
                             <div class="boardView">
                                 <table border="1" summary="">

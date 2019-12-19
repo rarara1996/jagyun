@@ -1,4 +1,4 @@
-package projectDiagram.notice.controller;
+package notice.controller;
 
 import java.io.IOException;
 

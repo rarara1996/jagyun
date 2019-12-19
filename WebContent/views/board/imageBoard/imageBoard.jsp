@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.*, common.model.vo.*"%>
+    
+    <%
+    ArrayList<Board> blist = (ArrayList<Board>)request.getAttribute("blist");
+	ArrayList<IMG> flist = (ArrayList<IMG>)request.getAttribute("flist");
+	
+    PageInfo pi = (PageInfo)request.getAttribute("pi"); 
+	
+	 int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); 
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +30,7 @@
 
 	#menu{
 	
-	width:100%;
+		width:60%;
 	height:80%;
 	position:absolute;
 	left:32%;
@@ -74,6 +88,7 @@ position:relative;
 	left:90%;
 	margin-bottom:15px;
 }
+
 	
 </style>
 
@@ -88,7 +103,7 @@ position:relative;
 
  <%@ include file="../../common/menubar.jsp" %>
 <header>
-<img src="<%= request.getContextPath() %>/resources/board/image/mainBoardThum.png" width="100%" height="270px">
+<img src="<%= request.getContextPath() %>/resources/board/image/imgBoard(img).png" width="100%" height="270px">
 <!-- 이미지 위에 포토샾으로 자유게시판 - 사진게시판 - 펫시터게시판(리뷰) 등등 추가 -->
 
 
@@ -97,9 +112,9 @@ position:relative;
 <nav id="in-nav">
 <div id="menu">
             <ul id="navi">
-                       <li><a href="../notice/notice.jsp"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
-                    <li><a href="../board/board.jsp"><img src="<%= request.getContextPath() %>/resources/board/image/board.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/board(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/board.png'" width="140" height="50" class="innav-image"></a></li>
-                      <li><a href="#"><img src="<%= request.getContextPath() %>/resources/board/image/imgBoard.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard.png'" width="140" height="50" class="innav-image"></a></li>
+                       <li><a href="<%=request.getContextPath()%>/NoticeListServlet"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
+                    <li><a href="<%=request.getContextPath()%>/list.bo"><img src="<%= request.getContextPath() %>/resources/board/image/board.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/board(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/board.png'" width="140" height="50" class="innav-image"></a></li>
+                      <li><a href="<%= request.getContextPath() %>/IMGListServlet"><img src="<%= request.getContextPath() %>/resources/board/image/imgBoard.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard.png'" width="140" height="50" class="innav-image"></a></li>
                 </ul>
      </div>
 
@@ -119,53 +134,61 @@ position:relative;
 				</div>
 			</div>
 		</div>
+		<%for(Board b : blist){ %>
 <div class="container">
   <div class="row">
     <div class="col-lg-4 col-sm-6 mb-4">
       <div class="card h-100">
-        <a href="imageBoardDetail.jsp"><img class="card-img-top" src="<%= request.getContextPath() %>/resources/image/2019112119244542076.jpg" width="538" height="307" alt=""></a>
+      <input type="hidden" value="<%=b.getBoardNo() %>">
+       <%-- 이미지 받아와서 여기 출력(insert이후에 시행 요망) --%>
+       <%for(IMG image : flist){ %>
+       	<%if(b.getBoardNo() == image.getBoardNo()){ %>
+        <a href="<%=request.getContextPath()%>/IMGDetailServlet"><img class="card-img-top" src="<%= request.getContextPath() %>/resources/image/<%=image.getChangeName() %>" width="538" height="307" alt=""></a>
+        <%} %>
+       <%} %>
         <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">사진1</a>
+          <h4 class="card-title" >
+            <a href="<%=request.getContextPath()%>/IMGDetailServlet"><%= b.getTitle()%></a>
           </h4>
-          <p class="card-text">텍스트1</p>
+        
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="<%= request.getContextPath() %>/resources/image/2019112119244542076.jpg" width="538" height="307" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">사진2</a>
-          </h4>
-          <p class="card-text">텍스트2</p>
-        </div>
-      </div>
+ <%} %>
     </div>
-    <div class="col-lg-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="<%= request.getContextPath() %>/resources/image/2019112119244542076.jpg" width="538" height="307"  alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">사진3</a>
-          </h4>
-          <p class="card-text">텍스트3</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="<%= request.getContextPath() %>/resources/image/2019112119244542076.jpg" width="538" height="307" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">사진4</a>
-          </h4>
-          <p class="card-text">텍스트4</p>
-        </div>
-      </div>
-    </div>
-    
+  </div>
+    	<div class="pagingArea" align="center">
+			<!--  맨 처음으로(<<) -->
+			<button onclick="location.href='<%=request.getContextPath() %>/IMGListServlet?currentPage=1'">&lt;&lt;</button>
+			
+			<!--  이전 페이지로(<) -->
+			<%if (currentPage == 1){ %>
+				<button disabled>&lt;</button>
+			<% }else{%>
+				<button onclick="location.href='<%=request.getContextPath() %>/IMGListServlet?currentPage=<%=currentPage -1 %>'">&lt;</button>
+			<%} %>
+			
+			
+			<!-- 10개의 페이지 목록 -->
+			<% for(int p = startPage;p<=endPage;p++){ %>
+				<%if(p==currentPage){ %>
+						<button disabled><%=p %></button>
+					<%}else{ %>
+						<button onclick ="location.href='<%=request.getContextPath() %>/IMGListServlet?currentPage=<%=p %>'"><%=p %></button>
+					<%} %>
+			<%} %>
+			
+			<!--  다음 페이지로(>) -->
+			<%if (currentPage == maxPage){ %>
+				<button disabled>&gt;</button>
+			<% }else{%>
+				<button onclick="location.href='<%= request.getContextPath() %>/IMGListServlet?currentPage=<%=currentPage +1 %>'">&gt;</button>
+			<%} %>
+			
+			<!-- 맨 끝으로(>>) -->
+			<button onclick="location.href='<%= request.getContextPath() %>/IMGListServlet?currentPage=<%=maxPage%>'">&gt;&gt;</button>
+		</div> 
+		<br>
 		  <!--  검색창  -->
   	<div class="searchArea" align="center">
 			
@@ -180,11 +203,12 @@ position:relative;
  			 <div class="input-group-append">
     		<button class="btn btn-outline-success" type="button" id="searchBtn">검색하기</button>
   </div>
-  <button id="insertBtn" onclick="location.href='imageInsertForm.jsp'" class="btn btn-outline-success">작성하기</button>
+  <% if(loginUser != null){%>
+  <button id="insertBtn" onclick="location.href='<%=request.getContextPath()%>/views/board/imageBoard/imageInsertForm.jsp'" class="btn btn-outline-success">작성하기</button>
+	<%} %>
 </div>
 			
-		</div>
-  </div>
+		
   
 
   <!-- /.row -->
@@ -199,9 +223,11 @@ position:relative;
 
 
 
-
-
-
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <%@ include file="../../common/footer.jsp" %>
 </body>
