@@ -15,15 +15,13 @@ public class PsBoard {
 	private int oneDayPrice;
 	private String title;
 	private String content;
-	
+	private String status;
 	
 	
 	public PsBoard() { }
-
-
-
+	
 	public PsBoard(int psBoardNo, Date enrollDate, int hourPrice, String service, String careSize, String careAge,
-			int psNo, String checkIn, String checkOut, int oneDayPrice, String title, String content) {
+			int psNo, String checkIn, String checkOut, int oneDayPrice, String title, String content, String status) {
 		super();
 		this.psBoardNo = psBoardNo;
 		this.enrollDate = enrollDate;
@@ -37,10 +35,15 @@ public class PsBoard {
 		this.oneDayPrice = oneDayPrice;
 		this.title = title;
 		this.content = content;
+		this.status = status;
 	}
-	
-	
-	
+
+
+
+
+
+
+
 	public PsBoard(int hourPrice, String service, String careSize, String careAge, int psNo, String checkIn,
 			String checkOut, int oneDayPrice, String title, String content) {
 		super();
@@ -130,13 +133,25 @@ public class PsBoard {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "PsBoard [psBoardNo=" + psBoardNo + ", enrollDate=" + enrollDate + ", hourPrice=" + hourPrice
 				+ ", service=" + service + ", careSize=" + careSize + ", careAge=" + careAge + ", psNo=" + psNo
 				+ ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", oneDayPrice=" + oneDayPrice + ", title="
-				+ title + ", content=" + content + "]";
+				+ title + ", content=" + content + ", status=" + status + "]";
 	}
+	
+	
 	
 	
 	

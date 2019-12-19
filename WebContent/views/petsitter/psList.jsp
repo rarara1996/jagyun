@@ -316,7 +316,7 @@ $(function(){
 							<div class="sitter-info-short float-left">
 								<dl class="fit">
 									<dt>
-										<a href="<%= request.getContextPath() %>/views/petsitter/PsDetail.jsp" class="intro"><%= pbl.getTitle() %></a>
+										<a href="SelectPsBoardListDetail?psb=<%= pbl.getPsBoardNo() %>" class="intro"><%= pbl.getTitle() %></a>
 										<label class="ps-img-area float-left">
 											<span>
 												<%for(IMG img : pList) {%>
