@@ -73,11 +73,7 @@ public class BoardService {
 		
 	}
 
-	public void updateForm() {
-		bd.updateForm();
-		
-	}
-
+	
 	public int updateBoard(Board b) {
 		Connection conn = getConnection();
 		int result = new BoardDao().updateBoard(conn,b);
@@ -108,10 +104,17 @@ public class BoardService {
 
 	public int insertIMG(Board b, ArrayList<IMG> fileList) {
 		Connection conn = getConnection();
-	
-		int result = bd.insertIMGBoard(conn,b);
+		
+		int result1 = bd.insertIMGBoard(conn,b);
 		int result2 = bd.insertIMG(conn,fileList);
-		return result;
+		if(result1 > 0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}close(conn);
+		
+	
+		return result1;
 		
 	}
 
@@ -149,17 +152,7 @@ public class BoardService {
 		return clist;
 	}
 
-	public ArrayList<Board> selectList(int flag) {
-		Connection conn = getConnection();
-		ArrayList list =null;
-		BoardDao  bDao = new BoardDao();
-		if(flag == 1) {
-			list = bDao.selectBList(conn);
-		}else {
-			list = bDao.selectFList(conn);
-		}
-		return null;
-	}
+
 
 	// 조회수 증가하지 않고 조회
 	public Board selectBoradNoCnt(int boardNo) {
@@ -198,6 +191,37 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
+
+	/*사진 게시판*/
+	public int getIMGListCount() {
+		Connection conn = getConnection();
+		int listCount = bd.getIMGListCount(conn);
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList IMGselectList(int currentPage, int boardLimit, int flag) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList list = null;
+		
+		BoardDao bDao = new BoardDao();
+		
+		if(flag ==1) {
+			list = bDao.selectBList(conn,currentPage,boardLimit);
+		}else {
+			list = bDao.selectFList(conn);
+		}
+		close(conn);
+					
+		return list;
+	
+	
+	}
+
+	
 
 
 

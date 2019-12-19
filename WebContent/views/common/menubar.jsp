@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8" import="user.model.vo.*"%>
 
 <%
+
 User loginUser = (User)session.getAttribute("loginUser");
+
 String msg = (String)session.getAttribute("msg");
 %>
 

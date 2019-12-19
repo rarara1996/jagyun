@@ -234,7 +234,28 @@ public class BoardDao {
 	}
 
 	public int insertIMG(Connection conn, ArrayList<IMG> fileList) {
+		PreparedStatement pstmt=null;
+				
 		int result = 0;
+		String sql=prop.getProperty("insertIMG");
+		
+		try {
+			for(int i=0;i<fileList.size(); i++) {
+				IMG image = fileList.get(i);
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1,image.getOriginName());
+				pstmt.setString(2, image.getChangeName());
+				pstmt.setString(3, image.getFilePath());
+				pstmt.setInt(4, image.getFileLevel());
+				
+				result += pstmt.executeUpdate();
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 		
 	}
@@ -314,20 +335,37 @@ public class BoardDao {
 
 	public int insertIMGBoard(Connection conn, Board b) {
 		int result = 0;
+		PreparedStatement pstmt=null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("insertIMGBoard");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(b.getUserName()));
+			pstmt.setString(2, b.getTitle());
+			pstmt.setString(3, b.getContent());
+		
+			result=pstmt.executeUpdate();
+			
+		
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
 		return result;
 	}
 
-	public ArrayList selectBList(Connection conn) {
-		ArrayList<Board> list = null;
-		return list;
-		
-	}
+	
 
-	public ArrayList selectFList(Connection conn) {
-		ArrayList<IMG> list = new ArrayList<IMG>();
-		return list;
-	}
-
+	
 
 
 
@@ -459,6 +497,107 @@ public class BoardDao {
 		
 		return result;
 		
+	}
+
+
+
+/*이미지 게시판*/
+	public int getIMGListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getIMGListCount");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return listCount;
+		
+	}
+
+	public ArrayList<Board> selectBList(Connection conn, int currentPage, int boardLimit) {
+ArrayList<Board> list = new ArrayList<>();
+		
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectBList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (currentPage-1)* boardLimit +1;
+			int endRow = startRow + boardLimit -1;
+		
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+		
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Board(rset.getInt(2),
+								rset.getString(6),
+								rset.getString(4),
+								rset.getString(5),
+								rset.getDate(8),
+								rset.getInt(3),
+								rset.getString(9),
+								rset.getInt(7)));
+				
+		}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+	
+	public ArrayList selectFList(Connection conn) {
+		ArrayList<IMG> list = new ArrayList<IMG>();
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		
+		String sql = prop.getProperty("selectFList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				IMG image=new IMG();
+				image.setBoardNo(rset.getInt("BOARD_NO"));
+				image.setChangeName(rset.getString("CHANGE_NAME"));
+				
+				
+				
+				list.add(image);
+				
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
 	}
 
 

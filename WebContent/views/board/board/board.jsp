@@ -21,8 +21,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>자견단</title>
 <style>
@@ -113,9 +112,9 @@ margin:auto;
 <nav id="in-nav">
 <div id="menu">
             <ul id="navi">
-                    <li><a href="<%= request.getContextPath() %>/NoticeListServlet"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
-                      <li><a href="<%=request.getContextPath()%>/list.bo"><img src="<%= request.getContextPath() %>/resources/board/image/board.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/board(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/board.png'" width="140" height="50" class="innav-image"></a></li>
-                      <li><a href="<%= request.getContextPath() %>/ImageBoardServlet"><img src="<%= request.getContextPath() %>/resources/board/image/imgBoard.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard.png'" width="140" height="50" class="innav-image"></a></li>
+                       <li><a href="<%=request.getContextPath()%>/NoticeListServlet"><img src="<%= request.getContextPath() %>/resources/board/image/notice.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/notice(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/notice.png'" width="140" height="50" class="innav-image"></a></li>
+                    <li><a href="<%=request.getContextPath()%>/list.bo"><img src="<%= request.getContextPath() %>/resources/board/image/board.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/board(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/board.png'" width="140" height="50" class="innav-image"></a></li>
+                      <li><a href="<%= request.getContextPath() %>/IMGListServlet"><img src="<%= request.getContextPath() %>/resources/board/image/imgBoard.png" onmouseover="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard(a).png'" onmouseout="this.src='<%= request.getContextPath() %>/resources/board/image/imgBoard.png'" width="140" height="50" class="innav-image"></a></li>
                 </ul>
      </div>
 
@@ -165,13 +164,13 @@ margin:auto;
 
 		<div class="pagingArea" align="center">
 			<!--  맨 처음으로(<<) -->
-			<button onclick="location.href='<%=request.getContextPath() %>/BoardListServlet?currentPage=1'">&lt;&lt;</button>
+			<button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=1'">&lt;&lt;</button>
 			
 			<!--  이전 페이지로(<) -->
 			<%if (currentPage == 1){ %>
 				<button disabled>&lt;</button>
 			<% }else{%>
-				<button onclick="location.href='<%=request.getContextPath() %>/BoardListServlet?currentPage=<%=currentPage -1 %>'">&lt;</button>
+				<button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=currentPage -1 %>'">&lt;</button>
 			<%} %>
 			
 			
@@ -180,7 +179,7 @@ margin:auto;
 				<%if(p==currentPage){ %>
 						<button disabled><%=p %></button>
 					<%}else{ %>
-						<button onclick ="location.href='<%=request.getContextPath() %>/BoardListServlet?currentPage=<%=p %>'"><%=p %></button>
+						<button onclick ="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=p %>'"><%=p %></button>
 					<%} %>
 			<%} %>
 			
@@ -188,11 +187,11 @@ margin:auto;
 			<%if (currentPage == maxPage){ %>
 				<button disabled>&gt;</button>
 			<% }else{%>
-				<button onclick="location.href='<%= request.getContextPath() %>/BoardListServlet?currentPage=<%=currentPage +1 %>'">&gt;</button>
+				<button onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%=currentPage +1 %>'">&gt;</button>
 			<%} %>
 			
 			<!-- 맨 끝으로(>>) -->
-			<button onclick="location.href='<%= request.getContextPath() %>/BoardListServlet?currentPage=<%=maxPage%>'">&gt;&gt;</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%=maxPage%>'">&gt;&gt;</button>
 		</div> 
 		<br>
   
@@ -213,8 +212,9 @@ margin:auto;
     		<button class="btn btn-outline-success" id="searchBtn" name="search">검색하기</button>
   </div>
    <%--작성하기 버튼 --%>
+   <% if(loginUser != null){%>
   <button id="insertBtn" onclick="location.href='<%=request.getContextPath()%>/views/board/board/boardInsertForm.jsp'" class="btn btn-outline-success">작성하기</button>
-
+	<%} %>
   </div>
   
   </form>

@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, java.text.SimpleDateFormat"%>
+    
+    <%
+    Date today = new Date();
+    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+    String tday = format1.format(today);
+    %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>자견단</title>
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/mypage/report/mpReportDetail.css" />
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/mypage/report/myReportDetail2.css" />
 <style>
 #tableWrapper{
 	padding-top:5%;
@@ -17,6 +23,7 @@
 }
 
 #detail{
+margin:20px;
 height:300px;
 
 }
@@ -26,6 +33,7 @@ width:90px;
 }
 
 #btnWrapper{
+width:200px;
 position:relative;
 	left:80%;
 	margin-bottom:15px;
@@ -40,17 +48,72 @@ position:relative;
 #imgArea{
             text-align:center;
             min-width: 500px;
+            
            
         }
-   .imgfile{
-            display:none;
-        }
+     #imgArea img{
+     max-width:1000px;
+     max-hight:1000px;  
+       }
+
    #imgfile{
    	height:40px;
-   	margin-bottom:20px;
+   	margin:20px;
+   	
+   	float:right;
    }
-  
-        
+ 
+ 
+ /*욱재 enrollPS 훔쳐옴*/
+
+
+
+.enroll-form-wrapper{
+	height:100%;
+	width:100%;
+	margin:auto;
+	
+}
+.ps-board{
+	height:100%;
+	width:100%;
+}
+/*---------------이미지------------------------*/
+.represent-img{
+	width:800px;
+
+	height:400px;
+	
+}
+
+.rest-img1{
+	width:300px;
+	height:200px;
+	
+}
+.rest-img2{
+	width:300px;
+	height:200px;
+
+}
+
+
+.border{
+	border:10px solid black;
+}
+.float-left{
+	float:left;
+}
+
+.hidden{
+	display:none;
+}
+.width{
+	width:100%;
+}
+.height{
+	height:100%;
+}
 
 </style>
 
@@ -58,19 +121,19 @@ position:relative;
 
 </head>
 
-<body>
+<body>1212
 	<%@ include file="../../common/menubar.jsp"%>
 	
 	<div id="tableWrapper">
 	<div class="xans-element- xans-board xans-board-title-1002 xans-board-title xans-board-1002 ">
                         <div class="title">
                             <h2>
-                                <font color="#000000">*반려견 스토리 작성하기*</font>
+                                <font color="#000000">반려견 스토리 작성하기</font>
                             </h2>
                         </div>
                     </div>
                     
-	<form id="BoardDelForm" name="" action="/exec/front/Board/del/1" method="post" target="_self"  enctype="multipart/form-data">
+	<form id="BoardForm" name="" action="<%=request.getContextPath() %>/IMGInsertServlet" method="post" >
                         <div class="xans-element- xans-board xans-board-read-1002 xans-board-read xans-board-1002 ">
                             <div class="boardView">
                                 <table border="1" summary="">
@@ -78,47 +141,52 @@ position:relative;
                                     <tbody>
                                          <tr>
                                             <th>제목 </th>
-                                            <td><input type="text" size="145" id="titleInput"> </td>
+                                            <td><input type="text" size="145" id="titleInput" name="title"> </td>
                                         </tr>
                                         <tr>
                                             <th id="writer">작성자 </th>
-                                            <td>*작성자*<span class="displaynone"></span> </td>
+                                            <td><%=loginUser.getUserName() %></td>
                                         </tr>
                                          <tr>
                                             <th>작성일</th>
-                                            <td>*작성일*<span class="displaynone"></span> </td>
+                                            <td><%=tday %> </td>
                                             
                                         </tr>
                                         
-                                        <tr class="view">
+                                        <tr>
                                         
                                             <td colspan="2">
-                                             <input type='file' id="imgfile">
+                                             
                                              <br>
-											    <div id="imgArea"></div>
-											    <br>
-											    <script>
-											        $('#imgfile').change(function(){
-											            if(this.files && this.files[0]){
-											                var reader = new FileReader();
-											                // 파일 내용을 읽어 들여 dataURL 형식의 문자열로 설정
-											                reader.readAsDataURL(this.files[0]);
-											
-											                reader.onload = function(){
-											                    console.log(reader.result);
-											                    // div에 이미지 넣기
-											                    $("#imgArea").html("<img src="+reader.result+">");
-											                }
-											
-											            }
-											        });
-											    </script>
-											 
-                                            
+                                             
+                                          <%--훔친부분--%>
+                                        
+                                
+
+		<div class="enroll-form-wrapper">
+		
+				<div class="represent-img border float-left" id="represent" ><img src="<%= request.getContextPath() %>/resources/board/image/clickpng.png" id="represent1" width="790px" height="390px"></div>
+				<div class="rest-img border float-left">
+					<div class="rest-img1 border" id="rest-img1"><img src="<%= request.getContextPath() %>/resources/board/image/clickpng.png" id="rest-img-1" width="290px" height="198px"></div>
+					<div class="rest-img2 border" id="rest-img2"><img src="<%= request.getContextPath() %>/resources/board/image/clickpng.png" id="rest-img-2" width="290px" height="198px"></div>
+					
+				</div>
+				<br clear="both">
+
+				<input type="file" class="hidden" id="represent-btn" onchange="loadImg(this,1)">
+				<input type="file" class="hidden" id="rest-img1-btn" onchange="loadImg(this,2)">
+				<input type="file" class="hidden" id="rest-img2-btn" onchange="loadImg(this,3)">
+				
+			
+		</div>
+
+        
                                                 <div class="detail" id="detail">
-                                                   <textArea cols="155" rows="10" style="resize:none" placeholder="여러분과 반려견의 스토리를 자랑해보세요!"></textArea>
+                                                <br>
+                                                <br>
+                                                   <textArea cols="150" rows="10" name="content" style="resize:none" placeholder="여러분과 반려견의 스토리를 자랑해보세요!"></textArea>
                                                    <br>
-                                                    
+                                               
                                                 </div>
                                             </td>
                                         </tr>
@@ -126,13 +194,16 @@ position:relative;
                                 </table>
                             </div>
                         </div>
+                        
+                         <div id="btnWrapper">
+              
+                <button id="insertBtn" class="btn btn-outline-success">작성하기</button>
+                 <button id="listBtn" type="button"onclick="<%= request.getContextPath() %>/IMGListServlet" class="btn btn-outline-success">목록으로</button>
+         	 </div>
+         	 
                     </form>
               
-              <div id="btnWrapper">
-              
-                <button id="insertBtn" onclick="" class="btn btn-outline-success">작성하기</button>
-                 <button id="listBtn" onclick="" class="btn btn-outline-success">목록으로</button>
-         	 </div>
+             
               <hr>
               
          
@@ -144,8 +215,51 @@ position:relative;
                
        
          </div>
+<script>
+	$(function(){
+		$("#represent").click(function(e){
+			$("#represent-btn").click();
+		});
+		$("#rest-img1").click(function(e){
+			$("#rest-img1-btn").click();
+		})
+		$("#rest-img2").click(function(e){
+			$("#rest-img2-btn").click();
+		})
+	});
+	function loadImg(value,num){
+		//value => input type="file";
+		//num => 조건문을 통해 미리보기 div 지정
+		
+		//file이 존재하는지 조건문
+		if(value.files && value.files[0]){
+			//파일을읽오들일 FileReader 객체 생성
+			var reader = new FileReader();
+			
+			//파일 읽기가 완료 되었을때 실행되는 메소드 설정
+			reader.onload = function(e){
+				switch(num){
+				case 1:
+					$("#represent1").attr("src",e.target.result);//src에다가 읽어온 값 넣는다
+					$("#represent1").css({width:"100%",height:"100%",margin:"0"});
+					break;
+				case 2:
+					$("#rest-img-1").attr("src",e.target.result);//src에다가 읽어온 값 넣는다
+					$("#rest-img-1").css({width:"100%",height:"100%",margin:"0"});
+					break;
+				case 3:
+					$("#rest-img-2").attr("src",e.target.result);//src에다가 읽어온 값 넣는다
+					$("#rest-img-2").css({width:"100%",height:"100%",margin:"0"});
+					break;
 
-                          
+				}
+			}	
+			//파일 읽기 하는 메소드
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
+</script>
+  
 	
 	
 	

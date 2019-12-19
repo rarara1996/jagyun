@@ -20,6 +20,10 @@
 <link href="<%=request.getContextPath()%>/resources/market/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/market/css/agency.min.css" rel="stylesheet">
 <style>
+
+body{
+width:60%;
+}
 #tableWrapper{
 	padding-top:5%;
 	width:60%;
