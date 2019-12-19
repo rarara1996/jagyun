@@ -19,7 +19,6 @@ String msg = (String)session.getAttribute("msg");
 <meta name="description" content="">
 <meta name="author" content="">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>자견단</title>
 
 <!-- Bootstrap core CSS -->
@@ -83,7 +82,7 @@ font-family: 'Noto Sans KR', sans-serif;
 							src="<%= request.getContextPath() %>/resources/image/main.png" id="nav-itemM1"></a>
 					</li>
 					<li class="nav-itemM">
-						<!-- //펫시터 --> <a class="nav-linkM" href="<%= request.getContextPath() %>/views/petsitter/psList.jsp"><img
+						<!-- //펫시터 --> <a class="nav-linkM" href="SelectPsBoardList"><img
 							src="<%= request.getContextPath() %>/resources/image/petservice.png" id="nav-itemM2"></a>
 					</li>
 					<li class="nav-itemM">

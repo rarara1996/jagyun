@@ -9,11 +9,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.sound.midi.Synthesizer;
+
 import common.model.vo.IMG;
+import petsitter.model.vo.PsBList;
 import petsitter.model.vo.PsBoard;
+import petsitter.model.vo.PsInfoDetail;
 
 public class PsBoardInfoDao {
 	
@@ -46,10 +51,42 @@ public class PsBoardInfoDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	//모든 ps_board 정보를 가져오는 부분
 	public PsBoard selectDetail(int psBoardNo, Connection con) {
 		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectPsBoard");
+		
+		PsBoard psb = null;
+		System.out.println("dao");
+		System.out.println("****selectDetail****");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, psBoardNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				psb = new PsBoard(rset.getInt("ps_board_no"),rset.getDate("enroll_date"),rset.getInt("hour_price"),
+						rset.getString("service"),rset.getString("care_size"),rset.getString("care_age"),
+						rset.getInt("petsitter_no"),rset.getString("check_in"),rset.getString("check_out"),
+						rset.getInt("oneday_price"),rset.getString("title"),rset.getString("content"),
+						rset.getString("status"));
+				System.out.println(psb);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return psb;
 	}
 
 	//ps_board 게시물 내용을 저장하는 부분 
@@ -87,7 +124,7 @@ public class PsBoardInfoDao {
 		return result;
 	}
 	
-	//IMG테이블에 바뀐 사진이랑 이런것들 저장하는 부분
+	//IMG테이블에 바뀐 사진이름이랑 이런것들 저장하는 부분
 	public int insertImg(ArrayList<IMG> fileList,Connection con) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
@@ -120,7 +157,8 @@ public class PsBoardInfoDao {
 		
 		return result;
 	}
-
+	
+	//펫시터 게시글을 썻는지 안썻는지 확인 하는 부분
 	public PsBoard checkBoard(Connection con, int psNo) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
@@ -148,6 +186,178 @@ public class PsBoardInfoDao {
 		}
 		
 		return pb;
+	}
+
+	//간단하게 만든 psbList view를 출력 하는 부분
+	public ArrayList selectBList(Connection con) {
+		// TODO Auto-generated method stub
+		System.out.println("PsBoardInfoDao : selectBList(게시글)");
+		Statement stmt = null; 
+		ResultSet rset = null;
+		ArrayList<PsBList> list = new ArrayList<>(); //얘는 bList를 뽑아 오기 위해서 사용하는 부분
+		
+		String sql = prop.getProperty("selectBList");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				PsBList psb = new PsBList(rset.getInt("rnum"),rset.getInt("ps_board_no"),
+						rset.getString("title"),rset.getInt("hour_price"),rset.getInt("oneday_price"),
+						rset.getString("user_name"),rset.getInt("dog_su"),rset.getInt("score"),rset.getInt("user_no"));
+				System.out.println(psb);
+				list.add(psb);
+				System.out.println("success : add psb to list");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+	
+	//펫시터 글들의 사진들을 모조리 가져오는 부분
+	public ArrayList selectIList(Connection con) {
+		// TODO Auto-generated method stub
+		System.out.println("PsBoardInfoDao : selectIList(이미지)");
+		Statement stmt = null; 
+		ResultSet rset = null;
+		
+		ArrayList<IMG> list = new ArrayList<>(); //IMG리스트를 받아오기 위해서
+		
+		String sql = prop.getProperty("selectIList");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				IMG img = new IMG();
+				img.setBoardNo(rset.getInt("board_no"));
+				img.setChangeName(rset.getString("change_name"));
+				System.out.println(img);
+				list.add(img);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+	}
+	
+	//해당 펫시터 게시글을 쓴 사람들의 프로필 사진을 가져오는 부분
+	public ArrayList selectPList(Connection con) {
+		// TODO Auto-generated method stub
+		System.out.println("PsBoardInfoDao : selectPList(프로필 이미지)");
+		Statement stmt = null; 
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectPList");
+		
+		ArrayList<IMG> list = new ArrayList<>(); 
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				IMG img = new IMG();
+				img.setBoardNo(rset.getInt("board_no"));
+				img.setUserNo(rset.getInt("user_no"));
+				img.setChangeName(rset.getString("change_name"));
+				
+				list.add(img);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+	}
+
+	//해당 펫시터의 개인정보를 가져오는 부분
+	public PsInfoDetail selectPsInfoDetail(Connection con, int psNo) {
+		// TODO Auto-generated method stub
+		System.out.println("dao");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		PsInfoDetail pid = null;
+		
+		String query = prop.getProperty("selectPsInfoDetail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, psNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pid = new PsInfoDetail(rset.getInt("user_no"),rset.getString("user_name"),
+						rset.getString("address"),rset.getString("email"),rset.getString("phone"),
+						rset.getInt("petsitter_no"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return pid;
+	}
+
+	
+	//선택된 해당 펫시터 글 사진을 불러오는 부분
+	public ArrayList<IMG> selectBoardImg(Connection con, int psBoardNo) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		System.out.println("dao : selectBoardImg");
+		ArrayList<IMG> list = new ArrayList<>(); 
+		
+		String query = prop.getProperty("selectBoardImg");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, psBoardNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				IMG img = new IMG();
+				img.setBoardNo(rset.getInt("board_no"));
+				img.setChangeName(rset.getString("change_name"));
+				list.add(img);
+			}
+			System.out.println(list.size());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
 	}
 	
 }

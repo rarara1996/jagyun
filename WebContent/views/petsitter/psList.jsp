@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, petsitter.model.vo.*, common.model.vo.*"%>
+<%
+	ArrayList<PsBList> psb = (ArrayList<PsBList>)request.getAttribute("bList");
+	ArrayList<IMG> iList = (ArrayList<IMG>)request.getAttribute("iList");
+	ArrayList<IMG> pList = (ArrayList<IMG>)request.getAttribute("pList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <!-- <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet"> -->
 <!-- 달력을 위해사용하는것 -->
@@ -175,7 +180,7 @@
 	position:absolute;
 	height:90px;
 	width:90px;
-	right:-17px;
+	right:-27px;
 	top:40px;
 	z-index:1;
 	font-size:1.7rem;
@@ -295,35 +300,58 @@ $(function(){
 		</div>
 		<div class="margin sitter-area">
 			<ul class="clearfix-li">
-				<li class="sitter-info-li border">
-					<div class="sitter-info-area clearfix-li"> <!-- 이 부분이  li 전체 크기 -->
-						<!-- 사진 들어가는 부분 -->
-						<div class="sitter-img float-left"><img class="fit" src="<%= request.getContextPath() %>/resources/petsitter/house.jpg" /></div>
-						<!-- 정보 들어가는곳 -->
-						<div class="sitter-info-short float-left">
-							<dl class="fit">
-								<dt>
-									<a href="<%= request.getContextPath() %>/views/petsitter/PsDetail.jsp" class="intro">검증된 펫시터!</a>
-									<label class="ps-img-area float-left"><span><img class="ps-img" src="<%= request.getContextPath()%>/resources/petsitter/me.jpg"></span>
-										<span>이욱재</span>
-									</label>
-									<label class="ps-dog-area float-left">
-										<span><img class="ps-img" src="<%= request.getContextPath()%>/resources/petsitter/dogIcon.png"></span>
-										<span>2마리</span>
-									</label>
-								</dt>
-								<br clear="both">
-								<dd class="price-right">
-									<label class="price-right-day">1박 / <strong>40000원</strong></label>
-									<label class="price-right-day">day care/<strong>20000원&nbsp;&nbsp;</strong></label>
-								</dd>
-							</dl>
-							<div class="score"><img class="fit" src="<%= request.getContextPath() %>/resources/petsitter/gold-medal.png"><span class="score1"><strong>9.0점</strong></span></div>
+				<% for(PsBList pbl: psb) {%>
+					<li class="sitter-info-li border">
+						<div class="sitter-info-area clearfix-li"> <!-- 이 부분이  li 전체 크기 -->
+							<!-- 사진 들어가는 부분 -->
+							<div class="sitter-img float-left">
+								<% for(IMG img : iList) {%>
+									<% if(pbl.getPsBoardNo() == img.getBoardNo()) {%>
+										<img class="fit" src="<%= request.getContextPath() %>/resources/psboard/<%=img.getChangeName() %>" />
+									<%} %>
+								<%} %>
+							
+							</div>
+							<!-- 정보 들어가는곳 -->
+							<div class="sitter-info-short float-left">
+								<dl class="fit">
+									<dt>
+										<a href="SelectPsBoardListDetail?psb=<%= pbl.getPsBoardNo() %>" class="intro"><%= pbl.getTitle() %></a>
+										<label class="ps-img-area float-left">
+											<span>
+												<%for(IMG img : pList) {%>
+													<%if(pbl.getUserNo() == img.getUserNo() ) {%>
+														<img class="ps-img" src="<%= request.getContextPath()%>/resources/userImg/<%= img.getChangeName() %>">
+													<%} %>
+												<%} %>
+											</span>
+											<span><%= pbl.getUserName() %></span>
+										</label>
+										<label class="ps-dog-area float-left">
+											<span><img class="ps-img" src="<%= request.getContextPath()%>/resources/petsitter/dogIcon.png"></span>
+											<span><%= pbl.getDogSu() %>마리</span>
+										</label>
+									</dt>
+									<br clear="both">
+									<dd class="price-right">
+										<label class="price-right-day">1박 / <strong><%= pbl.getOneDayPrice() %>원</strong></label>
+										<label class="price-right-day">day care/<strong><%= pbl.getHourPrice() %>원&nbsp;&nbsp;</strong></label>
+									</dd>
+								</dl>
+								<div class="score">
+									<%if(pbl.getScore() > 7) {%>
+										<img class="fit" src="<%= request.getContextPath() %>/resources/petsitter/gold-medal.png">
+									<%} else if(pbl.getScore()>4 && pbl.getScore()<8){%>
+										<img class="fit" src="<%= request.getContextPath() %>/resources/petsitter/silver-medal.png">
+									<%} else{%>
+										<img class="fit" src="<%= request.getContextPath() %>/resources/petsitter/bronze-medal.png">
+									<%} %>
+								<span class="score1"><strong><%= pbl.getScore() %>점</strong></span>
+								</div>
+							</div>
 						</div>
-					</div>
-				</li>
-				<li class="sitter-info-li border">펫시터</li>
-				<li class="sitter-info-li border">펫시터</li>
+					</li>	
+				<%} %>
 			</ul>
 		</div>
 	</div>

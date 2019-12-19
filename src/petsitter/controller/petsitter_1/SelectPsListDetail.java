@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import petsitter.model.service.PetSitterInfoService;
+import petsitter.model.service.PsBoardInfoService;
+import petsitter.model.vo.PsBoard;
 import petsitter.model.vo.PsInfo;
 
 /**
@@ -30,9 +32,11 @@ public class SelectPsListDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int psNo = 0;
 		
-		PsInfo ps = new PetSitterInfoService().selectDetail(psNo);
+		int psbNo = Integer.parseInt(request.getParameter("psb"));
+		System.out.println(psbNo);
+		PsBoard psb = new PsBoardInfoService().selectPsBoard(psbNo);
+		//PsInfo ps = new PetSitterInfoService().selectDetail(psNo);
 		
 	}
 

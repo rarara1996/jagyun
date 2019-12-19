@@ -83,6 +83,10 @@
 	width:10%;
 	border-radius:20%;
 }
+.service-icon{
+	width:10px;
+	height:10px;
+}
 /*---------------------------------*/
 .ps-condition{
 	height:20%;
@@ -726,7 +730,7 @@ $(function(){
 				<div class="ps-profile-detail float-left">
 					<dt>펫시터이름</dt>
 					<dd>
-						<img src="<%= request.getContextPath() %>/resources/petsitter/jjing.jpg" class="ps-pet"/><br>
+						<img src="<%= request.getContextPath() %>/resources/petsitter/house.png" class="ps-pet float-left" style="margin-right:10px;"/><br>
 						<p>강원도 원주시 명륜2동 청구2차 202동 1203호</p>
 					</dd>
 				</div>
@@ -753,26 +757,26 @@ $(function(){
 				</div>
 				<br clear="both">
 				<hr style="color:#848484;">
-				<h5 style="font-weight:400; color:#21610B;">돌봄 환경</h5>
+				<h5 style="font-weight:400; color:#21610B;">이용가능 서비스</h5>
 				<div class="ps-con-li">
 					<dl class="con-li float-left" style="margin-right:8.5px">
-						<dt class="dt-size float-left gray"><img src="<%=request.getContextPath()%>/resources/petsitter/houseIcon.png" style="margin-right:10px;">돌봄 공간</dt>
-						<dd class="dd-size float-left gray">아파트</dd>
+						<dt class="dt-size float-left gray"><img class="service-icon" src="<%=request.getContextPath()%>/resources/petsitter/walk.png" style="margin-right:10px;">산책</dt>
+						<dd class="dd-size float-left gray">가능</dd>
 						<br clear="both">
-						<dt class="dt-size float-left">인근 지하철역</dt>
-						<dd class="dd-size float-left">ㅋㅋㅋㅋ</dd>
+						<dt class="dt-size float-left"><img class="service-icon" src="<%=request.getContextPath()%>/resources/petsitter/pill.png" style="margin-right:10px;">약물복용</dt>
+						<dd class="dd-size float-left">뭐라도 써보자</dd>
 						<br clear="both">
-						<dt class="dt-size float-left gray">마당 유무</dt>
+						<dt class="dt-size float-left gray"><img class="service-icon" src="<%=request.getContextPath()%>/resources/petsitter/yard.png" style="margin-right:10px;">마당</dt>
 						<dd class="dd-size float-left gray">ㅋㅋㅋㅋ</dd>
 					</dl>
 					<dl class="con-li float-left">
-						<dt class="dt-size float-left gray"><img src="<%=request.getContextPath()%>/resources/petsitter/houseIcon.png" style="margin-right:10px;">돌봄 공간</dt>
+						<dt class="dt-size float-left gray"><img class="service-icon" src="<%=request.getContextPath()%>/resources/petsitter/play.png" style="margin-right:10px;">실내놀이</dt>
 						<dd class="dd-size float-left gray">아파트</dd>
 						<br clear="both">
-						<dt class="dt-size float-left">인근 지하철역</dt>
+						<dt class="dt-size float-left"><img class="service-icon" src="<%=request.getContextPath()%>/resources/petsitter/shower.png" style="margin-right:10px;">목욕</dt>
 						<dd class="dd-size float-left">ㅋㅋㅋㅋ</dd>
 						<br clear="both">
-						<dt class="dt-size float-left gray">마당 유무</dt>
+						<dt class="dt-size float-left gray"><img class="service-icon" src="<%=request.getContextPath()%>/resources/petsitter/pickup.png" style="margin-right:10px;">픽업</dt>
 						<dd class="dd-size float-left gray">ㅋㅋㅋㅋ</dd>
 					</dl>
 				</div>
