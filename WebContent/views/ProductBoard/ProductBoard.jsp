@@ -1,10 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, productBoard.model.vo.* , board.model.vo.*"%>
+	<%
+/* 	
+    ArrayList<ProductBoard> list=(ArrayList<ProductBoard>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); */
+
+	
+	
+	%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ProductList</title>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <!-- Bootstrap core CSS -->
 <link
 	href="<%= request.getContextPath() %>/resources/market/vendor/bootstrap/css/bootstrap.min.css"
@@ -72,7 +87,7 @@
 	text-align: center;
 }
 .nav{
-    width:100px;
+    width:90px;
     height:40px;
 }
 .nav:hover{
@@ -83,6 +98,9 @@
 #ja{
     width:20%;
     height:25%;
+}
+li,h6,p{
+	font-family: 'Noto Sans KR', sans-serif;
 }
 </style>
 </head>
@@ -123,8 +141,7 @@
 							<li class="li"><a href="#"><h6>상품평 순</h6></a></li>
 						</ul>
 					</div>
-
-
+					
 					<!-- 검색폼 -->
 					<div class="searchArea" align="center">
 						<div class="input-group mb-3">
@@ -143,6 +160,15 @@
 
 
 			<div class="row">
+			<% if(false) { %>
+			 <div class="col-md-4 col-sm-6 portfolio-item">
+			   <h1>상품 정보가 엄서용~</h1>
+			 </div>
+			<% } else {%>
+<%-- 			  <% for(ProductBoard pb : list){ %>
+			  <input tye="hidden" value="<% pb.getProductNo() %>">
+			  
+			  <%  } %> --%>
 				<!-- ==============================상품============================== -->
 				<div class="col-md-4 col-sm-6 portfolio-item">
 					<a class="portfolio-link" data-toggle="modal"
@@ -229,9 +255,38 @@
 						<p class="text-muted">47,000원</p>
 					</div>
 				</div>
-
+				<% } %>
 			</div>
-
+<%-- 			<div class="pagingArea" align="center">
+			<!-- 맨 처음으로 (<<) -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=1'"> &lt;&lt; </button>
+		
+			<!-- 이전 페이지로 (<) -->
+			<% if(currentPage == 1){ %>
+				<button disabled> &lt; </button>
+			<% } else { %>
+				<button onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage - 1 %>'"> &lt; </button>
+			<% } %>
+			
+			<!-- 10개의 페이지 목록 -->
+			<% for(int p = startPage; p <= endPage; p++){ %>
+				<% if(p == currentPage){ %>
+					<button disabled> <%= p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= p %>'"> <%= p %> </button>
+				<% } %>
+			<% } %>
+			
+			<!-- 다음 페이지로(>) -->
+			<% if(currentPage == maxPage) { %>
+				<button disabled> &gt; </button>
+			<% } else { %>
+				<button onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= currentPage + 1 %>'"> &gt; </button>
+			<% } %>
+			
+			<!--  맨 끝으로 (>>) -->
+			<button onclick="location.href='<%= request.getContextPath() %>/list.bo?currentPage=<%= maxPage %>'"> &gt;&gt; </button>
+		</div> --%>
 			<hr>
 		</div>
 

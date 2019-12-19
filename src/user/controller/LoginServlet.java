@@ -1,6 +1,7 @@
 package user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,18 +37,28 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		User loginUser = new UserService().loginUser(userId, userPwd);
 		
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			request.getSession().setAttribute("msg", "로그인에 성공하셨습니다");
-			response.sendRedirect("views/common/main.jsp");
-		}else {
-			// 로그인 실패 화면
-/*			request.setAttribute("msg", "로그인에 실패하였습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);*/
+
+			if(loginUser != null) {
+				
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("loginUser", loginUser);
+				
+				if(( loginUser.getUserId()).equals("adminjagyun")) {
+					request.getSession().setAttribute("msg", "관리자로 로그인하셨습니다");
+					response.sendRedirect("views/admin/adminMain.jsp");
+				}else {
+
+					request.getSession().setAttribute("msg", loginUser.getUserName()+"님 환영합니다^_^");
+					response.sendRedirect("views/common/main.jsp");
+				}
+			}else {
+				// 로그인 실패 화면
+				request.getSession().setAttribute("msg", "로그인에  실패하였습니다.");
+				response.sendRedirect("views/member/loginForm.jsp");
+			}
 		}
-	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

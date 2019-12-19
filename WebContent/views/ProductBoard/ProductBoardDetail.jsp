@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="productBoard.model.vo.*"%>
+	<%
+	  ProductBoard pb = (ProductBoard)request.getAttribute("ProductBoard");
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +15,6 @@
 <link
 	href="<%=request.getContextPath()%>/resources/market/css/agency.min.css"
 	rel="stylesheet">
-
 <style>
 .ps-img {
 	height: 100%;
@@ -72,7 +74,6 @@ Button {
 	text-align: center;
 }
 
-
 /* ============================================= */
 .avatar {
 	display: block;
@@ -95,6 +96,19 @@ Button {
 	width: 100px;
 	height: 100px;
 }
+/* ====================댓글달기=============== */
+.accordionMenu #aco {
+	padding: 0 10px;
+	margin: 0;
+	height: 0;
+	overflow: hidden;
+	transition: height 0.5s ease-in;
+}
+
+.accordionMenu :target #aco {
+	overflow: auto;
+	height: 80px;
+}
 </style>
 
 </head>
@@ -111,20 +125,20 @@ Button {
 					</div>
 					<img class="img-fluid" src="imgg/강아지1.jpg" alt="" id="test1">
 					<div class="portfolio-caption">
-						<h6>[새움] MY Calendar 셀프 탁상형 달력</h6>
-						<p class="text-muted">47,000원</p>
+						<h6>[새움] MY Calendar 셀프 탁상형 달력</h6><%-- <% pb.getProductName() %> --%>
+						<p class="text-muted">47,000원</p><%-- <% pb.getPrice() %> --%>
 					</div>
 				</div>
 				<div id="content">
-					<h2>[새움] MY Calendar 셀프 탁상형 달력</h2>
-					<br> 
-				<hr>
-					<br> 
+					<h2>[새움] MY Calendar 셀프 탁상형 달력</h2><%-- <% pb.getProductName() %> --%>
+					<br>
+					<hr>
+					<br>
 					<table id="tablle">
 						<tr>
 							<td width="20%">판매가</td>
 							<td width="60%"></td>
-							<td width="20%">47,000원</td>
+							<td width="20%">47,000원</td><%-- <% pb.getPrice() %> --%>
 						</tr>
 						<tr>
 							<td width="20%">배송비</td>
@@ -145,8 +159,8 @@ Button {
 					</table>
 					<hr>
 					<div id="Bttn">
-						<button id="insertBtn" onclick="location.href='ProductBuy.jsp'" class="btn btn-outline-success">결제하기
-						</button>
+						<button id="insertBtn" onclick="location.href='ProductBuy.jsp'"
+							class="btn btn-outline-success">결제하기</button>
 						&nbsp;
 						<button id="insertBtn" onclick="" class="btn btn-outline-success">장바구니</button>
 					</div>
@@ -161,7 +175,7 @@ Button {
 		</div>
 		<!-- 상품설명 -->
 		<div id="contt">
-			<pre>
+		<pre>
 		
 			
 *품절된 옵션은 12월 초 재입고 예정에 있습니다.*<br>
@@ -256,20 +270,33 @@ Button {
 				<!-- 댓글 작성 폼 -->
 				<table width="100%">
 					<tr>
-						<td><p align="center"><h4>R E V I E W</h4></td>
-						<td width="80%"><button class="btn btn-outline-success" onclick="Commeny()">댓글등록</button><br></td>
+						<td><p align="center">
+							<h4>R E V I E W</h4></td>
+						<td width="80%">
+							<button class="btn btn-outline-success" onclick="location.href='#html5'" id="">댓글등록</button>
+							<br>
+						</td>
 					</tr>
 				</table>
+				<div class="accordionMenu">
+					<br>
+					<div id="html5" class="menuSection">
+						<div id="aco">
+						<table>
+						<tr>
+						<td>댓글 : </td>
+						<td><input type="textarea"></td>
+						<td><button>전송</button></td>
+						</tr>
+						</table>
+						</div>
+					</div>
+
+				</div>
 				<hr>
-				<script>
-				  function Commeny(){
-					  window.prompt();
-				  }
-				</script>
 			</div>
 
-
-             <!-- 리뷰 -->
+			<!-- 리뷰 -->
 			<div class="ddd">
 				<!-- List group -->
 				<ul class="list">
@@ -293,7 +320,7 @@ Button {
 									</div>
 								</div>
 							</div>
-							</div>
+						</div>
 					</li>
 					<!-- 리뷰 -->
 					<li class="list-group-item note-item clearfix" id="note-524235">
@@ -313,7 +340,7 @@ Button {
 									</div>
 								</div>
 							</div>
-							</div>
+						</div>
 					</li>
 					<!-- 리뷰 -->
 					<li class="list-group-item note-item clearfix" id="note-524235">
@@ -333,7 +360,7 @@ Button {
 									</div>
 								</div>
 							</div>
-							</div>
+						</div>
 					</li>
 
 					<!-- 리뷰 -->
@@ -357,9 +384,7 @@ Button {
 				</ul>
 			</div>
 		</div>
-
-
-		<!-- ====== -->
+		<!-- ============================================ -->
 	</section>
 </body>
 <%@ include file="../common/footer.jsp"%>

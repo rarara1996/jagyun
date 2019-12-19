@@ -39,7 +39,7 @@
 					<h2 align="center">상품 입력</h2>
 					<hr>
 					<div class="tableArea">
-						<form action="" method="post">
+						<form action="<%= request.getContextPath() %>/ProductBoardInsertServlet" method="post">
 							<fieldset>
 								<table>
 									<tr>
@@ -70,16 +70,14 @@
 												<option value="60">기타</option>
 										</select></td>
 										<td>사이즈</td>
-										<td><select id="searchCondition" name="searchCondition"
-											class="tt">
+										<td><select id="searchCondition" name="size"  class="tt">
 												<option>----</option>
 												<option value="S">S</option>
 												<option value="M">M</option>
 												<option value="L">L</option>
 										</select></td>
 										<td>가격</td>
-										<td><input type="number" size="58" name="title" min="0"
-											class="tt"></td>
+										<td><input type="number" size="58" name="price" min="0" class="tt"></td>
 									</tr>
 
 									<tr>
@@ -93,20 +91,16 @@
 										<td colspan="6"><h5><strong>내용</strong></h5></td>
 									</tr>
 									<tr>
-										<td colspan="6"><textarea rows="15" cols="60"
-												name="content" style="resize: none;" class="tt"></textarea></td>
+										<td colspan="6"><textarea rows="15" cols="60" name="content" style="resize: none;" class="tt"></textarea></td>
 									</tr>
 								</table>
 								<br>
 								<div align="center">
-									<button id="submit" type="submit"
-										class="btn btn-outline-success">등록하기</button>
-									<button id="pp" type="submit" class="btn btn-outline-success">사진등록</button>
+									<button id="submit" type="submit" class="btn btn-outline-success">등록하기</button>
+									<button id="pp" type="button" class="btn btn-outline-success">사진등록</button>
 									<div id="fileupload">
-										<input type="file" id="thumbnailImg1" name="thumbnailImg1"
-											onchange="loadImg(this,1)"> <input type="file"
-											id="thumbnailImg2" name="thumbnailImg2"
-											onchange="loadImg(this,2)">
+										<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)"> 
+										<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
 									</div>
 									<br>
 									<script>
